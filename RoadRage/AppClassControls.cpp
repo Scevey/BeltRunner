@@ -57,14 +57,14 @@ void AppClass::ProcessKeyboard(void)
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
-		m_v3OP.y -= 0.1f;
+		m_v3OP.z += 0.1f;
 		m_BSCPlayer->UpdatePosition(m_v3OP);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::T)) {
 		m_BSCPlayer->ToggleVisible();
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-		m_v3OP.y += 0.1f;
+		m_v3OP.z -= 0.1f;
 		m_BSCPlayer->UpdatePosition(m_v3OP);
 	}
 #pragma endregion

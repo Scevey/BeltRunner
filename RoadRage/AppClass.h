@@ -13,8 +13,8 @@ using namespace ReEng; //Using ReEng namespace to use all the classes in the dll
 
 class AppClass : public ReEngAppClass
 {
-	vector3 m_v3OP = vector3(-2.5f, 0.0f, 0.0f);
-	vector3 m_v3OT = vector3( 2.5f, 0.0f, 0.0f);
+	vector3 m_v3OP = vector3(0.0f, 5.0f, 0.0f);
+	vector3 m_v3OT = vector3( 0.0f, -5.0f, 0.0f);
 
 	PrimitiveClass* m_pPlayer = nullptr;
 	MyBoundingSphereClass* m_BSCPlayer = nullptr;

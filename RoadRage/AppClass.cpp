@@ -14,8 +14,8 @@ void AppClass::InitWindow(String a_sWindowName)
 void AppClass::InitVariables(void)
 {
 	//Initialize positions
-	m_v3OP = vector3(-2.5f, 0.0f, 0.0f);
-	m_v3OT = vector3(2.5f, 0.0f, 0.0f);
+	m_v3OP = vector3(0.0f, 0.0f, 5.0f);
+	m_v3OT = vector3(0.0f, 0.0f, -5.0f);
 
 	//Load Models
 	m_pMeshMngr->LoadModel("Minecraft\\Steve.obj", "Steve");
