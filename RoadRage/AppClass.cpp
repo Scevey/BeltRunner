@@ -21,6 +21,10 @@ void AppClass::InitVariables(void)
 	m_pMeshMngr->LoadModel("Minecraft\\Steve.obj", "Steve");
 	m_pMeshMngr->LoadModel("Minecraft\\Creeper.obj", "Creeper");
 
+	m_pMeshMngr->LoadModel("Minecraft\\Steve.obj", "Steve2"); //banana
+	m_pMeshMngr->LoadModel("Minecraft\\Creeper.obj", "Creeper2");
+	road = new Road();
+
 	std::vector<vector3> vertexList = m_pMeshMngr->GetVertexList("Steve");
 	m_BSCPlayer = new MyBoundingSphereClass(vertexList);
 
@@ -38,7 +42,12 @@ void AppClass::InitVariables(void)
 	m_pTruck = new PrimitiveClass();
 	m_pTruck->GenerateSphere(m_fRadiusT, 10, REGREEN);
 
-	m_pCameraMngr->SetPositionTargetAndView(vector3(0,10,10),vector3(0,0,0),vector3(0,1,0));
+	//camera mumbo jumbo [banana]
+	vector3 camPos = vector3(0.0f, 10.0f, 10.0f);
+	vector3 camTar = vector3(0.0f, 0.0f, 0.0f);
+	vector3 camUp = vector3(0.0f, 1.0f, 0.0f);
+	m_pCameraMngr->SetPositionTargetAndView(camPos, camTar, camUp);
+	//end camera mumbo jumbo
 }
 
 void AppClass::Update(void)
@@ -64,6 +73,13 @@ void AppClass::Update(void)
 	matrix4 m4View = m_pCameraMngr->GetViewMatrix();
 
 	
+	// find elapsed time [banana]
+	double deltaTime = m_pSystem->LapClock();
+	matrix4 testMove = road->Update1(deltaTime);
+	m_pMeshMngr->SetModelMatrix(testMove, "Steve2");
+	testMove = road->Update2(deltaTime);
+	m_pMeshMngr->SetModelMatrix(testMove, "Creeper2");
+
 
 	//Adds all loaded instance to the render list
 	m_pMeshMngr->AddInstanceToRenderList("ALL");
@@ -92,6 +108,13 @@ void AppClass::Update(void)
 	printf("FPS: %d            \r", nFPS);//print the Frames per Second
 	//Print info on the screen
 	m_pMeshMngr->PrintLine(m_pSystem->GetAppName(), REYELLOW);
+
+	//banana
+	//m_pMeshMngr->PrintLine(std::to_string(road->getCurrentDebug()), REYELLOW);
+	//m_pMeshMngr->PrintLine(std::to_string(road->getHitDebug()), REYELLOW);
+	//m_pMeshMngr->PrintLine(std::to_string(road->getStartDebug()), REYELLOW);
+	//m_pMeshMngr->PrintLine(std::to_string(road->getfPercDebug()), REYELLOW);
+
 	if (m_BSCPlayer->IsColliding(m_BSCTruck))
 		m_pMeshMngr->PrintLine("They are colliding! >_<", RERED);
 	else
@@ -155,5 +178,8 @@ void AppClass::Release(void)
 		m_BSCTruck = nullptr;
 
 	}
+
+	if (road != nullptr) { delete road; road = nullptr; } // banana
+
 	super::Release(); //release the memory of the inherited fields
 }
