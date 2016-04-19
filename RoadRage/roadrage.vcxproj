@@ -110,10 +110,7 @@ xcopy "$(SolutionDir)include\RE\Shaders" "$(SolutionDir)_Binary\Shaders" /y</Com
     <ClInclude Include="Box.h" />
     <ClInclude Include="Car.h" />
     <ClInclude Include="MyBoundingSphereClass.h" />
-<<<<<<< HEAD
     <ClInclude Include="Truck.h" />
-=======
->>>>>>> origin/master
     <ClInclude Include="Vehicle.h" />
   </ItemGroup>
   <ItemGroup>
