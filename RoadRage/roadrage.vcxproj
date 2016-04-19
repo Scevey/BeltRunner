@@ -110,7 +110,10 @@ xcopy "$(SolutionDir)include\RE\Shaders" "$(SolutionDir)_Binary\Shaders" /y</Com
     <ClInclude Include="Box.h" />
     <ClInclude Include="Car.h" />
     <ClInclude Include="MyBoundingSphereClass.h" />
+<<<<<<< HEAD
     <ClInclude Include="Truck.h" />
+=======
+>>>>>>> origin/master
     <ClInclude Include="Vehicle.h" />
   </ItemGroup>
   <ItemGroup>
@@ -121,6 +124,7 @@ xcopy "$(SolutionDir)include\RE\Shaders" "$(SolutionDir)_Binary\Shaders" /y</Com
     <ClCompile Include="AppClassControls.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MyBoundingSphereClass.cpp" />
+    <ClCompile Include="Vehicle.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

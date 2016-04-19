@@ -1,4 +1,6 @@
 #include "AppClass.h"
+#include "Vehicle.h"
+
 void AppClass::InitWindow(String a_sWindowName)
 {
 	super::InitWindow("MyBoundingSphereClass example"); // Window Name
@@ -35,6 +37,8 @@ void AppClass::InitVariables(void)
 	m_v3CenterT = m_BSCTruck->GetCenter();
 	m_pTruck = new PrimitiveClass();
 	m_pTruck->GenerateSphere(m_fRadiusT, 10, REGREEN);
+
+	m_pCameraMngr->SetPositionTargetAndView(vector3(0,10,10),vector3(0,0,0),vector3(0,1,0));
 }
 
 void AppClass::Update(void)
