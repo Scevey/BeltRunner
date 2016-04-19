@@ -12,9 +12,13 @@ class Vehicle
 {
 	// Variables
 	float length = 5.0f; // length from positionForward and positionRear
-	float maxVelocity = 3.0f;
-	float maxAccel = 1.0f;
-	float friction = 0.90f; // for now, just using a percentage
+	float maxVelocity = 1000.0f;
+	float maxAccel = 1000.0f;
+	float friction = 0.99f; // for now, just using a percentage
+
+							// time variables
+	float deltaTime = 0.0f;
+	float totalTime = 0.0f;
 
 	vector3 posForward = vector3(0.0f, 0.0f, 0.0f); // forward point, affected by forces
 	vector3 posRear = vector3(0.0f, -length, 0.0f); // rear point, lerps to stay in line with positionForward
@@ -85,7 +89,7 @@ public:
 	ARGUMENT: Vector of force, deltaTime
 	OUTPUT: ---
 	*/
-	void AddForce(vector3 arg_force, double arg_deltaTime);
+	void AddForce(vector3 arg_force);
 
 	/* Miscellaneous methods, will define later
 
