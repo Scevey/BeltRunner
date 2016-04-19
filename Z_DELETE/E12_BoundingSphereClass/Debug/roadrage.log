@@ -1,45 +1,33 @@
-﻿Build started 4/18/2016 6:41:48 PM.
-     1>Project "C:\Users\Mike\Documents\GitHub\RoadRage\RoadRage\roadrage.vcxproj" on node 2 (Build target(s)).
-     1>Link:
-         roadrage.vcxproj -> C:\Users\Mike\Documents\GitHub\RoadRage\Z_DELETE\E12_BoundingSphereClassD.exe
-       PostBuildEvent:
-         mkdir "C:\Users\Mike\Documents\GitHub\RoadRage\_Binary\"
-         xcopy "C:\Users\Mike\Documents\GitHub\RoadRage\include\GL\bin" "C:\Users\Mike\Documents\GitHub\RoadRage\_Binary" /y
-         xcopy "C:\Users\Mike\Documents\GitHub\RoadRage\include\RE\bin\2015" "C:\Users\Mike\Documents\GitHub\RoadRage\_Binary" /y
-         xcopy "C:\Users\Mike\Documents\GitHub\RoadRage\include\SFML\bin\sfml-system-2.dll" "C:\Users\Mike\Documents\GitHub\RoadRage\_Binary" /y
-         xcopy "C:\Users\Mike\Documents\GitHub\RoadRage\include\SFML\bin\sfml-window-2.dll" "C:\Users\Mike\Documents\GitHub\RoadRage\_Binary" /y
-         mkdir "C:\Users\Mike\Documents\GitHub\RoadRage\_Binary\Shaders\"
-         xcopy "C:\Users\Mike\Documents\GitHub\RoadRage\include\RE\Shaders" "C:\Users\Mike\Documents\GitHub\RoadRage\_Binary\Shaders" /y
-         :VCEnd
-         A subdirectory or file C:\Users\Mike\Documents\GitHub\RoadRage\_Binary\ already exists.
-         C:\Users\Mike\Documents\GitHub\RoadRage\include\GL\bin\glew32.dll
-         C:\Users\Mike\Documents\GitHub\RoadRage\include\GL\bin\glut32.dll
-         2 File(s) copied
-         C:\Users\Mike\Documents\GitHub\RoadRage\include\RE\bin\2015\ReEng_VS15.dll
-         C:\Users\Mike\Documents\GitHub\RoadRage\include\RE\bin\2015\ReEng_VS15_d.dll
-         2 File(s) copied
-         C:\Users\Mike\Documents\GitHub\RoadRage\include\SFML\bin\sfml-system-2.dll
-         1 File(s) copied
-         C:\Users\Mike\Documents\GitHub\RoadRage\include\SFML\bin\sfml-window-2.dll
-         1 File(s) copied
-         A subdirectory or file C:\Users\Mike\Documents\GitHub\RoadRage\_Binary\Shaders\ already exists.
-         C:\Users\Mike\Documents\GitHub\RoadRage\include\RE\Shaders\Basic.fs
-         C:\Users\Mike\Documents\GitHub\RoadRage\include\RE\Shaders\Basic.vs
-         C:\Users\Mike\Documents\GitHub\RoadRage\include\RE\Shaders\BasicColor.fs
-         C:\Users\Mike\Documents\GitHub\RoadRage\include\RE\Shaders\BasicColor.vs
-         C:\Users\Mike\Documents\GitHub\RoadRage\include\RE\Shaders\Color.fs
-         C:\Users\Mike\Documents\GitHub\RoadRage\include\RE\Shaders\Color.vs
-         C:\Users\Mike\Documents\GitHub\RoadRage\include\RE\Shaders\Phong.fs
-         C:\Users\Mike\Documents\GitHub\RoadRage\include\RE\Shaders\Phong.vs
-         C:\Users\Mike\Documents\GitHub\RoadRage\include\RE\Shaders\REShader.fs
-         C:\Users\Mike\Documents\GitHub\RoadRage\include\RE\Shaders\REShader.vs
-         C:\Users\Mike\Documents\GitHub\RoadRage\include\RE\Shaders\REShaderInv.fs
-         C:\Users\Mike\Documents\GitHub\RoadRage\include\RE\Shaders\REShaderMC.fs
-         C:\Users\Mike\Documents\GitHub\RoadRage\include\RE\Shaders\TextShader.fs
-         C:\Users\Mike\Documents\GitHub\RoadRage\include\RE\Shaders\TextShader.vs
-         14 File(s) copied
-     1>Done Building Project "C:\Users\Mike\Documents\GitHub\RoadRage\RoadRage\roadrage.vcxproj" (Build target(s)).
-
-Build succeeded.
-
-Time Elapsed 00:00:00.20
+﻿  MyBoundingSphereClass.cpp
+  Main.cpp
+  AppClassControls.cpp
+  AppClass.cpp
+  Generating Code...
+  roadrage.vcxproj -> D:\My Documents\GitHub\RoadRage\Z_DELETE\E12_BoundingSphereClassD.exe
+  A subdirectory or file D:\My Documents\GitHub\RoadRage\_Binary\ already exists.
+  D:\My Documents\GitHub\RoadRage\include\GL\bin\glew32.dll
+  D:\My Documents\GitHub\RoadRage\include\GL\bin\glut32.dll
+  2 File(s) copied
+  D:\My Documents\GitHub\RoadRage\include\RE\bin\2015\ReEng_VS15.dll
+  D:\My Documents\GitHub\RoadRage\include\RE\bin\2015\ReEng_VS15_d.dll
+  2 File(s) copied
+  D:\My Documents\GitHub\RoadRage\include\SFML\bin\sfml-system-2.dll
+  1 File(s) copied
+  D:\My Documents\GitHub\RoadRage\include\SFML\bin\sfml-window-2.dll
+  1 File(s) copied
+  A subdirectory or file D:\My Documents\GitHub\RoadRage\_Binary\Shaders\ already exists.
+  D:\My Documents\GitHub\RoadRage\include\RE\Shaders\Basic.fs
+  D:\My Documents\GitHub\RoadRage\include\RE\Shaders\Basic.vs
+  D:\My Documents\GitHub\RoadRage\include\RE\Shaders\BasicColor.fs
+  D:\My Documents\GitHub\RoadRage\include\RE\Shaders\BasicColor.vs
+  D:\My Documents\GitHub\RoadRage\include\RE\Shaders\Color.fs
+  D:\My Documents\GitHub\RoadRage\include\RE\Shaders\Color.vs
+  D:\My Documents\GitHub\RoadRage\include\RE\Shaders\Phong.fs
+  D:\My Documents\GitHub\RoadRage\include\RE\Shaders\Phong.vs
+  D:\My Documents\GitHub\RoadRage\include\RE\Shaders\REShader.fs
+  D:\My Documents\GitHub\RoadRage\include\RE\Shaders\REShader.vs
+  D:\My Documents\GitHub\RoadRage\include\RE\Shaders\REShaderInv.fs
+  D:\My Documents\GitHub\RoadRage\include\RE\Shaders\REShaderMC.fs
+  D:\My Documents\GitHub\RoadRage\include\RE\Shaders\TextShader.fs
+  D:\My Documents\GitHub\RoadRage\include\RE\Shaders\TextShader.vs
+  14 File(s) copied

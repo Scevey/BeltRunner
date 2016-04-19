@@ -107,7 +107,11 @@ xcopy "$(SolutionDir)include\RE\Shaders" "$(SolutionDir)_Binary\Shaders" /y</Com
   <ItemGroup>
     <ClInclude Include="..\res\Resource.h" />
     <ClInclude Include="AppClass.h" />
+    <ClInclude Include="Box.h" />
+    <ClInclude Include="Car.h" />
     <ClInclude Include="MyBoundingSphereClass.h" />
+    <ClInclude Include="Truck.h" />
+    <ClInclude Include="Vehicle.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\res\BTO.rc" />
