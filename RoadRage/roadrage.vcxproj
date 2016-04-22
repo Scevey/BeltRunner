@@ -12,8 +12,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F8318B78-847D-4D6F-B0AA-F3AC80C5FFF0}</ProjectGuid>
-    <RootNamespace>E12_BoundingSphereClass</RootNamespace>
-    <ProjectName>E12_BoundingSphereClass</ProjectName>
+    <RootNamespace>RoadRage</RootNamespace>
+    <ProjectName>RoadRage</ProjectName>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

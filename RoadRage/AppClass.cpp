@@ -110,10 +110,10 @@ void AppClass::Update(void)
 	m_pMeshMngr->PrintLine(m_pSystem->GetAppName(), REYELLOW);
 
 	//banana
-	//m_pMeshMngr->PrintLine(std::to_string(road->getCurrentDebug()), REYELLOW);
-	//m_pMeshMngr->PrintLine(std::to_string(road->getHitDebug()), REYELLOW);
-	//m_pMeshMngr->PrintLine(std::to_string(road->getStartDebug()), REYELLOW);
-	//m_pMeshMngr->PrintLine(std::to_string(road->getfPercDebug()), REYELLOW);
+	m_pMeshMngr->PrintLine(std::to_string(road->getCurrentDebug()), REYELLOW);
+	m_pMeshMngr->PrintLine(std::to_string(road->getHitDebug()), REYELLOW);
+	m_pMeshMngr->PrintLine(std::to_string(road->getStartDebug()), REYELLOW);
+	m_pMeshMngr->PrintLine(std::to_string(road->getfPercDebug()), REYELLOW);
 
 	if (m_BSCPlayer->IsColliding(m_BSCTruck))
 		m_pMeshMngr->PrintLine("They are colliding! >_<", RERED);
