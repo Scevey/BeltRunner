@@ -4,9 +4,9 @@
 void Vehicle::Init(void)
 {
 	length = 5.0f; // length from positionForward and positionRear
-	maxVelocity = 3.0f;
-	maxAccel = 1.0f;
-	friction = 0.90f; // for now, just using a percentage
+	maxVelocity = 1000.0f;
+	maxAccel = 1000.0f;
+	friction = 0.99f; // for now, just using a percentage
 
 	deltaTime = 0.0f;
 	totalTime = 0.0f;
@@ -162,12 +162,7 @@ matrix4 Vehicle::GetModelMatrix(void)
 	return modelWorld;
 }
 
-/*
-vector3 angleBetween(vector3 a, vector3 b, vector3 origin)
+vector3 Vehicle::GetPosition(void)
 {
-vector3 da = glm::normalize(a - origin);
-vector3 db = glm::normalize(b - origin);
-return glm::acos(glm::dot(da, db));
+	return posForward;
 }
-*/
-

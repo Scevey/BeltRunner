@@ -16,7 +16,7 @@ class Vehicle
 	float maxAccel = 1000.0f;
 	float friction = 0.99f; // for now, just using a percentage
 
-							// time variables
+	// time variables
 	float deltaTime = 0.0f;
 	float totalTime = 0.0f;
 
@@ -104,6 +104,7 @@ public:
 
 	*/
 	matrix4 GetModelMatrix(void);
+	vector3 GetPosition(void);
 
 private:
 	/*

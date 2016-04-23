@@ -4,7 +4,7 @@ void MyBoundingSphereClass::Init(void)
 {
 	m_fRadius = 0.0f;
 	m_m4ToWorld = IDENTITY_M4;
-	isVisible = false;
+
 	m_v3Center = vector3(0.0f);
 	m_v3Min = vector3(0.0f);
 	m_v3Max = vector3(0.0f);
@@ -26,6 +26,7 @@ void MyBoundingSphereClass::Release(void)
 MyBoundingSphereClass::MyBoundingSphereClass(std::vector<vector3> a_lVectorList)
 {
 	uint nVertexCount = a_lVectorList.size();
+
 	if (nVertexCount > 0)
 	{
 		m_v3Min = a_lVectorList[0];
@@ -52,10 +53,6 @@ MyBoundingSphereClass::MyBoundingSphereClass(std::vector<vector3> a_lVectorList)
 
 	m_v3Center = (m_v3Max + m_v3Min) / 2.0f;
 	m_fRadius = glm::distance(m_v3Center, m_v3Max);
-
-	//m_pSphere = new PrimitiveClass();
-	//m_pSphere->GenerateSphere(m_fRadius, 10, REGREEN);
-
 }
 MyBoundingSphereClass::MyBoundingSphereClass(MyBoundingSphereClass const& other)
 {
@@ -68,7 +65,7 @@ MyBoundingSphereClass::MyBoundingSphereClass(MyBoundingSphereClass const& other)
 }
 MyBoundingSphereClass& MyBoundingSphereClass::operator=(MyBoundingSphereClass const& other)
 {
-	if(this != &other)
+	if (this != &other)
 	{
 		Release();
 		Init();
@@ -77,24 +74,28 @@ MyBoundingSphereClass& MyBoundingSphereClass::operator=(MyBoundingSphereClass co
 	}
 	return *this;
 }
-MyBoundingSphereClass::~MyBoundingSphereClass(){Release();};
+MyBoundingSphereClass::~MyBoundingSphereClass() { Release(); };
+
 //Accessors
-void MyBoundingSphereClass::SetModelMatrix(matrix4 a_m4ToWorld){ m_m4ToWorld = a_m4ToWorld; }
-vector3 MyBoundingSphereClass::GetCenter(void){ return vector3(m_m4ToWorld * vector4(m_v3Center, 1.0f)); }
-vector3 MyBoundingSphereClass::GetMax(void) { return vector3(m_m4ToWorld * vector4(m_v3Max, 1.0f)); }
-vector3 MyBoundingSphereClass::GetMin(void) { return vector3(m_m4ToWorld * vector4(m_v3Min, 1.0f)); }
-vector3 MyBoundingSphereClass::GetColor(void) { return color; }
-matrix4 MyBoundingSphereClass::GetModelMatrix(void) { return m_m4ToWorld; }
+vector3 MyBoundingSphereClass::GetCenter(void) { return vector3(/*m_m4ToWorld * */vector4(m_v3Center, 1.0f)); } // need to ask about that
 float MyBoundingSphereClass::GetRadius(void) { return m_fRadius; }
-bool MyBoundingSphereClass::GetVisibility() {
-	return isVisible;
-}
+matrix4 MyBoundingSphereClass::GetModelMatrix(void) { return m_m4ToWorld; }
+vector3 MyBoundingSphereClass::GetColor(void) { return m_v3Color; }
+
+// Modifiers
+void MyBoundingSphereClass::SetModelMatrix(matrix4 a_m4ToWorld) { m_m4ToWorld = a_m4ToWorld; }
+void MyBoundingSphereClass::SetColor(vector3 a_color) { m_v3Color = a_color; }
+
 //--- Non Standard Singleton Methods
 bool MyBoundingSphereClass::IsColliding(MyBoundingSphereClass* const a_pOther)
 {
-	vector3 m_v3Center1 = a_pOther->GetCenter();
-	vector3 v3Temp = GetCenter();
-	vector3 v3Temp1 = a_pOther->GetCenter();
+	//Collision check goes here
+	vector3 v3Temp = vector3(m_m4ToWorld * vector4(m_v3Center, 1.0f));
+	vector3 v3Temp1 = vector3(a_pOther->m_m4ToWorld * vector4(a_pOther->m_v3Center, 1.0f));
+
+	bool bAreColliding = false;
+	// return (glm::distance(v3Temp, v3Temp1) < m_fRadius + a_pOther->m_fRadius);
+
 	if (glm::distance(v3Temp, v3Temp1) < m_fRadius + a_pOther->GetRadius()) {
 		SetColor(RERED);
 		a_pOther->SetColor(RERED);
@@ -105,14 +106,4 @@ bool MyBoundingSphereClass::IsColliding(MyBoundingSphereClass* const a_pOther)
 		a_pOther->SetColor(REWHITE);
 		return false;
 	}
-}
-void MyBoundingSphereClass::ToggleVisible() {
-	isVisible = !isVisible;
-}
-void MyBoundingSphereClass::UpdatePosition(vector3 a_v3Input) { 
-	return;
-}
-
-void MyBoundingSphereClass::SetColor(vector3 a_Color) {
-	color = a_Color;
 }

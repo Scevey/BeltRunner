@@ -9,25 +9,20 @@ Date: 2015/09
 #include <SFML\Graphics.hpp>
 #include "MyBoundingSphereClass.h"
 #include "Road.h"
+#include "Vehicle.h"
 
 using namespace ReEng; //Using ReEng namespace to use all the classes in the dll
 
 class AppClass : public ReEngAppClass
 {
-	vector3 m_v3OP = vector3(0.0f, 5.0f, 0.0f);
+	// position vectors - being replaced by Vehicle class
+	// vector3 m_v3OP = vector3(0.0f, 5.0f, 0.0f);
 	vector3 m_v3OT = vector3( 0.0f, -5.0f, 0.0f);
 
-	PrimitiveClass* m_pPlayer = nullptr;
-	MyBoundingSphereClass* m_BSCPlayer = nullptr;
-	vector3 m_v3CenterP;
-	float m_fRadiusP = 0.0f;
-	matrix4 m_m4Player;
+	Vehicle* testVehicle;
 
-	PrimitiveClass* m_pTruck = nullptr;
+	MyBoundingSphereClass* m_BSCPlayer = nullptr;
 	MyBoundingSphereClass* m_BSCTruck = nullptr;
-	vector3 m_v3CenterT;
-	float m_fRadiusT = 0.0f;
-	matrix4 m_m4Truck;
 
 	//banana
 	Road* road = nullptr;

@@ -43,29 +43,23 @@ void AppClass::ProcessKeyboard(void)
 		m_pCameraMngr->MoveVertical(fSpeed);*/
 #pragma endregion
 
-#pragma region Creeper Control
+#pragma region Player Control
 	if (bModifier)
 		fSpeed *= 10.0f;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-		m_v3OP.x -= 0.1f;
-		m_BSCPlayer->UpdatePosition(m_v3OP);
+		testVehicle->AddForce(vector3(-20.0f, 0.0f, 0.0f));
 	}
-
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-		m_v3OP.x += 0.1f;
-		m_BSCPlayer->UpdatePosition(m_v3OP);
+		testVehicle->AddForce(vector3(20.0f, 0.0f, 0.0f));
 	}
-
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
-		m_v3OP.z += 0.1f;
-		m_BSCPlayer->UpdatePosition(m_v3OP);
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::T)) {
-		m_BSCPlayer->ToggleVisible();
+		testVehicle->AddForce(vector3(0.0f, 0.0f, 20.0f));
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-		m_v3OP.z -= 0.1f;
-		m_BSCPlayer->UpdatePosition(m_v3OP);
+		testVehicle->AddForce(vector3(0.0f, 0.0f, -20.0f));
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::T)) {
+		// m_BSCPlayer->ToggleVisible();
 	}
 #pragma endregion
 

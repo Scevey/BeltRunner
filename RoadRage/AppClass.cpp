@@ -14,7 +14,7 @@ void AppClass::InitWindow(String a_sWindowName)
 void AppClass::InitVariables(void)
 {
 	//Initialize positions
-	m_v3OP = vector3(0.0f, 0.0f, 5.0f);
+	// m_v3OP = vector3(0.0f, 0.0f, 5.0f); // replaced by Vehicle class
 	m_v3OT = vector3(0.0f, 0.0f, -5.0f);
 
 	//Load Models
@@ -25,22 +25,15 @@ void AppClass::InitVariables(void)
 	m_pMeshMngr->LoadModel("Minecraft\\Creeper.obj", "Creeper2");
 	road = new Road();
 
+	testVehicle = new Vehicle();
+
+	// Player
 	std::vector<vector3> vertexList = m_pMeshMngr->GetVertexList("Steve");
 	m_BSCPlayer = new MyBoundingSphereClass(vertexList);
 
-	m_pPlayer = new PrimitiveClass();
-	m_fRadiusP = m_BSCPlayer->GetRadius();
-	m_v3CenterP = m_BSCPlayer->GetCenter();
-	m_pPlayer->GenerateSphere(m_fRadiusP, 10, REGREEN);
-
-
-	//Creeper
+	// Truck
 	vertexList = m_pMeshMngr->GetVertexList("Creeper");
 	m_BSCTruck = new MyBoundingSphereClass(vertexList);
-	m_fRadiusT = m_BSCTruck->GetRadius();
-	m_v3CenterT = m_BSCTruck->GetCenter();
-	m_pTruck = new PrimitiveClass();
-	m_pTruck->GenerateSphere(m_fRadiusT, 10, REGREEN);
 
 	//camera mumbo jumbo [banana]
 	vector3 camPos = vector3(0.0f, 10.0f, 10.0f);
@@ -55,6 +48,9 @@ void AppClass::Update(void)
 	//Update the system's time
 	m_pSystem->UpdateTime();
 
+	// find elapsed time [banana]
+	double deltaTime = m_pSystem->LapClock();
+
 	//Update the mesh manager's time without updating for collision detection
 	m_pMeshMngr->Update();
 
@@ -64,56 +60,59 @@ void AppClass::Update(void)
 
 	ArcBall();
 
-	//Set the model matrices for both objects and Bounding Spheres
-	m_pMeshMngr->SetModelMatrix(glm::translate(m_v3OP) * ToMatrix4(m_qArcBall), "Steve");
-	m_pMeshMngr->SetModelMatrix(glm::translate(m_v3OT), "Creeper");
-	m_BSCPlayer->SetModelMatrix(glm::translate(m_v3OP) * ToMatrix4(m_qArcBall));
-	m_BSCTruck->SetModelMatrix(glm::translate(m_v3OT));
-	matrix4 m4Projection = m_pCameraMngr->GetProjectionMatrix();
-	matrix4 m4View = m_pCameraMngr->GetViewMatrix();
+	// Update Vehicle
+	testVehicle->Update(deltaTime);
 
+	//Set the model matrices for both objects and Bounding Spheres
+	m_pMeshMngr->SetModelMatrix(glm::translate(testVehicle->GetPosition()) * ToMatrix4(m_qArcBall), "Steve");
+	m_pMeshMngr->SetModelMatrix(glm::translate(m_v3OT), "Creeper");
+	m_BSCPlayer->SetModelMatrix(glm::translate(testVehicle->GetPosition()) * ToMatrix4(m_qArcBall));
+	m_BSCTruck->SetModelMatrix(glm::translate(m_v3OT));
 	
-	// find elapsed time [banana]
-	double deltaTime = m_pSystem->LapClock();
 	matrix4 testMove = road->Update1(deltaTime);
+
+	// Set model matrices
 	m_pMeshMngr->SetModelMatrix(testMove, "Steve2");
 	testMove = road->Update2(deltaTime);
 	m_pMeshMngr->SetModelMatrix(testMove, "Creeper2");
 
-
-	//Adds all loaded instance to the render list
-	m_pMeshMngr->AddInstanceToRenderList("ALL");
-
 	//Indicate the FPS
 	int nFPS = m_pSystem->GetFPS();
 	
-
 	//Collision check goes here
-	
+	m_pMeshMngr->AddSphereToQueue(
+		m_BSCPlayer->GetModelMatrix() *
+		glm::translate(vector3(m_BSCPlayer->GetCenter())) *
+		glm::scale(vector3(m_BSCPlayer->GetRadius()) * 2.0f),
+		m_BSCPlayer->GetColor(), WIRE);
 
-	m_m4Player = m_pMeshMngr->GetModelMatrix("Steve") * glm::translate(m_v3CenterP);
-	if (m_BSCPlayer->GetVisibility()) {
-		if (m_BSCPlayer->IsColliding(m_BSCTruck))
-			m_pMeshMngr->AddSphereToQueue(m_m4Player * glm::scale(vector3(m_fRadiusP * 2.0f)), m_BSCPlayer->GetColor(), WIRE);
-		else
-			m_pMeshMngr->AddSphereToQueue(m_m4Player * glm::scale(vector3(m_fRadiusP * 2.0f)), m_BSCPlayer->GetColor(), WIRE);
-	}
-	m_m4Truck = m_pMeshMngr->GetModelMatrix("Creeper") * glm::translate(m_v3CenterT);
-	if (m_BSCPlayer->IsColliding(m_BSCTruck))
-		m_pMeshMngr->AddSphereToQueue(m_m4Truck * glm::scale(vector3(m_fRadiusT * 2.0f)), m_BSCTruck->GetColor(), WIRE);
-	else
-		m_pMeshMngr->AddSphereToQueue(m_m4Truck * glm::scale(vector3(m_fRadiusT * 2.0f)), m_BSCTruck->GetColor(), WIRE);
+	m_pMeshMngr->AddSphereToQueue(
+		m_BSCTruck->GetModelMatrix() *
+		glm::translate(vector3(m_BSCTruck->GetCenter())) *
+		glm::scale(vector3(m_BSCTruck->GetRadius()) * 2.0f),
+		m_BSCTruck->GetColor(), WIRE);
+
+	//Adds all loaded instance to the render list
+	m_pMeshMngr->AddInstanceToRenderList("ALL");
 
 	//print info into the console
 	printf("FPS: %d            \r", nFPS);//print the Frames per Second
 	//Print info on the screen
 	m_pMeshMngr->PrintLine(m_pSystem->GetAppName(), REYELLOW);
 
-	//banana
+	/* Road debug
 	m_pMeshMngr->PrintLine(std::to_string(road->getCurrentDebug()), REYELLOW);
 	m_pMeshMngr->PrintLine(std::to_string(road->getHitDebug()), REYELLOW);
 	m_pMeshMngr->PrintLine(std::to_string(road->getStartDebug()), REYELLOW);
 	m_pMeshMngr->PrintLine(std::to_string(road->getfPercDebug()), REYELLOW);
+	*/
+
+	/* Vehicle debug
+	vector3 debug = testVehicle->GetPosition();
+	m_pMeshMngr->PrintLine(std::to_string(debug.x), REYELLOW);
+	m_pMeshMngr->PrintLine(std::to_string(debug.y), REYELLOW);
+	m_pMeshMngr->PrintLine(std::to_string(debug.z), REYELLOW);
+	*/
 
 	if (m_BSCPlayer->IsColliding(m_BSCTruck))
 		m_pMeshMngr->PrintLine("They are colliding! >_<", RERED);
@@ -144,8 +143,6 @@ void AppClass::Display(void)
 		m_pMeshMngr->AddGridToQueue(1.0f, REAXIS::XY, REBLUE * 0.75f); //renders the XY grid with a 100% scale
 		break;
 	}
-	
-	
 
 	m_pMeshMngr->Render(); //renders the render list
 
@@ -154,18 +151,6 @@ void AppClass::Display(void)
 
 void AppClass::Release(void)
 {
-	if (m_pPlayer != nullptr)
-	{
-		delete m_pPlayer;
-		m_pPlayer = nullptr;
-
-	}
-	if (m_pTruck != nullptr)
-	{
-		delete m_pTruck;
-		m_pTruck = nullptr;
-
-	}
 	if (m_BSCPlayer != nullptr)
 	{
 		delete m_BSCPlayer;
@@ -179,7 +164,17 @@ void AppClass::Release(void)
 
 	}
 
-	if (road != nullptr) { delete road; road = nullptr; } // banana
+	if (road != nullptr) 
+	{ 
+		delete road; 
+		road = nullptr; 
+	} // banana
+
+	if (testVehicle != nullptr)
+	{
+		delete testVehicle;
+		testVehicle = nullptr;
+	}
 
 	super::Release(); //release the memory of the inherited fields
 }
