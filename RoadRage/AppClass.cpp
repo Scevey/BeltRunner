@@ -64,9 +64,9 @@ void AppClass::Update(void)
 	testVehicle->Update(deltaTime);
 
 	//Set the model matrices for both objects and Bounding Spheres
-	m_pMeshMngr->SetModelMatrix(glm::translate(testVehicle->GetPosition()) * ToMatrix4(m_qArcBall), "Steve");
+	m_pMeshMngr->SetModelMatrix(testVehicle->GetModelMatrix() * ToMatrix4(m_qArcBall), "Steve");
 	m_pMeshMngr->SetModelMatrix(glm::translate(m_v3OT), "Creeper");
-	m_BSCPlayer->SetModelMatrix(glm::translate(testVehicle->GetPosition()) * ToMatrix4(m_qArcBall));
+	m_BSCPlayer->SetModelMatrix(testVehicle->GetModelMatrix() * ToMatrix4(m_qArcBall));
 	m_BSCTruck->SetModelMatrix(glm::translate(m_v3OT));
 	
 	matrix4 testMove = road->Update1(deltaTime);

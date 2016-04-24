@@ -6,14 +6,12 @@ void Vehicle::Init(void)
 	length = 5.0f; // length from positionForward and positionRear
 	maxVelocity = 1000.0f;
 	maxAccel = 1000.0f;
-	friction = 0.99f; // for now, just using a percentage
+	friction = 0.95f; // for now, just using a percentage
+	rotation = 0.0f;
 
 	deltaTime = 0.0f;
-	totalTime = 0.0f;
 
 	posForward = vector3(0.0f, 0.0f, 0.0f); // forward point, affected by forces
-	posRear = vector3(0.0f, -length, 0.0f); // rear point, lerps to stay in line with positionForward
-	axis = posForward - posRear; // vector formed by two position points
 	velocity = vector3(0.0f);
 	accel = vector3(0.0f);
 
@@ -24,13 +22,11 @@ void Vehicle::Init(void)
 void Vehicle::Swap(Vehicle& other)
 {
 	std::swap(posForward, other.posForward);
-	std::swap(posRear, other.posRear);
-	std::swap(axis, other.axis);
 	std::swap(velocity, other.velocity);
 	std::swap(accel, other.accel);
+	std::swap(rotation, other.rotation);
 
 	std::swap(deltaTime, other.deltaTime);
-	std::swap(totalTime, other.totalTime);
 
 	std::swap(modelWorld, other.modelWorld);
 
@@ -51,13 +47,11 @@ Vehicle::Vehicle()
 Vehicle::Vehicle(Vehicle const& other)
 {
 	posForward = other.posForward;
-	posRear = other.posRear;
-	axis = other.axis;
 	velocity = other.velocity;
 	accel = other.accel;
+	rotation = other.rotation;
 
 	deltaTime = other.deltaTime;
-	totalTime = other.totalTime;
 
 	modelWorld = other.modelWorld;
 
@@ -86,14 +80,7 @@ Vehicle::~Vehicle()
 void Vehicle::Update(double arg_deltaTime)
 {
 	// handle time
-	float swingTime = 5.0f; // figure out a way to set this once, hardcoded for now
 	deltaTime = static_cast<float>(arg_deltaTime);
-	totalTime += deltaTime;
-
-	if (totalTime > swingTime)
-	{
-		totalTime -= swingTime;
-	}
 
 	// add acceleration to velocity 
 	velocity += accel;
@@ -108,37 +95,45 @@ void Vehicle::Update(double arg_deltaTime)
 		// velocity = vector3(velocity.x * maxVelocity, velocity.y * maxVelocity, velocity.z * maxVelocity);
 	}
 
-	// add to position, ignore y, based on deltaTime
-	// posForward += vector3(velocity.x, 0.0f, velocity.y) * deltaTime; // I dunno what we should do with this right now
+	// add to position, based on deltaTime
 	posForward += velocity * deltaTime;
 
 	// apply friction to velocity
 	velocity *= friction;
 
-	// reset acceleration
-	accel = vector3(0.0f);
+	// ROTATION
 
-	// find ideal location of posRear, or the rear Axel
-	vector3 rear = vector3(posForward.x, posForward.y - length, posForward.z);
-
-	// if they are not equal, lerp the posRear over
-	if (rear != posRear)
+	// apply rotation acceleration to velocity
+	if (accel == vector3(0.0f))
 	{
-		// swingTime = std::abs(rear.y - posRear.y);
-		float lerpPercent = MapValue(totalTime, 0.0f, swingTime, 0.0f, 1.0f);
-		posRear = glm::lerp(posRear, rear, lerpPercent);
+		if (rotation < 0.0f)
+		{
+			rotationVel += 0.1f; // right now hardcoded
+		}
+		else if(rotation > 0.0f)
+		{
+			rotationVel -= 0.1f; // right now hardcoded
+		}
 	}
+	else
+		rotationVel += rotationAccel;
 
-	// update the axis of the vehicle
-	axis = posForward - posRear;
-	vector3 straightAxis = posForward - rear;
+	// apply rotation velocity to rotation angle
+	rotation += rotationVel;
 
-	// angle between axis of vehicle and desired axis
-	// float rotationAngle = glm::angle(axis, straightAxis);
-	float rotationAngle = glm::orientedAngle(glm::normalize(axis), glm::normalize(straightAxis), posForward);
+	// do this just in case
+	rotation = fmod(rotation, 360.0f);
+
+	// apply friction
+	rotation *= friction;
 
 	// update the model matrix
-	modelWorld = glm::rotate(rotationAngle, vector3(0.0f, 1.0f, 0.0f)) * glm::translate(posForward);
+	modelWorld = glm::translate(posForward) * glm::rotate(rotation, vector3(0.0f, 1.0f, 0.0f)) *
+		glm::rotate(90.0f, vector3(1.0f, 0.0f, 0.0f)); // last rotation is temporary until we get new model
+
+	// reset acceleration
+	accel = vector3(0.0f);
+	rotationAccel = 0.0f;
 }
 
 void Vehicle::AddForce(vector3 arg_force)
@@ -154,7 +149,8 @@ void Vehicle::AddForce(vector3 arg_force)
 	}
 
 	// add to acceleration
-	accel += force * deltaTime;
+	accel += force;
+	rotationAccel -= force.x * 0.1f;
 }
 
 matrix4 Vehicle::GetModelMatrix(void)

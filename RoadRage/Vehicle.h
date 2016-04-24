@@ -14,15 +14,17 @@ class Vehicle
 	float length = 5.0f; // length from positionForward and positionRear
 	float maxVelocity = 1000.0f;
 	float maxAccel = 1000.0f;
-	float friction = 0.99f; // for now, just using a percentage
+	float friction = 0.95f; // for now, just using a percentage
+
+	// rotation variables
+	float rotation = 0.0f;
+	float rotationVel = 0.0f;
+	float rotationAccel = 0.0f;
 
 	// time variables
 	float deltaTime = 0.0f;
-	float totalTime = 0.0f;
 
 	vector3 posForward = vector3(0.0f, 0.0f, 0.0f); // forward point, affected by forces
-	vector3 posRear = vector3(0.0f, -length, 0.0f); // rear point, lerps to stay in line with positionForward
-	vector3 axis = posForward - posRear; // vector formed by two position points
 	vector3 velocity = vector3(0.0f);
 	vector3 accel = vector3(0.0f);
 

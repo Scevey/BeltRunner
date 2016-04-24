@@ -47,16 +47,16 @@ void AppClass::ProcessKeyboard(void)
 	if (bModifier)
 		fSpeed *= 10.0f;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-		testVehicle->AddForce(vector3(-20.0f, 0.0f, 0.0f));
+		testVehicle->AddForce(vector3(-1.0f, 0.0f, 0.0f));
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-		testVehicle->AddForce(vector3(20.0f, 0.0f, 0.0f));
+		testVehicle->AddForce(vector3(1.0f, 0.0f, 0.0f));
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
-		testVehicle->AddForce(vector3(0.0f, 0.0f, 20.0f));
+		testVehicle->AddForce(vector3(0.0f, 0.0f, 1.0f));
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-		testVehicle->AddForce(vector3(0.0f, 0.0f, -20.0f));
+		testVehicle->AddForce(vector3(0.0f, 0.0f, -1.0f));
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::T)) {
 		// m_BSCPlayer->ToggleVisible();
