@@ -1,12 +1,11 @@
 
-#ifndef __APPLICATION_H_
-#define __APPLICATION_H_
-#pragma once
+#ifndef __TRUCK_H_
+#define __TRUCK_H_
 
 #include "RE\ReEngAppClass.h"
 #include "Vehicle.h"
 #include <SFML\Graphics.hpp>
-#include "MyBoundingSphereClass.h"
+#include "MyBoundingClass.h"
 
 using namespace ReEng; //Using ReEng namespace to use all the classes in the dll
 
@@ -19,4 +18,4 @@ public:
 	~Truck(void); //destructor
 };
 
-#endif //__APPLICATION_H_
+#endif //__TRUCK_H_

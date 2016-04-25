@@ -1,12 +1,11 @@
 
-#ifndef __APPLICATION_H_
-#define __APPLICATION_H_
-#pragma once
+#ifndef __CAR_H_
+#define __CAR_H_
 
 #include "RE\ReEngAppClass.h"
 #include "Vehicle.h"
 #include <SFML\Graphics.hpp>
-#include "MyBoundingSphereClass.h"
+#include "MyBoundingClass.h"
 #include <iostream>
 
 using namespace std;
@@ -22,4 +21,4 @@ public:
 	~Car(void); //destructor
 };
 
-#endif //__APPLICATION_H_
+#endif //__CAR_H_
