@@ -15,12 +15,12 @@ void AppClass::InitVariables(void)
 {
 	//Initialize positions
 	// m_v3OP = vector3(0.0f, 0.0f, 5.0f); // replaced by Vehicle class
-	m_v3OT = vector3(0.0f, 0.5f, -5.0f);
+	m_v3OT = vector3(0.0f, 0.0f, -5.0f);
 
 	//Load Models
-	m_pMeshMngr->LoadModel("car.obj", "Player");
-	m_pMeshMngr->LoadModel("Truck.obj", "Truck");
-	m_pMeshMngr->LoadModel("crate.obj", "Crate");
+	m_pMeshMngr->LoadModel("Minecraft\\Steve.obj", "Player");
+	m_pMeshMngr->LoadModel("Minecraft\\Creeper.obj", "Truck");
+	m_pMeshMngr->LoadModel("Minecraft\\Creeper.obj", "Crate");
 	m_pMeshMngr->LoadModel("Minecraft\\Steve.obj", "Steve2"); //banana
 	m_pMeshMngr->LoadModel("Minecraft\\Creeper.obj", "Creeper2");
 	road = new Road();

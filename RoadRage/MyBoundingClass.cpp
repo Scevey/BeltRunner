@@ -93,7 +93,44 @@ void MyBoundingClass::SetColor(vector3 a_color) { m_v3Color = a_color; }
 //--- Non Standard Singleton Methods
 bool MyBoundingClass::IsColliding(MyBoundingClass* const a_pOther)
 {
-	//Collision check goes here
+	bool bAreColliding = true;
+	vector3 vMin1 = vector3(m_m4ToWorld * vector4(m_v3Min, 1.0f));
+	vector3 vMax1 = vector3(m_m4ToWorld * vector4(m_v3Max, 1.0f));
+	vector3 vMin2 = vector3(a_pOther->m_m4ToWorld * vector4(a_pOther->m_v3Min, 1.0f));
+	vector3 vMax2 = vector3(a_pOther->m_m4ToWorld * vector4(a_pOther->m_v3Max, 1.0f));
+
+	//Check for X
+	if (vMax1.x < vMin2.x)
+		bAreColliding = false;
+	if (vMin1.x > vMax2.x)
+		bAreColliding = false;
+
+	//Check for Y
+	if (vMax1.y < vMin2.y)
+		bAreColliding = false;
+	if (vMin1.y > vMax2.y)
+		bAreColliding = false;
+
+	//Check for Z
+	if (vMax1.z < vMin2.z)
+		bAreColliding = false;
+	if (vMin1.z > vMax2.z)
+		bAreColliding = false;
+
+	if (bAreColliding)
+	{
+		SetColor(RERED);
+		a_pOther->SetColor(RERED);
+	}
+	else
+	{
+		SetColor(REWHITE);
+		a_pOther->SetColor(REWHITE);
+	}
+
+	return bAreColliding;
+
+	/*//Collision check goes here
 	vector3 v3Temp = vector3(m_m4ToWorld * vector4(m_v3Center, 1.0f));
 	vector3 v3Temp1 = vector3(a_pOther->m_m4ToWorld * vector4(a_pOther->m_v3Center, 1.0f));
 
@@ -143,5 +180,5 @@ bool MyBoundingClass::IsColliding(MyBoundingClass* const a_pOther)
 		bAreColliding = false;
 	}
 	
-	return bAreColliding;
+	return bAreColliding;*/
 }
