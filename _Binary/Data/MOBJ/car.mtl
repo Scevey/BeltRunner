@@ -1,0 +1,320 @@
+newmtl car:Body01
+illum 4
+Kd 0.12 0.13 0.14
+Ka 0.12 0.13 0.14
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 41.91
+newmtl car:Body_gris01
+illum 4
+Kd 0.49 0.49 0.49
+Ka 0.49 0.49 0.49
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 14.93
+newmtl car:Chrome01
+illum 4
+Kd 0.44 0.44 0.44
+Ka 0.44 0.44 0.44
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 41.91
+newmtl car:Compteur01
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.16 0.16 0.16
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 59.71
+newmtl car:Dessous01
+illum 4
+Kd 0.06 0.06 0.06
+Ka 0.06 0.06 0.06
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 19.70
+newmtl car:Disque01
+illum 4
+Kd 0.31 0.31 0.30
+Ka 0.31 0.31 0.30
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 354.52
+newmtl car:Feux_blanc01
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.61 0.60 0.60
+Tf 0.72 0.72 0.72
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 25.99
+newmtl car:Feux_chrome01
+illum 4
+Kd 0.22 0.22 0.22
+Ka 0.22 0.22 0.22
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 354.52
+newmtl car:Feux_rouge_D01
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.55 0.06 0.06
+Tf 0.85 0.85 0.85
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 84.45
+newmtl car:Feux_rouge_G01
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.55 0.06 0.06
+Tf 0.85 0.85 0.85
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 42.22
+newmtl car:Feux_stop01
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.50 0.06 0.06
+Tf 0.93 0.93 0.93
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 68.59
+newmtl car:Interieur01
+illum 4
+Kd 0.23 0.23 0.23
+Ka 0.23 0.23 0.23
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 41.91
+newmtl car:Interieur_blanc01
+illum 4
+Kd 0.81 0.81 0.78
+Ka 0.81 0.81 0.78
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 41.91
+newmtl car:Interieur_blanc_01
+illum 4
+Kd 0.72 0.70 0.66
+Ka 0.72 0.70 0.66
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 4.95
+newmtl car:Interieur_bois01
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.38 0.22 0.21
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 121.89
+newmtl car:Interieur_sol01
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.54 0.54 0.53
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 25.99
+newmtl car:Jante01
+illum 4
+Kd 0.55 0.55 0.55
+Ka 0.55 0.55 0.55
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 9.25
+newmtl car:LCD01
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.20 0.20 0.24
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 83.33
+newmtl car:Logo01
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.19 0.19 0.19
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 354.52
+newmtl car:Logo_ar01
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.19 0.19 0.19
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 354.52
+newmtl car:Metal01
+illum 4
+Kd 0.41 0.41 0.41
+Ka 0.41 0.41 0.41
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 354.52
+newmtl car:Metal_alu01
+illum 4
+Kd 0.50 0.50 0.50
+Ka 0.50 0.50 0.50
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 41.91
+newmtl car:Miroir01
+illum 4
+Kd 0.25 0.25 0.25
+Ka 0.25 0.25 0.25
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 354.52
+newmtl car:Partie_noir01
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 83.33
+newmtl car:Pendule01
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.71 0.71 0.71
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 41.91
+newmtl car:Phare01
+illum 4
+Kd 0.29 0.29 0.29
+Ka 0.29 0.29 0.29
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 13.00
+newmtl car:Phare_orange01
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.68 0.33 0.01
+Tf 0.69 0.69 0.69
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 27.86
+newmtl car:Phare_vitre01
+illum 4
+Kd 0.61 0.62 0.64
+Ka 0.61 0.62 0.64
+Tf 0.40 0.40 0.40
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 17.15
+newmtl car:Plastique_blanc01
+illum 4
+Kd 0.66 0.65 0.62
+Ka 0.66 0.65 0.62
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 354.52
+newmtl car:Plastique_noir01
+illum 4
+Kd 0.19 0.19 0.19
+Ka 0.19 0.19 0.19
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 354.52
+newmtl car:Plastique_rouge01
+illum 4
+Kd 0.62 0.17 0.17
+Ka 0.62 0.17 0.17
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 55.72
+newmtl car:Pneu_D01
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.15 0.15 0.15
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 42.22
+newmtl car:Pneu_G01
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.15 0.15 0.15
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 36.76
+newmtl car:Pneu_bump01
+illum 4
+Kd 0.15 0.15 0.15
+Ka 0.15 0.15 0.15
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 51.98
+newmtl car:Siege01
+illum 4
+Kd 0.78 0.78 0.76
+Ka 0.78 0.78 0.76
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 9.25
+newmtl car:Vitre01
+illum 4
+Kd 0.22 0.29 0.28
+Ka 0.22 0.29 0.28
+Tf 0.34 0.34 0.34
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 41.91
+newmtl car:Vitre_ar01
+illum 4
+Kd 0.09 0.12 0.12
+Ka 0.09 0.12 0.12
+Tf 0.85 0.85 0.85
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 41.91
+newmtl car:Vitre_noir01
+illum 4
+Kd 0.03 0.04 0.04
+Ka 0.03 0.04 0.04
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 41.91
+newmtl car:Volant01
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.50 0.50 0.50
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 41.91
+newmtl car:ZIS5glas
+illum 4
+Kd 0.30 0.40 0.20
+Ka 0.30 0.40 0.20
+Tf 0.50 0.50 0.50
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 0.50

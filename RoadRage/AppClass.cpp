@@ -18,8 +18,8 @@ void AppClass::InitVariables(void)
 	m_v3OT = vector3(0.0f, 0.5f, -5.0f);
 
 	//Load Models
-	m_pMeshMngr->LoadModel("Minecraft\\Steve.obj", "Steve");
-	m_pMeshMngr->LoadModel("Minecraft\\Creeper.obj", "Creeper");
+	m_pMeshMngr->LoadModel("car.obj", "Player");
+	m_pMeshMngr->LoadModel("Truck.obj", "Truck");
 
 	m_pMeshMngr->LoadModel("Minecraft\\Steve.obj", "Steve2"); //banana
 	m_pMeshMngr->LoadModel("Minecraft\\Creeper.obj", "Creeper2");
@@ -64,8 +64,8 @@ void AppClass::Update(void)
 	testVehicle->Update(deltaTime);
 
 	//Set the model matrices for both objects and Bounding Spheres
-	m_pMeshMngr->SetModelMatrix(testVehicle->GetModelMatrix() * ToMatrix4(m_qArcBall), "Steve");
-	m_pMeshMngr->SetModelMatrix(glm::translate(m_v3OT), "Creeper");
+	m_pMeshMngr->SetModelMatrix(testVehicle->GetModelMatrix() * ToMatrix4(m_qArcBall), "Player");
+	m_pMeshMngr->SetModelMatrix(glm::translate(m_v3OT), "Truck");
 	m_BSCPlayer->SetModelMatrix(testVehicle->GetModelMatrix() * ToMatrix4(m_qArcBall));
 	m_BSCTruck->SetModelMatrix(glm::translate(m_v3OT));
 	
