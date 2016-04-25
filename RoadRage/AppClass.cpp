@@ -21,8 +21,8 @@ void AppClass::InitVariables(void)
 	m_pMeshMngr->LoadModel("Minecraft\\Steve.obj", "Player");
 	m_pMeshMngr->LoadModel("Minecraft\\Creeper.obj", "Truck");
 	m_pMeshMngr->LoadModel("Minecraft\\Creeper.obj", "Crate");
-	m_pMeshMngr->LoadModel("Minecraft\\Steve.obj", "Steve2"); //banana
-	m_pMeshMngr->LoadModel("Minecraft\\Creeper.obj", "Creeper2");
+	m_pMeshMngr->LoadModel("roadModel-NoTex.obj", "Steve2"); //banana
+	m_pMeshMngr->LoadModel("roadModel-NoTex.obj", "Creeper2");
 	road = new Road();
 	crate = new Crate();
 	testVehicle = new Vehicle();
@@ -145,7 +145,7 @@ void AppClass::Display(void)
 	switch (m_pCameraMngr->GetCameraMode())
 	{
 	default: //Perspective
-		m_pMeshMngr->AddGridToQueue(1.0f, REAXIS::XY); //renders the XY grid with a 100% scale
+		//m_pMeshMngr->AddGridToQueue(1.0f, REAXIS::XZ); //renders the XY grid with a 100% scale
 		break;
 	case CAMERAMODE::CAMROTHOX:
 		m_pMeshMngr->AddGridToQueue(1.0f, REAXIS::YZ, RERED * 0.75f); //renders the YZ grid with a 100% scale

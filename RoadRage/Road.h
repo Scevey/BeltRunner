@@ -17,10 +17,12 @@ class Road
 	/*
 	//banana
 	vector3 v3Currentdebug;
-	bool hit1 = false;
-	vector3 v3start;
+	
+	vector3 v3start;*/
 	float fPercent;
-	*/
+	double dTotalTime = -1.0;
+	
+	bool hit1 = false;
 
 	//these variables hold the tranformations of the two segments of road that are loaded in
 	matrix4 m4Segment1 = IDENTITY_M4;
@@ -52,16 +54,19 @@ public:
 	float getCurrentDebug() {
 		return v3Currentdebug.z;
 	}
+	
+	float getStartDebug() {
+		return v3start.z;
+	}*/
+	float getfPercDebug() {
+		return fPercent;
+	}
 	bool getHitDebug() {
 		return hit1;
 	}
-	float getStartDebug() {
-		return v3start.z;
+	float getTimeEndDebug() {
+		return dTotalTime;
 	}
-	float getfPercDebug() {
-		return fPercent;
-	}*/
-
 
 
 private:
