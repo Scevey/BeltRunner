@@ -14,11 +14,13 @@ class Road
 	//variables, get em while they're hot
 	float speed = 5.0f; // the speed at which the road moves backwards
 
+	/*
 	//banana
 	vector3 v3Currentdebug;
 	bool hit1 = false;
 	vector3 v3start;
 	float fPercent;
+	*/
 
 	//these variables hold the tranformations of the two segments of road that are loaded in
 	matrix4 m4Segment1 = IDENTITY_M4;
@@ -45,6 +47,7 @@ public:
 	matrix4 Road::Update1(double time);
 	matrix4 Road::Update2(double time);
 
+	/*
 	//banana
 	float getCurrentDebug() {
 		return v3Currentdebug.z;
@@ -57,7 +60,7 @@ public:
 	}
 	float getfPercDebug() {
 		return fPercent;
-	}
+	}*/
 
 
 
