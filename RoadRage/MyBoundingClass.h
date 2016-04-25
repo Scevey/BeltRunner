@@ -2,18 +2,19 @@
 Programmer: Alberto Bobadilla (labigm@gmail.com)
 Date: 2015/10
 ----------------------------------------------*/
-#ifndef __MYBOUNDINGSPHERECLASS_H_
-#define __MYBOUNDINGSPHERECLASS_H_
+#ifndef __MyBoundingClass_H_
+#define __MyBoundingClass_H_
 
 #include "RE\ReEng.h"
 
 
 //System Class
-class MyBoundingSphereClass
+class MyBoundingClass
 {
 	vector3 m_v3Color = REWHITE;
 	bool isVisible = true;
 	float m_fRadius = 0.0f; //Radius of the Bounding Sphere
+	vector3 m_v3Size = vector3(0.0f);
 	matrix4 m_m4ToWorld = IDENTITY_M4; //Matrix that will take us from local to world coordinate
 	vector3 m_v3Center = vector3(0.0f); //Will store the center point of the Sphere Class
 	vector3 m_v3Min = vector3(0.0f); //Will store the minimum vector of the Sphere Class
@@ -21,33 +22,33 @@ class MyBoundingSphereClass
 
 public:
 	/*
-	 MyBoundingSphereClass
+	 MyBoundingClass
 	USAGE: Constructor
 	ARGUMENTS: ---
 	OUTPUT: class object
 	*/
-	MyBoundingSphereClass(std::vector<vector3> a_lVectorList);
+	MyBoundingClass(std::vector<vector3> a_lVectorList);
 	/*
-	 MyBoundingSphereClass
+	 MyBoundingClass
 	USAGE: Copy Constructor
 	ARGUMENTS: class object to copy
 	OUTPUT: class object instance
 	*/
-	MyBoundingSphereClass(MyBoundingSphereClass const& other);
+	MyBoundingClass(MyBoundingClass const& other);
 	/*
 	 operator=
 	USAGE: Copy Assignment Operator
 	ARGUMENTS: class object to copy
 	OUTPUT: ---
 	*/
-	MyBoundingSphereClass& operator=(MyBoundingSphereClass const& other);
+	MyBoundingClass& operator=(MyBoundingClass const& other);
 	/*
-	 ~MyBoundingSphereClass
+	 ~MyBoundingClass
 	USAGE: Destructor
 	ARGUMENTS: ---
 	OUTPUT: ---
 	*/
-	~MyBoundingSphereClass(void);
+	~MyBoundingClass(void);
 
 	/*
 	 Swap
@@ -56,7 +57,7 @@ public:
 		other -> object to swap content from
 	OUTPUT: ---
 	*/
-	void Swap(MyBoundingSphereClass& other);
+	void Swap(MyBoundingClass& other);
 
 	/*
 	 SetToWorldMatrix
@@ -88,15 +89,16 @@ public:
 	*/
 	float GetRadius(void);
 	bool  GetVisibility();
+	vector3 GetSize(void);
 	
 	/*
 	 IsColliding
 	USAGE: Asks if there is a collision with another Bounding sphere Object
 	ARGUMENTS: 
-		MyBoundingSphereClass* const a_pOther -> Other object to check collision with
+		MyBoundingClass* const a_pOther -> Other object to check collision with
 	OUTPUT: bool -> check of the collision
 	*/
-	bool IsColliding(MyBoundingSphereClass* const a_pOther);
+	bool IsColliding(MyBoundingClass* const a_pOther);
 	
 private:
 	/*
@@ -115,4 +117,4 @@ private:
 	void Init(void);
 };
 
-#endif //__MYBOUNDINGSPHERECLASS_H__
+#endif //__MyBoundingClass_H__

@@ -5,7 +5,7 @@
 #define __VEHICLE_H_
 
 #include "RE\ReEng.h"
-#include "MyBoundingSphereClass.h"
+#include "MyBoundingClass.h"
 
 // Vehicle Class
 class Vehicle

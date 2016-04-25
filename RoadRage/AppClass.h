@@ -7,7 +7,7 @@ Date: 2015/09
 
 #include "RE\ReEngAppClass.h"
 #include <SFML\Graphics.hpp>
-#include "MyBoundingSphereClass.h"
+#include "MyBoundingClass.h"
 #include "Road.h"
 #include "Vehicle.h"
 
@@ -17,12 +17,12 @@ class AppClass : public ReEngAppClass
 {
 	// position vectors - being replaced by Vehicle class
 	// vector3 m_v3OP = vector3(0.0f, 5.0f, 0.0f);
-	vector3 m_v3OT = vector3( 0.0f, -5.0f, 0.0f);
+	vector3 m_v3OT = vector3( 0.0f, 0.0f, 0.0f);
 
 	Vehicle* testVehicle;
 
-	MyBoundingSphereClass* m_BSCPlayer = nullptr;
-	MyBoundingSphereClass* m_BSCTruck = nullptr;
+	MyBoundingClass* m_BSCPlayer = nullptr;
+	MyBoundingClass* m_BSCTruck = nullptr;
 
 	//banana
 	Road* road = nullptr;

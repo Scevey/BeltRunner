@@ -3,7 +3,7 @@
 
 void AppClass::InitWindow(String a_sWindowName)
 {
-	super::InitWindow("MyBoundingSphereClass example"); // Window Name
+	super::InitWindow("MyBoundingClass example"); // Window Name
 
 	// Set the clear color based on Microsoft's CornflowerBlue (default in XNA)
 	//if this line is in Init Application it will depend on the .cfg file, if it
@@ -15,7 +15,7 @@ void AppClass::InitVariables(void)
 {
 	//Initialize positions
 	// m_v3OP = vector3(0.0f, 0.0f, 5.0f); // replaced by Vehicle class
-	m_v3OT = vector3(0.0f, 0.0f, -5.0f);
+	m_v3OT = vector3(0.0f, 0.5f, -5.0f);
 
 	//Load Models
 	m_pMeshMngr->LoadModel("Minecraft\\Steve.obj", "Steve");
@@ -29,11 +29,11 @@ void AppClass::InitVariables(void)
 
 	// Player
 	std::vector<vector3> vertexList = m_pMeshMngr->GetVertexList("Steve");
-	m_BSCPlayer = new MyBoundingSphereClass(vertexList);
+	m_BSCPlayer = new MyBoundingClass(vertexList);
 
 	// Truck
 	vertexList = m_pMeshMngr->GetVertexList("Creeper");
-	m_BSCTruck = new MyBoundingSphereClass(vertexList);
+	m_BSCTruck = new MyBoundingClass(vertexList);
 
 	//camera mumbo jumbo [banana]
 	vector3 camPos = vector3(0.0f, 10.0f, 10.0f);
@@ -86,10 +86,22 @@ void AppClass::Update(void)
 		glm::scale(vector3(m_BSCPlayer->GetRadius()) * 2.0f),
 		m_BSCPlayer->GetColor(), WIRE);
 
+	m_pMeshMngr->AddCubeToQueue(
+		m_BSCPlayer->GetModelMatrix() *
+		glm::translate(vector3(m_BSCPlayer->GetCenter())) *
+		glm::scale(vector3(m_BSCPlayer->GetSize())),
+		m_BSCPlayer->GetColor(), WIRE);
+
 	m_pMeshMngr->AddSphereToQueue(
 		m_BSCTruck->GetModelMatrix() *
 		glm::translate(vector3(m_BSCTruck->GetCenter())) *
 		glm::scale(vector3(m_BSCTruck->GetRadius()) * 2.0f),
+		m_BSCTruck->GetColor(), WIRE);
+
+	m_pMeshMngr->AddCubeToQueue(
+		m_BSCTruck->GetModelMatrix() *
+		glm::translate(vector3(m_BSCTruck->GetCenter())) *
+		glm::scale(vector3(m_BSCTruck->GetSize())),
 		m_BSCTruck->GetColor(), WIRE);
 
 	//Adds all loaded instance to the render list

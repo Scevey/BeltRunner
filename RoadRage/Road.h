@@ -6,7 +6,7 @@
 #define __ROAD_H_
 
 #include "RE\ReEng.h"
-#include "MyBoundingSphereClass.h"
+#include "MyBoundingClass.h"
 
 class Road
 {

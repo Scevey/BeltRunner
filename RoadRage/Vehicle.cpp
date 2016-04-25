@@ -104,19 +104,22 @@ void Vehicle::Update(double arg_deltaTime)
 	// ROTATION
 
 	// apply rotation acceleration to velocity
+	rotationAccel = -(velocity.x * 0.01f);
+
+	// if not turning, realign
 	if (accel == vector3(0.0f))
 	{
 		if (rotation < 0.0f)
 		{
-			rotationVel += 0.1f; // right now hardcoded
+			rotationVel += 0.2f; // right now hardcoded
 		}
 		else if(rotation > 0.0f)
 		{
-			rotationVel -= 0.1f; // right now hardcoded
+			rotationVel -= 0.2f; // right now hardcoded
 		}
 	}
-	else
-		rotationVel += rotationAccel;
+	
+	rotationVel += rotationAccel;
 
 	// apply rotation velocity to rotation angle
 	rotation += rotationVel;
@@ -125,7 +128,7 @@ void Vehicle::Update(double arg_deltaTime)
 	rotation = fmod(rotation, 360.0f);
 
 	// apply friction
-	rotation *= friction;
+	rotationVel *= friction;
 
 	// update the model matrix
 	modelWorld = glm::translate(posForward) * glm::rotate(rotation, vector3(0.0f, 1.0f, 0.0f)) *
@@ -150,7 +153,6 @@ void Vehicle::AddForce(vector3 arg_force)
 
 	// add to acceleration
 	accel += force;
-	rotationAccel -= force.x * 0.1f;
 }
 
 matrix4 Vehicle::GetModelMatrix(void)
