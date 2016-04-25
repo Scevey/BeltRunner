@@ -109,6 +109,7 @@ xcopy "$(SolutionDir)include\RE\Shaders" "$(SolutionDir)_Binary\Shaders" /y</Com
     <ClInclude Include="AppClass.h" />
     <ClInclude Include="Box.h" />
     <ClInclude Include="Car.h" />
+    <ClInclude Include="Crate.h" />
     <ClInclude Include="MyBoundingClass.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="Road.h" />
@@ -121,6 +122,7 @@ xcopy "$(SolutionDir)include\RE\Shaders" "$(SolutionDir)_Binary\Shaders" /y</Com
   <ItemGroup>
     <ClCompile Include="AppClass.cpp" />
     <ClCompile Include="AppClassControls.cpp" />
+    <ClCompile Include="Crate.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MyBoundingClass.cpp" />
     <ClCompile Include="Physics.cpp" />

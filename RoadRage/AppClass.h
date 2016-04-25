@@ -10,6 +10,7 @@ Date: 2015/09
 #include "MyBoundingClass.h"
 #include "Road.h"
 #include "Vehicle.h"
+#include "Crate.h"
 
 using namespace ReEng; //Using ReEng namespace to use all the classes in the dll
 
@@ -20,10 +21,12 @@ class AppClass : public ReEngAppClass
 	vector3 m_v3OT = vector3( 0.0f, 0.0f, 0.0f);
 
 	Vehicle* testVehicle;
-
+	Crate* fluffCrate1;
+	Crate* fluffCrate2;
+	Crate* crate;
 	MyBoundingClass* m_BSCPlayer = nullptr;
 	MyBoundingClass* m_BSCTruck = nullptr;
-
+	MyBoundingClass* m_BSCCrate = nullptr;
 	//banana
 	Road* road = nullptr;
 

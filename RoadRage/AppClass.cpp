@@ -20,19 +20,19 @@ void AppClass::InitVariables(void)
 	//Load Models
 	m_pMeshMngr->LoadModel("car.obj", "Player");
 	m_pMeshMngr->LoadModel("Truck.obj", "Truck");
-
+	m_pMeshMngr->LoadModel("crate.obj", "Crate");
 	m_pMeshMngr->LoadModel("Minecraft\\Steve.obj", "Steve2"); //banana
 	m_pMeshMngr->LoadModel("Minecraft\\Creeper.obj", "Creeper2");
 	road = new Road();
-
+	crate = new Crate();
 	testVehicle = new Vehicle();
 
 	// Player
-	std::vector<vector3> vertexList = m_pMeshMngr->GetVertexList("Steve");
+	std::vector<vector3> vertexList = m_pMeshMngr->GetVertexList("Player");
 	m_BSCPlayer = new MyBoundingClass(vertexList);
 
 	// Truck
-	vertexList = m_pMeshMngr->GetVertexList("Creeper");
+	vertexList = m_pMeshMngr->GetVertexList("Truck");
 	m_BSCTruck = new MyBoundingClass(vertexList);
 
 	//camera mumbo jumbo [banana]
@@ -75,16 +75,18 @@ void AppClass::Update(void)
 	m_pMeshMngr->SetModelMatrix(testMove, "Steve2");
 	testMove = road->Update2(deltaTime);
 	m_pMeshMngr->SetModelMatrix(testMove, "Creeper2");
+	testMove = crate->Move(deltaTime);
+	m_pMeshMngr->SetModelMatrix(testMove, "Crate");
 
 	//Indicate the FPS
 	int nFPS = m_pSystem->GetFPS();
 	
 	//Collision check goes here
-	m_pMeshMngr->AddSphereToQueue(
-		m_BSCPlayer->GetModelMatrix() *
-		glm::translate(vector3(m_BSCPlayer->GetCenter())) *
-		glm::scale(vector3(m_BSCPlayer->GetRadius()) * 2.0f),
-		m_BSCPlayer->GetColor(), WIRE);
+	//m_pMeshMngr->AddSphereToQueue(
+	//	m_BSCPlayer->GetModelMatrix() *
+	//	glm::translate(vector3(m_BSCPlayer->GetCenter())) *
+	//	glm::scale(vector3(m_BSCPlayer->GetRadius()) * 2.0f),
+	//	m_BSCPlayer->GetColor(), WIRE);
 
 	m_pMeshMngr->AddCubeToQueue(
 		m_BSCPlayer->GetModelMatrix() *
@@ -92,11 +94,11 @@ void AppClass::Update(void)
 		glm::scale(vector3(m_BSCPlayer->GetSize())),
 		m_BSCPlayer->GetColor(), WIRE);
 
-	m_pMeshMngr->AddSphereToQueue(
-		m_BSCTruck->GetModelMatrix() *
-		glm::translate(vector3(m_BSCTruck->GetCenter())) *
-		glm::scale(vector3(m_BSCTruck->GetRadius()) * 2.0f),
-		m_BSCTruck->GetColor(), WIRE);
+	//m_pMeshMngr->AddSphereToQueue(
+	//	m_BSCTruck->GetModelMatrix() *
+	//	glm::translate(vector3(m_BSCTruck->GetCenter())) *
+	//	glm::scale(vector3(m_BSCTruck->GetRadius()) * 2.0f),
+	//	m_BSCTruck->GetColor(), WIRE);
 
 	m_pMeshMngr->AddCubeToQueue(
 		m_BSCTruck->GetModelMatrix() *
@@ -187,6 +189,10 @@ void AppClass::Release(void)
 		delete testVehicle;
 		testVehicle = nullptr;
 	}
-
+	if (crate != nullptr)
+	{
+		delete crate;
+		crate= nullptr;
+	}
 	super::Release(); //release the memory of the inherited fields
 }
