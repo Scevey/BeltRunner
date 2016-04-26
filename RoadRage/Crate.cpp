@@ -50,7 +50,7 @@ matrix4 Crate::Move(double deltatime)
 
 	v3Current = glm::lerp(v3start, v3end, fPercent);
 
-	m4Crate = glm::translate(v3Current);
+	m4Crate = glm::translate(v3Current) * glm::translate(vector3(0.0f, 0.5f, 0.0f));
 	return m4Crate;
 }
 
