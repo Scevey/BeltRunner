@@ -19,6 +19,7 @@ class MyBoundingClass
 	vector3 m_v3Center = vector3(0.0f); //Will store the center point of the Sphere Class
 	vector3 m_v3Min = vector3(0.0f); //Will store the minimum vector of the Sphere Class
 	vector3 m_v3Max = vector3(0.0f); //Will store the maximum vector of the Sphere Class
+	std::vector<vector3> m_lVertexList;
 
 public:
 	/*
@@ -115,6 +116,9 @@ private:
 	OUTPUT: ---
 	*/
 	void Init(void);
+
+	void GenerateVertexList(std::vector<vector3> a_lVectorList);
+	void CalculateMinMax(void);
 };
 
 #endif //__MyBoundingClass_H__

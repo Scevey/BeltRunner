@@ -25,34 +25,13 @@ void MyBoundingClass::Release(void)
 //The big 3
 MyBoundingClass::MyBoundingClass(std::vector<vector3> a_lVectorList)
 {
-	uint nVertexCount = a_lVectorList.size();
-
-	if (nVertexCount > 0)
-	{
-		m_v3Min = a_lVectorList[0];
-		m_v3Max = a_lVectorList[0];
-	}
-
-	for (uint i = 0; i < nVertexCount; i++)
-	{
-		if (a_lVectorList[i].x > m_v3Max.x)
-			m_v3Max.x = a_lVectorList[i].x;
-		else if (a_lVectorList[i].x < m_v3Min.x)
-			m_v3Min.x = a_lVectorList[i].x;
-
-		if (a_lVectorList[i].y > m_v3Max.y)
-			m_v3Max.y = a_lVectorList[i].y;
-		else if (a_lVectorList[i].y < m_v3Min.y)
-			m_v3Min.y = a_lVectorList[i].y;
-
-		if (a_lVectorList[i].z > m_v3Max.z)
-			m_v3Max.z = a_lVectorList[i].z;
-		else if (a_lVectorList[i].z < m_v3Min.z)
-			m_v3Min.z = a_lVectorList[i].z;
-	}
+	m_lVertexList == std::vector<vector3>();
+	
+	GenerateVertexList(a_lVectorList);
+	CalculateMinMax();
 
 	m_v3Center = (m_v3Max + m_v3Min) / 2.0f;
-	m_fRadius = glm::distance(m_v3Center, m_v3Max);
+	m_fRadius = glm::distance(m_m4ToWorld*vector4(m_v3Center, 1.0f), m_m4ToWorld*vector4(m_v3Max, 1.0f));
 	m_v3Size.x = glm::distance(vector3(m_v3Min.x, 0.0, 0.0), vector3(m_v3Max.x, 0.0, 0.0));
 	m_v3Size.y = glm::distance(vector3(0.0, m_v3Min.y, 0.0), vector3(0.0, m_v3Max.y, 0.0));
 	m_v3Size.z = glm::distance(vector3(0.0f, 0.0, m_v3Min.z), vector3(0.0, 0.0, m_v3Max.z));
@@ -93,6 +72,10 @@ void MyBoundingClass::SetColor(vector3 a_color) { m_v3Color = a_color; }
 //--- Non Standard Singleton Methods
 bool MyBoundingClass::IsColliding(MyBoundingClass* const a_pOther)
 {
+	if (glm::distance(m_v3Center, a_pOther->m_v3Center) > (m_fRadius + a_pOther->m_fRadius))
+		return false;
+	CalculateMinMax();
+	a_pOther->CalculateMinMax();
 	bool bAreColliding = true;
 	vector3 vMin1 = vector3(m_m4ToWorld * vector4(m_v3Min, 1.0f));
 	vector3 vMax1 = vector3(m_m4ToWorld * vector4(m_v3Max, 1.0f));
@@ -181,4 +164,78 @@ bool MyBoundingClass::IsColliding(MyBoundingClass* const a_pOther)
 	}
 	
 	return bAreColliding;*/
+}
+
+void MyBoundingClass::GenerateVertexList(std::vector<vector3> a_lVectorList) {
+
+	uint nVertexCount = a_lVectorList.size();
+	vector3 min;
+	vector3 max;
+	if (nVertexCount > 0)
+	{
+		min = a_lVectorList[0];
+		max = a_lVectorList[0];
+	}
+
+	for (uint i = 0; i < nVertexCount; i++)
+	{
+		vector3 vec = a_lVectorList[i];
+		if (vec.x > max.x)
+			max.x = vec.x;
+		else if (vec.x < min.x)
+			min.x = vec.x;
+
+		if (vec.y > max.y)
+			max.y = vec.y;
+		else if (vec.y < min.y)
+			min.y = vec.y;
+
+		if (vec.z > max.z)
+			max.z = vec.z;
+		else if (vec.z < min.z)
+			min.z = vec.z;
+	}
+	//min = static_cast<vector3>(glm::inverse(m_m4ToWorld) * vector4(min, 1.0f));
+	//max = static_cast<vector3>(glm::inverse(m_m4ToWorld) * vector4(max, 1.0f));
+
+	m_lVertexList.push_back(vector3(min.x, min.y, min.z));
+	m_lVertexList.push_back(vector3(min.x, min.y, max.z));
+	m_lVertexList.push_back(vector3(min.x, max.y, min.z));
+	m_lVertexList.push_back(vector3(min.x, max.y, max.z));
+	m_lVertexList.push_back(vector3(max.x, min.y, min.z));
+	m_lVertexList.push_back(vector3(max.x, min.y, max.z));
+	m_lVertexList.push_back(vector3(max.x, max.y, min.z));
+	m_lVertexList.push_back(vector3(max.x, max.y, max.z));
+}
+
+void MyBoundingClass::CalculateMinMax(void) {
+	uint nVertexCount = m_lVertexList.size();
+	vector3 min;
+	vector3 max;
+	if (nVertexCount > 0)
+	{
+		min = static_cast<vector3>(m_m4ToWorld * vector4(m_lVertexList[0], 1.0f));
+		max = static_cast<vector3>(m_m4ToWorld * vector4(m_lVertexList[0], 1.0f));
+	}
+
+	for (uint i = 0; i < nVertexCount; i++)
+	{
+		vector3 vec = static_cast<vector3>(m_m4ToWorld * vector4(m_lVertexList[i], 1.0f));
+		if (vec.x > max.x)
+			max.x = vec.x;
+		else if (vec.x < min.x)
+			min.x = vec.x;
+
+		if (vec.y > max.y)
+			max.y = vec.y;
+		else if (vec.y < min.y)
+			min.y = vec.y;
+
+		if (vec.z > max.z)
+			max.z = vec.z;
+		else if (vec.z < min.z)
+			min.z = vec.z;
+	}
+	m_v3Min = static_cast<vector3>(glm::inverse(m_m4ToWorld) * vector4(min, 1.0f));
+	m_v3Max = static_cast<vector3>(glm::inverse(m_m4ToWorld) * vector4(max, 1.0f));
 }
