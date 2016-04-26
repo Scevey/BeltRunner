@@ -35,6 +35,10 @@ void AppClass::InitVariables(void)
 	vertexList = m_pMeshMngr->GetVertexList("Truck");
 	m_BSCTruck = new MyBoundingClass(vertexList);
 
+	// Crate
+	vertexList = m_pMeshMngr->GetVertexList("Crate");
+	m_BSCCrate = new MyBoundingClass(vertexList);
+
 	//camera mumbo jumbo [banana]
 	vector3 camPos = vector3(0.0f, 10.0f, 10.0f);
 	vector3 camTar = vector3(0.0f, 0.0f, 0.0f);
@@ -72,8 +76,10 @@ void AppClass::Update(void)
 	//Set the model matrices for both objects and Bounding Spheres
 	m_pMeshMngr->SetModelMatrix(glm::translate(vector3(0.0f, 0.5f, 0.0f)) * testVehicle->GetModelMatrix() * ToMatrix4(m_qArcBall), "Player");
 	m_pMeshMngr->SetModelMatrix(glm::translate(vector3(0.0f, 0.5f, 0.0f)) * glm::translate(m_v3OT), "Truck");
+	
 	m_BSCPlayer->SetModelMatrix(glm::translate(vector3(0.0f, 0.5f, 0.0f)) * testVehicle->GetModelMatrix() * ToMatrix4(m_qArcBall));
 	m_BSCTruck->SetModelMatrix(glm::translate(vector3(0.0f, 0.5f, 0.0f)) * glm::translate(m_v3OT));
+	m_BSCCrate->SetModelMatrix(glm::translate(vector3(0.0f, 0.5f, 0.0f)) * crate->Move(deltaTime) * ToMatrix4(m_qArcBall)); //crate has no GetModelMatrix function yet, this is a stand-in
 	
 	matrix4 testMove = road->Update1(deltaTime);
 
@@ -112,6 +118,12 @@ void AppClass::Update(void)
 		glm::scale(vector3(m_BSCTruck->GetSize())),
 		m_BSCTruck->GetColor(), WIRE);
 
+	m_pMeshMngr->AddCubeToQueue(
+		m_BSCCrate->GetModelMatrix() *
+		glm::translate(vector3(m_BSCCrate->GetCenter())) *
+		glm::scale(vector3(m_BSCCrate->GetSize())),
+		m_BSCCrate->GetColor(), WIRE);
+
 	//Adds all loaded instance to the render list
 	m_pMeshMngr->AddInstanceToRenderList("ALL");
 
@@ -134,7 +146,7 @@ void AppClass::Update(void)
 	m_pMeshMngr->PrintLine(std::to_string(debug.z), REYELLOW);
 	*/
 
-	if (m_BSCPlayer->IsColliding(m_BSCTruck))
+	if (m_BSCPlayer->IsColliding(m_BSCCrate))
 	{
 		m_pMeshMngr->PrintLine("They are colliding! >_<", RERED);
 		
