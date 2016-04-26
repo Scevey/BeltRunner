@@ -1,0 +1,15 @@
+newmtl Truck:ZIS5glas
+illum 4
+Kd 0.30 0.40 0.20
+Ka 0.30 0.40 0.20
+Tf 0.50 0.50 0.50
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 0.50
+newmtl lambert2SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd road.png
+Ni 1.00

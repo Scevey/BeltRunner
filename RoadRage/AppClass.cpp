@@ -21,8 +21,8 @@ void AppClass::InitVariables(void)
 	m_pMeshMngr->LoadModel("car.obj", "Player");
 	m_pMeshMngr->LoadModel("Truck.obj", "Truck");
 	m_pMeshMngr->LoadModel("crate.obj", "Crate");
-	m_pMeshMngr->LoadModel("roadModel-NoTex.obj", "Steve2"); //banana
-	m_pMeshMngr->LoadModel("roadModel-NoTex.obj", "Creeper2");
+	m_pMeshMngr->LoadModel("roadModel-Tex.obj", "Steve2"); //banana
+	m_pMeshMngr->LoadModel("roadModel-Tex.obj", "Creeper2");
 	road = new Road();
 	crate = new Crate();
 	testVehicle = new Vehicle();
