@@ -18,9 +18,9 @@ void AppClass::InitVariables(void)
 	m_v3OT = vector3(0.0f, 0.0f, -5.0f);
 
 	//Load Models
-	m_pMeshMngr->LoadModel("Minecraft\\Steve.obj", "Player");
-	m_pMeshMngr->LoadModel("Minecraft\\Creeper.obj", "Truck");
-	m_pMeshMngr->LoadModel("Minecraft\\Creeper.obj", "Crate");
+	m_pMeshMngr->LoadModel("car.obj", "Player");
+	m_pMeshMngr->LoadModel("Truck.obj", "Truck");
+	m_pMeshMngr->LoadModel("crate.obj", "Crate");
 	m_pMeshMngr->LoadModel("roadModel-NoTex.obj", "Steve2"); //banana
 	m_pMeshMngr->LoadModel("roadModel-NoTex.obj", "Creeper2");
 	road = new Road();
