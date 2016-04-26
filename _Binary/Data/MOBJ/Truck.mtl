@@ -1,3 +1,19 @@
+newmtl Truck:ZIS5blck
+illum 4
+Kd 0.20 0.20 0.20
+Ka 0.20 0.20 0.20
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.90 0.90 0.90
+Ns 0.50
+newmtl Truck:ZIS5chro
+illum 4
+Kd 0.50 0.50 0.50
+Ka 0.50 0.50 0.50
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.90 0.90 0.90
+Ns 0.50
 newmtl Truck:ZIS5glas
 illum 4
 Kd 0.30 0.40 0.20
@@ -6,47 +22,7 @@ Tf 0.50 0.50 0.50
 Ni 1.00
 Ks 1.00 1.00 1.00
 Ns 0.50
-newmtl Truck2:ZIS5blck
-illum 4
-Kd 0.20 0.20 0.20
-Ka 0.20 0.20 0.20
-Tf 1.00 1.00 1.00
-Ni 1.00
-Ks 0.90 0.90 0.90
-Ns 0.50
-newmtl Truck2:ZIS5chro
-illum 4
-Kd 0.50 0.50 0.50
-Ka 0.50 0.50 0.50
-Tf 1.00 1.00 1.00
-Ni 1.00
-Ks 0.90 0.90 0.90
-Ns 0.50
-newmtl Truck2:ZIS5glas
-illum 4
-Kd 0.30 0.40 0.20
-Ka 0.30 0.40 0.20
-Tf 0.50 0.50 0.50
-Ni 1.00
-Ks 1.00 1.00 1.00
-Ns 0.50
-newmtl Truck2:ZIS5glas2
-illum 4
-Kd 0.30 0.40 0.20
-Ka 0.30 0.40 0.20
-Tf 0.50 0.50 0.50
-Ni 1.00
-Ks 1.00 1.00 1.00
-Ns 0.50
-newmtl Truck2:ZIS5glas4
-illum 4
-Kd 0.30 0.40 0.20
-Ka 0.30 0.40 0.20
-Tf 0.50 0.50 0.50
-Ni 1.00
-Ks 1.00 1.00 1.00
-Ns 0.50
-newmtl Truck2:ZIS5gold
+newmtl Truck:ZIS5gold
 illum 4
 Kd 0.40 0.40 0.40
 Ka 0.40 0.40 0.40
@@ -54,7 +30,7 @@ Tf 1.00 1.00 1.00
 Ni 1.00
 Ks 0.90 0.90 0.90
 Ns 0.50
-newmtl Truck2:ZIS5ligh
+newmtl Truck:ZIS5ligh
 illum 4
 Kd 0.80 0.80 0.80
 Ka 0.80 0.80 0.80
@@ -62,7 +38,7 @@ Tf 0.00 0.00 0.00
 Ni 1.00
 Ks 0.90 0.90 0.90
 Ns 0.50
-newmtl Truck2:ZIS5main
+newmtl Truck:ZIS5main
 illum 4
 Kd 0.50 0.50 0.40
 Ka 0.50 0.50 0.40
@@ -70,7 +46,7 @@ Tf 1.00 1.00 1.00
 Ni 1.00
 Ks 0.90 0.90 0.90
 Ns 0.50
-newmtl Truck2:ZIS5mark
+newmtl Truck:ZIS5mark
 illum 4
 Kd 0.30 0.30 0.30
 Ka 0.30 0.30 0.30
@@ -78,7 +54,15 @@ Tf 1.00 1.00 1.00
 Ni 1.00
 Ks 0.90 0.90 0.90
 Ns 0.50
-newmtl Truck2:ZIS5net
+newmtl Truck:ZIS5ne4
+illum 4
+Kd 0.70 0.70 0.70
+Ka 0.70 0.70 0.70
+Tf 0.80 0.80 0.80
+Ni 1.00
+Ks 0.90 0.90 0.90
+Ns 0.50
+newmtl Truck:ZIS5net
 illum 4
 Kd 0.60 0.60 0.60
 Ka 0.60 0.60 0.60
@@ -86,7 +70,7 @@ Tf 1.00 1.00 1.00
 Ni 1.00
 Ks 0.90 0.90 0.90
 Ns 0.50
-newmtl Truck2:ZIS5stel
+newmtl Truck:ZIS5stel
 illum 4
 Kd 0.40 0.40 0.40
 Ka 0.40 0.40 0.40
@@ -94,7 +78,7 @@ Tf 1.00 1.00 1.00
 Ni 1.00
 Ks 0.90 0.90 0.90
 Ns 0.50
-newmtl Truck2:ZIS5whel
+newmtl Truck:ZIS5whel
 illum 4
 Kd 0.50 0.50 0.40
 Ka 0.50 0.50 0.40
@@ -102,7 +86,7 @@ Tf 1.00 1.00 1.00
 Ni 1.00
 Ks 0.90 0.90 0.90
 Ns 0.50
-newmtl Truck2:ZIS5wiFR
+newmtl Truck:ZIS5wiFR
 illum 4
 Kd 0.50 0.50 0.50
 Ka 0.50 0.50 0.50
@@ -110,7 +94,7 @@ Tf 1.00 1.00 1.00
 Ni 1.00
 Ks 0.90 0.90 0.90
 Ns 0.50
-newmtl Truck2:ZIS5wood3
+newmtl Truck:ZIS5wood1
 illum 4
 Kd 0.50 0.50 0.40
 Ka 0.50 0.50 0.40
@@ -118,7 +102,7 @@ Tf 1.00 1.00 1.00
 Ni 1.00
 Ks 0.90 0.90 0.90
 Ns 0.50
-newmtl Truck2:ZIS5503
+newmtl Truck:ZIS5503
 illum 4
 Kd 0.70 0.70 0.70
 Ka 0.70 0.70 0.70
@@ -126,59 +110,3 @@ Tf 1.00 1.00 1.00
 Ni 1.00
 Ks 0.90 0.90 0.90
 Ns 0.50
-newmtl Truck2:phong1SG
-illum 4
-Kd 0.00 0.00 0.00
-Ka 0.00 0.00 0.00
-Tf 1.00 1.00 1.00
-map_Kd woodtex.png
-Ni 1.00
-newmtl Truck2:phong1SG2
-illum 4
-Kd 0.00 0.00 0.00
-Ka 0.00 0.00 0.00
-Tf 1.00 1.00 1.00
-map_Kd woodtex.png
-Ni 1.00
-newmtl Truck2:phong1SG4
-illum 4
-Kd 0.00 0.00 0.00
-Ka 0.00 0.00 0.00
-Tf 1.00 1.00 1.00
-map_Kd woodtex.png
-Ni 1.00
-newmtl Truck2:phong1SG6
-illum 4
-Kd 0.00 0.00 0.00
-Ka 0.00 0.00 0.00
-Tf 1.00 1.00 1.00
-map_Kd woodtex.png
-Ni 1.00
-newmtl Truck2:phong1SG8
-illum 4
-Kd 0.00 0.00 0.00
-Ka 0.00 0.00 0.00
-Tf 1.00 1.00 1.00
-map_Kd woodtex.png
-Ni 1.00
-newmtl Truck2:phong1SG10
-illum 4
-Kd 0.00 0.00 0.00
-Ka 0.00 0.00 0.00
-Tf 1.00 1.00 1.00
-map_Kd woodtex.png
-Ni 1.00
-newmtl Truck2:phong1SG12
-illum 4
-Kd 0.00 0.00 0.00
-Ka 0.00 0.00 0.00
-Tf 1.00 1.00 1.00
-map_Kd woodtex.png
-Ni 1.00
-newmtl Truck2:phong1SG14
-illum 4
-Kd 0.00 0.00 0.00
-Ka 0.00 0.00 0.00
-Tf 1.00 1.00 1.00
-map_Kd woodtex.png
-Ni 1.00

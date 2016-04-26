@@ -114,7 +114,7 @@ matrix4 Road::Update1(double deltatime)
 		hit1 = true;
 	}*/
 
-	m4Segment1 = glm::translate(v3Current);
+	m4Segment1 = glm::translate(v3Current) * glm::translate(0.0f,-0.05f,0.0f);
 	return m4Segment1;
 }
 
@@ -139,7 +139,7 @@ matrix4 Road::Update2(double deltatime)
 
 	v3Current = glm::lerp(v3start, v3end, fPercent2);
 
-	m4Segment2 = glm::translate(v3Current);
+	m4Segment2 = glm::translate(v3Current) * glm::translate(0.0f, -0.05f, 0.0f);
 	return m4Segment2;
 }
 
