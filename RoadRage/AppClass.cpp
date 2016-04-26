@@ -41,6 +41,9 @@ void AppClass::InitVariables(void)
 	vector3 camUp = vector3(0.0f, 1.0f, 0.0f);
 	m_pCameraMngr->SetPositionTargetAndView(camPos, camTar, camUp);
 	//end camera mumbo jumbo
+
+	//number of collisions
+	collisions = 0;
 }
 
 void AppClass::Update(void)
@@ -50,6 +53,9 @@ void AppClass::Update(void)
 
 	// find elapsed time [banana]
 	double deltaTime = m_pSystem->LapClock();
+
+	//increase score with time
+	score += deltaTime;
 
 	//Update the mesh manager's time without updating for collision detection
 	m_pMeshMngr->Update();
@@ -129,11 +135,25 @@ void AppClass::Update(void)
 	*/
 
 	if (m_BSCPlayer->IsColliding(m_BSCTruck))
+	{
 		m_pMeshMngr->PrintLine("They are colliding! >_<", RERED);
+		
+		//decrease score by 20 when colliding
+		score -= 20;
+
+		//update count of collisions
+		collisions++;
+	}	
 	else
 		m_pMeshMngr->PrintLine("They are not colliding! =)", REGREEN);
 	m_pMeshMngr->Print("FPS:");
 	m_pMeshMngr->Print(std::to_string(nFPS), RERED);
+
+	m_pMeshMngr->Print("Score:");
+	m_pMeshMngr->PrintLine(std::to_string(score));
+
+	m_pMeshMngr->Print("Collisions:");
+	m_pMeshMngr->PrintLine(std::to_string(collisions));
 }
 
 void AppClass::Display(void)

@@ -29,6 +29,8 @@ class AppClass : public ReEngAppClass
 	MyBoundingClass* m_BSCCrate = nullptr;
 	//banana
 	Road* road = nullptr;
+	double score = 0.0;
+	int collisions;
 
 public:
 	typedef ReEngAppClass super;
