@@ -7,7 +7,7 @@ Date: 2015/09
 
 #include "RE\ReEngAppClass.h"
 #include <SFML\Graphics.hpp>
-#include <SFML\Audio.hpp>
+//#include <SFML\Audio.hpp>
 #include "MyBoundingClass.h"
 #include "Road.h"
 #include "Vehicle.h"
@@ -33,7 +33,7 @@ class AppClass : public ReEngAppClass
 	double score = 0.0;
 	int collisions;
 
-	sf::Music soundBGM;
+	//sf::Music soundBGM;
 
 public:
 	typedef ReEngAppClass super;

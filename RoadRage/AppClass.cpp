@@ -73,6 +73,22 @@ void AppClass::Update(void)
 	// Update Vehicle
 	testVehicle->Update(deltaTime);
 
+	//boundaries will abstract into a method later
+	vector3 posV = testVehicle->GetPosition();
+	if (posV.x >= 8.0f) {
+		posV.x = 8;
+	}
+	if (posV.z >= 5.0f) {
+		posV.z = 5;
+	}
+	if (posV.x <= -5.0f) {
+		posV.x = -5;
+	}
+	if (posV.z <= -8.0f) {
+		posV.z = -8;
+	}
+	testVehicle->SetPosition(posV);
+
 	//Set the model matrices for both objects and Bounding Spheres
 	m_pMeshMngr->SetModelMatrix(glm::translate(vector3(0.0f, 0.5f, 0.0f)) * testVehicle->GetModelMatrix() * ToMatrix4(m_qArcBall), "Player");
 	m_pMeshMngr->SetModelMatrix(glm::translate(vector3(0.0f, 0.5f, 0.0f)) * glm::translate(m_v3OT), "Truck");

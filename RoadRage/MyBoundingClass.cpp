@@ -64,7 +64,8 @@ float MyBoundingClass::GetRadius(void) { return m_fRadius; }
 matrix4 MyBoundingClass::GetModelMatrix(void) { return m_m4ToWorld; }
 vector3 MyBoundingClass::GetColor(void) { return m_v3Color; }
 vector3 MyBoundingClass::GetSize(void) { return m_v3Size; }
-
+vector3 MyBoundingClass::GetMin(void) { return vector3(/*m_m4ToWorld * */vector4(m_v3Min, 1.0f)); }
+vector3 MyBoundingClass::GetMax(void) { return vector3(/*m_m4ToWorld * */vector4(m_v3Max, 1.0f)); }
 // Modifiers
 void MyBoundingClass::SetModelMatrix(matrix4 a_m4ToWorld) { m_m4ToWorld = a_m4ToWorld; }
 void MyBoundingClass::SetColor(vector3 a_color) { m_v3Color = a_color; }

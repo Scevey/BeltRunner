@@ -146,6 +146,10 @@ vector3 Physics::GetPosition(void)
 {
 	return position;
 }
+void Physics::SetPosition(vector3 n_position)
+{
+	position = n_position;
+}
 
 void Physics::HandleRotation(void)
 {}
