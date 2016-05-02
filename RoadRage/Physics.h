@@ -102,6 +102,7 @@ public:
 	void SetFriction(float arg_friction);
 
 	*/
+	void CheckBounds(vector3 position);
 	matrix4 GetModelMatrix(void);
 	vector3 GetPosition(void);
 	void SetPosition(vector3 arg_position);

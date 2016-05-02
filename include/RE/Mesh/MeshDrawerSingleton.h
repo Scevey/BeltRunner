@@ -74,31 +74,37 @@ class ReEngDLL MeshDrawerSingleton
 	MaterialManagerSingleton* m_pMatMngr = nullptr;		//Material Manager
 	CameraManagerSingleton* m_pCameraMngr = nullptr;//Pointer to the singleton of CameraSingleton
 	std::map<String,int> m_map; //Identifies the objects in the list.
+
+	MeshClass* m_pPlane = nullptr;
 public:
 
-	/* Gets/Constructs the singleton pointer */
 	/*
-	 USAGE:
+	USAGE: Gets/Constructs the singleton pointer 
 	ARGUMENTS:
 	OUTPUT:
 	*/
 	static MeshDrawerSingleton* GetInstance();
 
-	/* Destroys the singleton */
 	/*
-	 USAGE:
+	USAGE: Destroys the singleton
 	ARGUMENTS: ---
 	OUTPUT: ---
 	*/
 	static void ReleaseInstance(void);
 
-	/* Adds a mesh to the mesh list*/
 	/*
-	 USAGE:
+	USAGE: Adds a mesh to the mesh list
 	ARGUMENTS:
 	OUTPUT:
 	*/
 	int AddMesh(MeshClass* a_pMesh);
+
+	/*
+	USAGE: Renders the specified texture on a plane right in front of the camera
+	ARGUMENTS: GLuint a_uGLIndex index of the texture in opengl (not in the texture manager)
+	OUTPUT: ---
+	*/
+	void RenderTexture(GLuint a_uGLIndex);
 
 	/*
 	USAGE: Gets the total number of instances currently able to hold
@@ -114,150 +120,132 @@ public:
 	*/
 	void SetInstanceCapacity(int a_Input);
 
-	/* Gets the mesh pointer from the vector specified by name */
 	/*
-	 USAGE:
+	USAGE: Gets the mesh pointer from the vector specified by name 
 	ARGUMENTS:
 	OUTPUT:
 	*/
 	MeshClass* GetMesh(String a_sName);
 
-	/* Gets the mesh pointer from the vector specified by index */
 	/*
-	 USAGE:
+	USAGE: Gets the mesh pointer from the vector specified by index
 	ARGUMENTS:
 	OUTPUT:
 	*/
 	MeshClass* GetMesh(int a_nIndex);
 
-	/* Gets the mesh index from the vector specified by name */
 	/*
-	 USAGE:
+	USAGE: Gets the mesh index from the vector specified by name
 	ARGUMENTS:
 	OUTPUT:
 	*/
 	int GetMeshIndex(String a_sName);
 
-	/* Renders a mesh on the specified space */
 	/*
-	 USAGE:
+	USAGE: Renders a mesh on the specified space
 	ARGUMENTS:
 	OUTPUT: ---
 	*/
 	void AddMeshToRenderList(MeshClass* a_pMesh, matrix4& a_m4ToWorld);
 
-	/* Renders a mesh on the specified space */
 	/*
-	 USAGE:
+	USAGE: Renders a mesh on the specified space
 	ARGUMENTS:
 	OUTPUT: ---
 	*/
 	void AddMeshToRenderList(int  a_nIndex, matrix4& a_m4ToWorld);
 
-	/* Renders the list of meshes */
 	/*
-	 USAGE:
+	USAGE: Renders the list of meshes
 	ARGUMENTS: ---
 	OUTPUT: ---
 	*/
 	void Render(void);
 
-	/* Renders the shape asking for its position in the world */
 	/*
-	 USAGE:
+	USAGE: Renders the shape asking for its position in the world
 	ARGUMENTS:
 	OUTPUT: ---
 	*/
 	virtual void RenderMesh(MeshClass* a_pMesh, matrix4 a_mToWorld);
 	
-	/* Renders the shape */
 	/*
-	 USAGE:
+	USAGE: Renders the shape 
 	ARGUMENTS:
 	OUTPUT: ---
 	*/
 	virtual void RenderMesh(MeshClass* a_pMesh, float* a_fMatrixArray, int a_nInstances);
 
-	/* Renders the shape asking for its position in the world and a color */
 	/*
-	 USAGE:
+	USAGE: Renders the shape asking for its position in the world and a color
 	ARGUMENTS:
 	OUTPUT: ---
 	*/
 	virtual void RenderMeshWire(MeshClass* a_pMesh, matrix4 a_mToWorld, vector3 a_v3Color);
 
-	/* Renders the shape asking for its position in the world and a color */
 	/*
-	 USAGE:
+	USAGE: Renders the shape asking for its position in the world and a color
 	ARGUMENTS:
 	OUTPUT: ---
 	*/
 	virtual void RenderMeshSolid(MeshClass* a_pMesh, matrix4 a_mToWorld, vector3 a_v3Color);
 
-private:
-	/* Constructor */
 	/*
-	 USAGE:
+	USAGE: Resets the render list
+	ARGUMENTS: ---
+	OUTPUT: ---
+	*/
+	void ResetList(void);
+
+private:
+	/*
+	USAGE: Constructor
 	ARGUMENTS: ---
 	OUTPUT:
 	*/
 	MeshDrawerSingleton(void);
 
-	/* Copy Constructor */
 	/*
-	 USAGE:
+	USAGE: Copy Constructor
 	ARGUMENTS:
 	OUTPUT:
 	*/
 	MeshDrawerSingleton(MeshDrawerSingleton const& other);
 
-	/* Copy Assignment Operator */
 	/*
-	 USAGE:
+	USAGE: Copy Assignment Operator
 	ARGUMENTS:
 	OUTPUT:
 	*/
 	MeshDrawerSingleton& operator=(MeshDrawerSingleton const& other);
 
-	/* Destructor */
 	/*
-	 USAGE:
+	USAGE: Destructor
 	ARGUMENTS: ---
 	OUTPUT: ---
 	*/
 	~MeshDrawerSingleton(void);
 
-	/* Returns the index of the mesh in the list of meshes */
 	/*
-	 USAGE:
+	USAGE: Returns the index of the mesh in the list of meshes
 	ARGUMENTS:
 	OUTPUT:
 	*/
 	int IdentifyMesh(MeshClass* a_pMesh);
 
-	/* Initializates the objects fields */
 	/*
-	 USAGE:
+	USAGE: Initializates the objects fields
 	ARGUMENTS: ---
 	OUTPUT: ---
 	*/
 	void Init(void);
 
-	/* Releases the objects memory */
 	/*
-	 USAGE:
+	USAGE: Releases the objects memory
 	ARGUMENTS: ---
 	OUTPUT: ---
 	*/
 	void Release(void);
-
-	/* Resets the render list */
-	/*
-	 USAGE:
-	ARGUMENTS: ---
-	OUTPUT: ---
-	*/
-	void ResetList(void);
 };
 
 }

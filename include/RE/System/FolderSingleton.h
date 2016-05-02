@@ -24,6 +24,7 @@ class ReEngDLL FolderSingleton
 	String m_sFBX = "";
 	String m_sOBJ = "";
 	String m_sLVL = "";
+	String m_sAudio = "";
 	String m_sTextures = "";
 	String m_sShaders = "";
 	String m_sAddOn = "";
@@ -78,20 +79,31 @@ public:
 	//__declspec(property(put = SetFolderData, get = GetFolderData)) String Data;
 
 	/*
-	
 	USAGE:
 	ARGUMENTS:
 	OUTPUT: ---
 	*/
 	void SetFolderM3DS(String a_sInput);
 	/*
-	
 	USAGE:
 	ARGUMENTS: ---
 	OUTPUT:
 	*/
 	String GetFolderM3DS(void);
 	//__declspec(property(put = SetFolderM3DS, get = GetFolderM3DS)) String M3DS;
+
+	/*
+	USAGE:
+	ARGUMENTS:
+	OUTPUT: ---
+	*/
+	void SetFolderAudio(String a_sInput);
+	/*
+	USAGE:
+	ARGUMENTS: ---
+	OUTPUT:
+	*/
+	String GetFolderAudio(void);
 
 	/*
 	

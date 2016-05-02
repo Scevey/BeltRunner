@@ -92,6 +92,42 @@ namespace ReEng
 		*/
 		vector3 GetPosition(int a_nIndex = -1);
 		/*
+		USAGE:  Gets the forward vector of the camera
+		ARGUMENTS: ---
+		OUTPUT:
+		*/
+		vector3 GetForward(int a_nIndex = -1);
+		/*
+		USAGE:  Gets the upward vector of the camera
+		ARGUMENTS: ---
+		OUTPUT:
+		*/
+		vector3 GetUpward(int a_nIndex = -1);
+		/*
+		USAGE:  Gets the sidewards vector of the camera
+		ARGUMENTS: ---
+		OUTPUT:
+		*/
+		vector3 GetRightward(int a_nIndex = -1);
+		/*
+		USAGE:  Sets the Forward vector of the camera
+		ARGUMENTS: input
+		OUTPUT: ---
+		*/
+		void SetForward(vector3 a_v3Input, int a_nIndex = -1);
+		/*
+		USAGE:  Sets the Upward vector of the camera
+		ARGUMENTS: input
+		OUTPUT: ---
+		*/
+		void SetUpward(vector3 a_v3Input, int a_nIndex = -1);
+		/*
+		USAGE:  Sets the Forward vector of the camera
+		ARGUMENTS: input
+		OUTPUT: ---
+		*/
+		void SetRightward(vector3 a_v3Input, int a_nIndex = -1);
+		/*
 		USAGE: Sets the camera specified by index at the specified position and target, if -1 it will use the active camera
 		ARGUMENTS:
 			int a_nIndex = -1 -> Index of the camera, -1 will use the active camera's index

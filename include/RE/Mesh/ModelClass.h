@@ -329,14 +329,61 @@ public:
 	*/
 	REERRORS LoadATO(String a_sFileName, bool a_bAbsoluteRoute = false);
 
-	/* Loads a model from an BTO file*/
 	/*
-	 
-	USAGE:
+	USAGE: Loads a model from an BTO file
 	ARGUMENTS:
 	OUTPUT:
 	*/
 	REERRORS LoadBTO(String a_sFileName, bool a_bAbsoluteRoute = false);
+
+	/*
+	USAGE:
+	ARGUMENTS:
+	OUTPUT:
+	*/
+	void GenerateCube(float a_fSize, vector3 a_v3Color);
+
+	/*
+	USAGE:
+	ARGUMENTS:
+	OUTPUT:
+	*/
+	void GenerateCuboid(vector3 a_v3Dimentions, vector3 a_v3Color);
+
+	/*
+	USAGE:
+	ARGUMENTS:
+	OUTPUT:
+	*/
+	void GenerateCone(float a_fRadius, float a_fHeight, int a_nSubdivisions, vector3 a_v3Color);
+
+	/*
+	USAGE:
+	ARGUMENTS:
+	OUTPUT:
+	*/
+	void GenerateCylinder(float a_fRadius, float a_fHeight, int a_nSubdivisions, vector3 a_v3Color);
+
+	/*
+	USAGE:
+	ARGUMENTS:
+	OUTPUT:
+	*/
+	void GenerateTube(float a_fOuterRadius, float a_fInnerRadius, float a_fHeight, int a_nSubdivisions, vector3 a_v3Color);
+
+	/*
+	USAGE:
+	ARGUMENTS:
+	OUTPUT:
+	*/
+	void GenerateTorus(float a_fOuterRadius, float a_fInnerRadius, int a_nSubdivisionHeight, int a_nSubdivisionAxis, vector3 a_v3Color);
+
+	/*
+	USAGE:
+	ARGUMENTS:
+	OUTPUT:
+	*/
+	void GenerateSphere(float a_fDiameter, int a_nSubdivisions, vector3 a_v3Color);
 
 #ifdef FBXSDK_SHARED
 	/* Loads a model from an BTO file*/

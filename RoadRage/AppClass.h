@@ -12,7 +12,7 @@ Date: 2015/09
 #include "Road.h"
 #include "Vehicle.h"
 #include "Crate.h"
-
+#include "MyBOManager.h"
 using namespace ReEng; //Using ReEng namespace to use all the classes in the dll
 
 class AppClass : public ReEngAppClass
@@ -20,14 +20,12 @@ class AppClass : public ReEngAppClass
 	// position vectors - being replaced by Vehicle class
 	// vector3 m_v3OP = vector3(0.0f, 5.0f, 0.0f);
 	vector3 m_v3OT = vector3( 0.0f, 0.0f, 0.0f);
-
+	MyBOManager* m_pBOMngr;
 	Vehicle* testVehicle;
 	Crate* fluffCrate1;
 	Crate* fluffCrate2;
 	Crate* crate;
-	MyBoundingClass* m_BSCPlayer = nullptr;
-	MyBoundingClass* m_BSCTruck = nullptr;
-	MyBoundingClass* m_BSCCrate = nullptr;
+	
 	//banana
 	Road* road = nullptr;
 	double score = 0.0;

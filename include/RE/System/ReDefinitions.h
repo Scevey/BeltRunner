@@ -73,6 +73,7 @@ typedef glm::quat quaternion;
 #define REGREENDARK vector3(0.0f, 5.0f, 0.0f)
 #define RELIME vector3(0.33f,0.90f,0.33f)
 
+#define RECORNFLOWERBLUE vector3(0.4f, 0.6f, 0.9f)
 #define REBLUE vector3(0.0f, 0.0f, 1.0f)
 #define RECYAN vector3(0.0f,1.0f,1.0f)
 
@@ -145,6 +146,44 @@ enum FORMAT
 	ATO = 0,
 	BTO = 1,
 };
+enum RESOLUTIONS
+{
+	//Resolution | Aspect Ratio | Name
+	WINDOWED,
+	//Common resolutions
+	C_720x480_4x3_NTSC,
+	C_1280x720_16x9_HD,
+	C_1920x1080_16x9_FULLHD,
+	//Monitor Resolutions
+	M_640x480_4x3_VGA,
+	M_1600x900_16x9_WXGA,
+	M_1920x1200_16x10_WUXGA,
+	M_2560x1080_21x9_UWUXGA,
+	//Other Resolutions
+	O_800x600_4x3_SVGA,
+	O_1024x768_4x3_XGA,
+	O_1280x800_16x10_WXGA,
+	O_1600x1200_4x3_UXGA,
+	O_2048x1080_17x9_2K,
+	O_3840x2160_17x9_4K,
+};
+
+/*
+MapValue
+USAGE: Will map a value from an original scale to a new scale
+ARGUMENTS:
+T valueToMap -> input value
+T originalScale_min ->  Start of the original scale
+T originalScale_max -> End of the original scale
+T mappedScale_min -> Start of the new scale
+T mappedScale_max -> end of the new scale
+OUTPUT: returns the mapped value
+*/
+template <class T>
+static T MapValue(T valueToMap, T originalScale_min, T originalScale_max, T mappedScale_min, T mappedScale_max)
+{
+	return (valueToMap - originalScale_min) * (mappedScale_max - mappedScale_min) / (originalScale_max - originalScale_min) + mappedScale_min;
+}
 
 
 }

@@ -153,3 +153,18 @@ void Physics::SetPosition(vector3 n_position)
 
 void Physics::HandleRotation(void)
 {}
+void Physics::CheckBounds(vector3 posV) {
+	if (posV.x >= 8.0f) {
+		posV.x = 8;
+	}
+	if (posV.z >= 5.0f) {
+		posV.z = 5;
+	}
+	if (posV.x <= -5.0f) {
+		posV.x = -5;
+	}
+	if (posV.z <= -8.0f) {
+		posV.z = -8;
+	}
+	SetPosition(posV);
+}

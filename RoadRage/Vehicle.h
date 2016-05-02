@@ -13,6 +13,7 @@ class Vehicle: public Physics
 {
 protected:
 	virtual void HandleRotation(void);
+
 };
 
 #endif //__VEHICLE_H__

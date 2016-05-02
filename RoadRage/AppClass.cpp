@@ -26,18 +26,10 @@ void AppClass::InitVariables(void)
 	road = new Road();
 	crate = new Crate();
 	testVehicle = new Vehicle();
-
-	// Player
-	std::vector<vector3> vertexList = m_pMeshMngr->GetVertexList("Player");
-	m_BSCPlayer = new MyBoundingClass(vertexList);
-
-	// Truck
-	vertexList = m_pMeshMngr->GetVertexList("Truck");
-	m_BSCTruck = new MyBoundingClass(vertexList);
-
-	// Crate
-	vertexList = m_pMeshMngr->GetVertexList("Crate");
-	m_BSCCrate = new MyBoundingClass(vertexList);
+	m_pBOMngr = MyBOManager::GetInstance();
+	m_pBOMngr->AddObject(m_pMeshMngr->GetVertexList("Player"), "Player");
+	m_pBOMngr->AddObject(m_pMeshMngr->GetVertexList("Truck"), "Truck");
+	m_pBOMngr->AddObject(m_pMeshMngr->GetVertexList("Crate"), "Crate");
 
 	//camera mumbo jumbo [banana]
 	vector3 camPos = vector3(0.0f, 10.0f, 10.0f);
@@ -75,71 +67,33 @@ void AppClass::Update(void)
 
 	//boundaries will abstract into a method later
 	vector3 posV = testVehicle->GetPosition();
-	if (posV.x >= 8.0f) {
-		posV.x = 8;
-	}
-	if (posV.z >= 5.0f) {
-		posV.z = 5;
-	}
-	if (posV.x <= -5.0f) {
-		posV.x = -5;
-	}
-	if (posV.z <= -8.0f) {
-		posV.z = -8;
-	}
-	testVehicle->SetPosition(posV);
-
-	//Set the model matrices for both objects and Bounding Spheres
-	m_pMeshMngr->SetModelMatrix(glm::translate(vector3(0.0f, 0.5f, 0.0f)) * testVehicle->GetModelMatrix() * ToMatrix4(m_qArcBall), "Player");
-	m_pMeshMngr->SetModelMatrix(glm::translate(vector3(0.0f, 0.5f, 0.0f)) * glm::translate(m_v3OT), "Truck");
-	
-	m_BSCPlayer->SetModelMatrix(glm::translate(vector3(0.0f, 0.5f, 0.0f)) * testVehicle->GetModelMatrix() * ToMatrix4(m_qArcBall));
-	m_BSCTruck->SetModelMatrix(glm::translate(vector3(0.0f, 0.5f, 0.0f)) * glm::translate(m_v3OT));
-	m_BSCCrate->SetModelMatrix(glm::translate(vector3(0.0f, 0.5f, 0.0f)) * crate->Move(deltaTime) * ToMatrix4(m_qArcBall)); //crate has no GetModelMatrix function yet, this is a stand-in
-	
-	matrix4 testMove = road->Update1(deltaTime);
+	testVehicle->CheckBounds(posV);
 
 	// Set model matrices
+	matrix4 testMove = road->Update1(deltaTime);
 	m_pMeshMngr->SetModelMatrix(testMove, "Steve2");
 	testMove = road->Update2(deltaTime);
 	m_pMeshMngr->SetModelMatrix(testMove, "Creeper2");
 	testMove = crate->Move(deltaTime);
+
+
+	//Set the model matrices for both objects and Bounding Spheres
+	m_pMeshMngr->SetModelMatrix(glm::translate(vector3(0.0f, 0.5f, 0.0f)) * testVehicle->GetModelMatrix() * ToMatrix4(m_qArcBall), "Player");
+	m_pMeshMngr->SetModelMatrix(glm::translate(vector3(0.0f, 0.5f, 0.0f)) * glm::translate(m_v3OT), "Truck");
 	m_pMeshMngr->SetModelMatrix(testMove, "Crate");
+
+	m_pBOMngr->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Player"), "Player");
+	m_pBOMngr->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Truck"), "Truck");
+	m_pBOMngr->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Crate"), "Crate");
+	m_pBOMngr->Update();//Update collision detection
+	//m_pBOMngr->DisplaySphere(-1, REWHITE);
+	m_pBOMngr->DisplayReAlligned();
+	m_pBOMngr->DisplayOriented(-1, REWHITE);
+
 
 	//Indicate the FPS
 	int nFPS = m_pSystem->GetFPS();
 	
-	//Collision check goes here
-	//m_pMeshMngr->AddSphereToQueue(
-	//	m_BSCPlayer->GetModelMatrix() *
-	//	glm::translate(vector3(m_BSCPlayer->GetCenter())) *
-	//	glm::scale(vector3(m_BSCPlayer->GetRadius()) * 2.0f),
-	//	m_BSCPlayer->GetColor(), WIRE);
-
-	m_pMeshMngr->AddCubeToQueue(
-		m_BSCPlayer->GetModelMatrix() *
-		glm::translate(vector3(m_BSCPlayer->GetCenter())) *
-		glm::scale(vector3(m_BSCPlayer->GetSize())),
-		m_BSCPlayer->GetColor(), WIRE);
-
-	//m_pMeshMngr->AddSphereToQueue(
-	//	m_BSCTruck->GetModelMatrix() *
-	//	glm::translate(vector3(m_BSCTruck->GetCenter())) *
-	//	glm::scale(vector3(m_BSCTruck->GetRadius()) * 2.0f),
-	//	m_BSCTruck->GetColor(), WIRE);
-
-	m_pMeshMngr->AddCubeToQueue(
-		m_BSCTruck->GetModelMatrix() *
-		glm::translate(vector3(m_BSCTruck->GetCenter())) *
-		glm::scale(vector3(m_BSCTruck->GetSize())),
-		m_BSCTruck->GetColor(), WIRE);
-
-	m_pMeshMngr->AddCubeToQueue(
-		m_BSCCrate->GetModelMatrix() *
-		glm::translate(vector3(m_BSCCrate->GetCenter())) *
-		glm::scale(vector3(m_BSCCrate->GetSize())),
-		m_BSCCrate->GetColor(), WIRE);
-
 	//Adds all loaded instance to the render list
 	m_pMeshMngr->AddInstanceToRenderList("ALL");
 
@@ -148,30 +102,18 @@ void AppClass::Update(void)
 	//Print info on the screen
 	m_pMeshMngr->PrintLine(m_pSystem->GetAppName(), REYELLOW);
 
-	/* Road debug
-	m_pMeshMngr->PrintLine(std::to_string(road->getCurrentDebug()), REYELLOW);
-	m_pMeshMngr->PrintLine(std::to_string(road->getHitDebug()), REYELLOW);
-	m_pMeshMngr->PrintLine(std::to_string(road->getStartDebug()), REYELLOW);
-	m_pMeshMngr->PrintLine(std::to_string(road->getfPercDebug()), REYELLOW);
-	*/
 
-	/* Vehicle debug
-	vector3 debug = testVehicle->GetPosition();
-	m_pMeshMngr->PrintLine(std::to_string(debug.x), REYELLOW);
-	m_pMeshMngr->PrintLine(std::to_string(debug.y), REYELLOW);
-	m_pMeshMngr->PrintLine(std::to_string(debug.z), REYELLOW);
-	*/
-
-	if (m_BSCPlayer->IsColliding(m_BSCCrate))
+	std::vector<int> list = m_pBOMngr->GetCollidingVector(0);
+	if (list.size() > 0)
 	{
 		m_pMeshMngr->PrintLine("They are colliding! >_<", RERED);
-		
+
 		//decrease score by 20 when colliding
 		score -= 20;
 
 		//update count of collisions
 		collisions++;
-	}	
+	}
 	else
 		m_pMeshMngr->PrintLine("They are not colliding! =)", REGREEN);
 	m_pMeshMngr->Print("FPS:");
@@ -196,35 +138,24 @@ void AppClass::Display(void)
 		//m_pMeshMngr->AddGridToQueue(1.0f, REAXIS::XZ); //renders the XY grid with a 100% scale
 		break;
 	case CAMERAMODE::CAMROTHOX:
-		m_pMeshMngr->AddGridToQueue(1.0f, REAXIS::YZ, RERED * 0.75f); //renders the YZ grid with a 100% scale
+		m_pMeshMngr->AddGridToRenderListBasedOnCamera(m_pCameraMngr->GetCameraMode());
 		break;
 	case CAMERAMODE::CAMROTHOY:
-		m_pMeshMngr->AddGridToQueue(1.0f, REAXIS::XZ, REGREEN * 0.75f); //renders the XZ grid with a 100% scale
+		m_pMeshMngr->AddGridToRenderListBasedOnCamera(m_pCameraMngr->GetCameraMode());
 		break;
 	case CAMERAMODE::CAMROTHOZ:
-		m_pMeshMngr->AddGridToQueue(1.0f, REAXIS::XY, REBLUE * 0.75f); //renders the XY grid with a 100% scale
+		m_pMeshMngr->AddGridToRenderListBasedOnCamera(m_pCameraMngr->GetCameraMode());
 		break;
 	}
 
 	m_pMeshMngr->Render(); //renders the render list
-
+	m_pMeshMngr->ResetRenderList();
 	m_pGLSystem->GLSwapBuffers(); //Swaps the OpenGL buffers
 }
 
 void AppClass::Release(void)
 {
-	if (m_BSCPlayer != nullptr)
-	{
-		delete m_BSCPlayer;
-		m_BSCPlayer = nullptr;
 
-	}
-	if (m_BSCTruck != nullptr)
-	{
-		delete m_BSCTruck;
-		m_BSCTruck = nullptr;
-
-	}
 
 	if (road != nullptr) 
 	{ 

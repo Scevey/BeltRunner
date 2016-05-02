@@ -78,28 +78,31 @@ public:
 	OUTPUT:
 	*/
 	bool IsWindowBorderless(void);
-	//__declspec(property(get = IsWindowBorderless, put = SetWindowBorderless)) bool WindowBorderless;
 
-	// Window Fullscreen Property
+	 
 	/*
-	
-	USAGE:
+	USAGE: Will set the window to fullscreen mode in the desired resolution
 	ARGUMENTS:
+		RESOLUTIONS a_Resolution = RESOLUTIONS::HD_1280X720 -> resolution of the screen
 	OUTPUT: ---
 	*/
-	void SetWindowFullscreen(bool a_bFullscreen = true);
-	/*
+	void SetWindowFullscreen(RESOLUTIONS a_Resolution = RESOLUTIONS::C_1280x720_16x9_HD);
 	
+	/*
 	USAGE:
 	ARGUMENTS: ---
 	OUTPUT:
 	*/
 	bool IsWindowFullscreen(void);
-	//__declspec(property(get = IsWindowFullscreen, put = SetWindowFullscreen)) bool WindowFullscreen;
-	
-	// Window Width Property
+
 	/*
+	USAGE:
+	ARGUMENTS:
+	OUTPUT: ---
+	*/
+	void SetWindowResolution(RESOLUTIONS a_Resolution = RESOLUTIONS::C_1280x720_16x9_HD);
 	
+	/*
 	USAGE:
 	ARGUMENTS:
 	OUTPUT: ---

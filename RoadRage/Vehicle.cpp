@@ -33,3 +33,4 @@ void Vehicle::HandleRotation(void)
 	// reset rotation acceleration
 	rotationAccel = 0.0f;
 }
+

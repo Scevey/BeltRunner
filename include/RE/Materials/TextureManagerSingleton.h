@@ -46,6 +46,12 @@ public:
 	int LoadTexture(String sName);	//Loads a texture and returns the ID of where its stored in the vector
 
 	/*
+	USAGE:
+	ARGUMENTS: ---
+	OUTPUT:
+	*/
+	void SaveTexture(String a_sTextureName = "ScreenShot");
+	/*
 	 USAGE:
 	ARGUMENTS: ---
 	OUTPUT:

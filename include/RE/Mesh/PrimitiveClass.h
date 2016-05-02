@@ -52,6 +52,12 @@ public:
 	OUTPUT: ---
 	*/
 	void GenerateCube(float a_fSize, vector3 a_v3Color);
+	/*
+	USAGE: Generates a cuboideshape
+	ARGUMENTS:
+	OUTPUT: ---
+	*/
+	void GenerateCuboid(vector3 a_v3Dimensions, vector3 a_v3Color);
 	/* Generates a cone shape */
 	/*
 	 USAGE:
@@ -79,14 +85,14 @@ public:
 	ARGUMENTS:
 	OUTPUT: ---
 	*/
-	void GenerateTorus(float a_fOuterRadius, float a_fInnerRadius, int a_nSubdivisionHeigh, int a_nSubdivisionAxis, vector3 a_v3Color);
+	void GenerateTorus(float a_fOuterRadius, float a_fInnerRadius, int a_nSubdivisionHeight, int a_nSubdivisionAxis, vector3 a_v3Color);
 	/* Generates a Sphere shape */
 	/*
 	 USAGE:
 	ARGUMENTS:
 	OUTPUT: ---
 	*/
-	void GenerateSphere(float a_fRadius, int a_nSubdivisions, vector3 a_v3Color);
+	void GenerateSphere(float a_fDiameter, int a_nSubdivisions, vector3 a_v3Color);
 	/* Generates a plane shape */
 	/*
 	 USAGE:

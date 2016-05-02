@@ -159,49 +159,69 @@ public:
 	ARGUMENTS:
 	OUTPUT: ---
 	*/
-	void AddAxisToQueue(matrix4 a_m4ToWorld);
+	void AddAxisToRenderList(matrix4 a_m4ToWorld);
 	/*
 	USAGE: Renders the a Camera Mesh on the specified camera's position, -1 for active camera
 	ARGUMENTS:
 	OUTPUT: ---
 	*/
-	void AddCameraToQueue(int a_nID = -1, vector3 a_v3Color = REWHITE);
+	void AddCameraToRenderList(int a_nID = -1, vector3 a_v3Color = REWHITE);
 	/*
 	USAGE: Renders the cone on the specified position
 	ARGUMENTS:
 	OUTPUT: ---
 	*/
-	void AddConeToQueue(matrix4 a_m4ToWorld, vector3 a_v3Color = REDEFAULT, int a_RenderOption = RERENDER::SOLID | RERENDER::WIRE);
+	void AddConeToRenderList(matrix4 a_m4ToWorld, vector3 a_v3Color = REDEFAULT, int a_RenderOption = RERENDER::SOLID | RERENDER::WIRE);
 	/*
 	USAGE: Renders the cube on the specified position
 	ARGUMENTS:
 	OUTPUT: ---
 	*/
-	void AddCubeToQueue(matrix4 a_m4ToWorld, vector3 a_v3Color = REDEFAULT, int a_RenderOption = RERENDER::SOLID | RERENDER::WIRE);
+	void AddCubeToRenderList(matrix4 a_m4ToWorld, vector3 a_v3Color = REDEFAULT, int a_RenderOption = RERENDER::SOLID | RERENDER::WIRE);
 	/*
 	USAGE: Renders the cylinder on the specified position
 	ARGUMENTS:
 	OUTPUT: ---
 	*/
-	void AddCylinderToQueue(matrix4 a_m4ToWorld, vector3 a_v3Color = REDEFAULT, int a_RenderOption = RERENDER::SOLID | RERENDER::WIRE);
+	void AddCylinderToRenderList(matrix4 a_m4ToWorld, vector3 a_v3Color = REDEFAULT, int a_RenderOption = RERENDER::SOLID | RERENDER::WIRE);
 	/*
 	USAGE: Renders the sphere on the specified position
 	ARGUMENTS:
 	OUTPUT: ---
 	*/
-	void AddGridToQueue(float a_fSize = 1.0f, int a_Axis = REAXIS::XY, vector3 a_v3Color = REDEFAULT);
+	void AddGridToRenderList(float a_fSize = 1.0f, int a_Axis = REAXIS::XY, vector3 a_v3Color = REDEFAULT);
+	/*
+	USAGE: Sets where the objects are going to be rendered
+	ARGUMENTS:
+		GLuint a_FrameBuffer = 0 -> Where to render, 0 for the window
+		GLuint a_TextureToRender = 0 -> Texture to render onto
+	OUTPUT: ---
+	*/
+	void SetRenderTarget(GLuint a_nFrameBuffer = 0, GLuint a_nDepthBuffer = 0, GLuint a_nTextureToRender = 0);
+	/*
+	USAGE: Renders the specified texture on a plane right in front of the camera
+	ARGUMENTS: GLuint a_uGLIndex index of the texture in opengl (not in the texture manager)
+	OUTPUT: ---
+	*/
+	void RenderTexture(GLuint a_uGLIndex);
+	/*
+	USAGE: Renders the Grid based on the active's camera mode
+	ARGUMENTS:
+	OUTPUT: ---
+	*/
+	void AddGridToRenderListBasedOnCamera(int a_nCameraMode = CAMERAMODE::CAMPERSP, float a_fSize = 1.0f);
 	/*
 	USAGE: Renders a hexagon tile on the specified position
 	ARGUMENTS:
 	OUTPUT: ---
 	*/
-	MeshClass* AddHexagonTileToQueue(matrix4 a_m4ToWorld, vector2 a_v2Size, vector3 a_v3Color = REDEFAULT, int a_RenderOption = RERENDER::SOLID | RERENDER::WIRE);
+	MeshClass* AddHexagonTileToRenderList(matrix4 a_m4ToWorld, vector2 a_v2Size, vector3 a_v3Color = REDEFAULT, int a_RenderOption = RERENDER::SOLID | RERENDER::WIRE);
 	/*
 	USAGE: Renders a hexagon on the specified position
 	ARGUMENTS:
 	OUTPUT: ---
 	*/
-	void AddHexagonToQueue(matrix4 a_m4ToWorld, vector3 a_v3Color = REDEFAULT, int a_RenderOption = RERENDER::SOLID | RERENDER::WIRE);
+	void AddHexagonToRenderList(matrix4 a_m4ToWorld, vector3 a_v3Color = REDEFAULT, int a_RenderOption = RERENDER::SOLID | RERENDER::WIRE);
 	/*
 	USAGE: Adds an instance to the render list specified by index
 	ARGUMENTS:
@@ -237,37 +257,37 @@ public:
 	ARGUMENTS:
 	OUTPUT: ---
 	*/
-	void AddPlaneToQueue(matrix4 a_m4ToWorld, vector3 a_v3Color = REDEFAULT);
+	void AddPlaneToRenderList(matrix4 a_m4ToWorld, vector3 a_v3Color = REDEFAULT);
 	/*
 	USAGE: Renders the sphere on the specified position
 	ARGUMENTS:
 	OUTPUT: ---
 	*/
-	void AddSphereToQueue(matrix4 a_m4ToWorld, vector3 a_v3Color = REDEFAULT, int a_RenderOption = RERENDER::SOLID | RERENDER::WIRE);
+	void AddSphereToRenderList(matrix4 a_m4ToWorld, vector3 a_v3Color = REDEFAULT, int a_RenderOption = RERENDER::SOLID | RERENDER::WIRE);
 	/*
 	USAGE: Renders a char array in the specified color
 	ARGUMENTS:
 	OUTPUT: ---
 	*/
-	void AddTextLineToQueue(vector3 a_v3Color, const char * _Format, ...);
+	void AddTextLineToRenderList(vector3 a_v3Color, const char * _Format, ...);
 	/*
 	USAGE: Renders a char array in the specified color
 	ARGUMENTS:
 	OUTPUT: ---
 	*/
-	void AddTextToQueue(vector3 a_v3Color, const char * _Format, ...);
+	void AddTextToRenderList(vector3 a_v3Color, const char * _Format, ...);
 	/*
 	USAGE: Renders the torus on the specified position
 	ARGUMENTS:
 	OUTPUT: ---
 	*/
-	void AddTorusToQueue(matrix4 a_m4ToWorld, vector3 a_v3Color = REDEFAULT, int a_RenderOption = RERENDER::SOLID | RERENDER::WIRE);
+	void AddTorusToRenderList(matrix4 a_m4ToWorld, vector3 a_v3Color = REDEFAULT, int a_RenderOption = RERENDER::SOLID | RERENDER::WIRE);
 	/*
 	USAGE: Renders the tube on the specified position
 	ARGUMENTS:
 	OUTPUT: ---
 	*/
-	void AddTubeToQueue(matrix4 a_m4ToWorld, vector3 a_v3Color = REDEFAULT, int a_RenderOption = RERENDER::SOLID | RERENDER::WIRE);
+	void AddTubeToRenderList(matrix4 a_m4ToWorld, vector3 a_v3Color = REDEFAULT, int a_RenderOption = RERENDER::SOLID | RERENDER::WIRE);
 	/*
 	USAGE: Returns the index of the specified instance name, -1 if not found
 	ARGUMENTS:
@@ -329,10 +349,17 @@ public:
 	void PrintLine(String a_sInput, vector3 a_v3Color = REWHITE);
 	/*
 	USAGE: Renders the list of meshes
+	ARGUMENTS: 
+		float f3DStereoDepth = 0 -> how much of stereoscopic effect in depth you want to see, 0 for none, 1 for high
+	OUTPUT: ---
+	*/
+	void Render( float f3DStereoDepth = 0);
+	/*
+	USAGE: Renders the list of meshes
 	ARGUMENTS: ---
 	OUTPUT: ---
 	*/
-	void Render(void);
+	void ResetRenderList(void);
 	/*
 	USAGE: Saves the specified model file, needs to specify the file extension (ATO or BTO)
 	ARGUMENTS:
@@ -353,6 +380,14 @@ public:
 	*/
 	void SetFont(String a_sTextureName);
 
+	void InstanceCube(float a_fSize, vector3 a_v3Color, String a_sInstanceName);
+	void InstanceCuboid(vector3 a_v3Dimentions, vector3 a_v3Color, String a_sInstanceName);
+	void InstanceCone(float a_fRadius, float a_fHeight, int a_nSubdivisions, vector3 a_v3Color, String a_sInstanceName);
+	void InstanceCylinder(float a_fRadius, float a_fHeight, int a_nSubdivisions, vector3 a_v3Color, String a_sInstanceName);
+	void InstanceTube(float a_fOuterRadius, float a_fInnerRadius, float a_fHeight, int a_nSubdivisions, vector3 a_v3Color, String a_sInstanceName);
+	void InstanceTorus(float a_fOuterRadius, float a_fInnerRadius, int a_nSubdivisionHeigh, int a_nSubdivisionAxis, vector3 a_v3Color, String a_sInstanceName);
+	void InstanceSphere(float a_fDiameter, int a_nSubdivisions, vector3 a_v3Color, String a_sInstanceName);
+	bool AreColliding(String a_sInstance1, String a_sInstance2);
 private:
 	//Rule of 3
 	/*

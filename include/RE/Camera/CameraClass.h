@@ -95,6 +95,42 @@ namespace ReEng
 		*/
 		vector3 GetPosition(void);
 		/*
+		USAGE:  Gets the forward vector of the camera
+		ARGUMENTS: ---
+		OUTPUT:
+		*/
+		vector3 GetForward(void);
+		/*
+		USAGE:  Gets the upward vector of the camera
+		ARGUMENTS: ---
+		OUTPUT:
+		*/
+		vector3 GetUpward(void);
+		/*
+		USAGE:  Gets the sidewards vector of the camera
+		ARGUMENTS: ---
+		OUTPUT:
+		*/
+		vector3 GetRightward(void);
+		/*
+		USAGE:  Sets the Forward vector of the camera
+		ARGUMENTS: input
+		OUTPUT: ---
+		*/
+		void SetForward(vector3 a_v3Input);
+		/*
+		USAGE:  Sets the Upward vector of the camera
+		ARGUMENTS: input
+		OUTPUT: ---
+		*/
+		void SetUpward(vector3 a_v3Input);
+		/*
+		USAGE:  Sets the Forward vector of the camera
+		ARGUMENTS: input
+		OUTPUT: ---
+		*/
+		void SetRightward(vector3 a_v3Input);
+		/*
 		USAGE: Changes the near and far planes
 		ARGUMENTS:
 		OUTPUT:

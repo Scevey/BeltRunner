@@ -19,6 +19,12 @@ class MyBoundingClass
 	vector3 m_v3Center = vector3(0.0f); //Will store the center point of the Sphere Class
 	vector3 m_v3Min = vector3(0.0f); //Will store the minimum vector of the Sphere Class
 	vector3 m_v3Max = vector3(0.0f); //Will store the maximum vector of the Sphere Class
+	vector3 m_v3CenterG = vector3(0.0f); //Will store the center point of the Object Class
+	vector3 m_v3MinG = vector3(0.0f); //Will store the minimum vector of the Object Class
+	vector3 m_v3MaxG = vector3(0.0f); //Will store the maximum vector of the Object Class
+	MeshManagerSingleton* m_pMeshMngr = nullptr;//Mesh Manager Singleton
+	vector3 m_v3HalfWidth = vector3(0.0f);//Will store half the size of all sides
+	vector3 m_v3HalfWidthG = vector3(0.0f);//Will store half the size of all sides
 	std::vector<vector3> m_lVertexList;
 
 public:
@@ -91,7 +97,11 @@ public:
 	float GetRadius(void);
 	bool  GetVisibility();
 	vector3 GetSize(void);
-	
+	vector3 GetCenterGlobal(void);
+	vector3 GetHalfWidth(void);
+	vector3 GetMinG(void);
+	vector3 GetMaxG(void);
+	vector3 GetHalfWidthG(void);
 	/*
 	 IsColliding
 	USAGE: Asks if there is a collision with another Bounding sphere Object
@@ -100,7 +110,9 @@ public:
 	OUTPUT: bool -> check of the collision
 	*/
 	bool IsColliding(MyBoundingClass* const a_pOther);
-	
+	void DisplaySphere(vector3 a_v3Color = REDEFAULT);
+	void DisplayOriented(vector3 a_v3Color = REDEFAULT);
+	void DisplayReAlligned(vector3 a_v3Color = REDEFAULT);
 private:
 	/*
 	 Release

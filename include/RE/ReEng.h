@@ -38,22 +38,7 @@ Date: 2015/06
 
 #include "RE\Camera\CameraManagerSingleton.h" //Creates and manages the camera object for the world
 
-/*
- MapValue
-USAGE: Will map a value from an original scale to a new scale
-ARGUMENTS:
-	T valueToMap -> input value
-	T originalScale_min ->  Start of the original scale
-	T originalScale_max -> End of the original scale
-	T mappedScale_min -> Start of the new scale
-	T mappedScale_max -> end of the new scale
-OUTPUT: returns the mapped value
-*/
-template <class T>
-static T MapValue(T valueToMap, T originalScale_min, T originalScale_max, T mappedScale_min, T mappedScale_max)
-{
-	return (valueToMap - originalScale_min) * (mappedScale_max - mappedScale_min) / (originalScale_max - originalScale_min) + mappedScale_min;
-}
+
 /*
  MapVector
 USAGE: Will return a vector mapped in the mappedScale range from a value vectorToMap in the OriginalScale range

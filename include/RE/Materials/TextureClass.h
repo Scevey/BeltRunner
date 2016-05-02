@@ -65,6 +65,7 @@ public:
 	OUTPUT:
 	*/
 	GLuint GetGLTextureID(void); //Returns the OpenGL Identifier
+
 	//__declspec(property(get = GetGLTextureID)) GLuint GLTextureID;
 	/*
 	 USAGE:

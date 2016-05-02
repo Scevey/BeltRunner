@@ -29,6 +29,10 @@ namespace ReEng
 
 		float m_dMinDelta = 0.0166f;//Minimum reason of change
 
+		GLuint m_nFrameBuffer = 0;
+		GLuint m_nDepthBuffer = 0;
+		GLuint m_nDawingTexture = 0;
+
 		std::pair<int, int> m_selection = std::pair<int, int>(-1, -1); //Selection in the scene
 
 		int m_nCmdShow;	// Number of starting commands on startup
@@ -159,8 +163,8 @@ namespace ReEng
 			if (a_v4ClearColor != vector4(-1.0f))
 			{
 				m_v4ClearColor = a_v4ClearColor;
-				glClearColor(m_v4ClearColor.r, m_v4ClearColor.g, m_v4ClearColor.b, m_v4ClearColor.a);
 			}
+			glClearColor(m_v4ClearColor.r, m_v4ClearColor.g, m_v4ClearColor.b, m_v4ClearColor.a);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the window
 		}
 
@@ -186,11 +190,21 @@ namespace ReEng
 		*/
 		virtual void Reshape(void) final
 		{
-			m_pWindow->CalculateWindowSize(); //Ask WinApi for the window size and store it in System
+			static bool bFirstRun = true;
+			
+			if (bFirstRun == false)
+				m_pWindow->CalculateWindowSize(); //Ask WinApi for the window size and store it in System
+
 			int nWidth = m_pWindow->GetWidth(); //Get the width of the window
 			int nHeight = m_pWindow->GetHeight();//Get the height of the window
 			printf("Window size: [%d, %d]\n", nWidth, nHeight);//inform the new window size
 			glViewport(0, 0, nWidth, nHeight);//resize the viewport
+			if (m_nFrameBuffer != 0)
+			{
+				m_pGLSystem->UpdateRenderTarget(m_nFrameBuffer, m_nDepthBuffer, m_nDawingTexture);
+				m_pMeshMngr->SetRenderTarget();
+			}
+			bFirstRun = false;
 		}
 		/*
 		USAGE: Initializes the ReEng window and rendering context DO NOT OVERRIDE
@@ -281,8 +295,14 @@ namespace ReEng
 			if (m_pSystem->m_RenderingContext == OPENGL3X)
 				glClearColor(m_v4ClearColor.r, m_v4ClearColor.g, m_v4ClearColor.b, m_v4ClearColor.a);
 
+			//Generate a new render target and set back the render target to be the window
+			m_pGLSystem->GenerateRenderTarget(m_nFrameBuffer, m_nDepthBuffer, m_nDawingTexture);
+			m_pMeshMngr->SetRenderTarget();
+
 			//Start the clock
 			m_pSystem->StartClock();
+
+			m_selection = std::pair<int, int>(-1, -1);
 
 			printf("\n");
 		}
@@ -348,7 +368,7 @@ namespace ReEng
 		- float a_fSpeed = 0.005f
 		OUTPUT: ---
 		*/
-		virtual void CameraRotation(float a_fSpeed = 0.005f) final
+		virtual void CameraRotation(float a_fSpeed = 0.005f)
 		{
 			UINT	MouseX, MouseY;		// Coordinates for the mouse
 			UINT	CenterX, CenterY;	// Coordinates for the center of the screen.
@@ -408,15 +428,14 @@ namespace ReEng
 
 			// Indicate window properties
 			m_pSystem->SetWindowName(a_sWindowName);
-			m_pSystem->SetWindowWidth(1080);
-			m_pSystem->SetWindowHeight(720);
-			m_pSystem->SetWindowFullscreen(false);
+			m_pSystem->SetWindowResolution(RESOLUTIONS::C_1280x720_16x9_HD);
+			m_pSystem->SetWindowFullscreen(RESOLUTIONS::WINDOWED);
 			m_pSystem->SetWindowBorderless(false);
 
 			// Set the clear color based on Microsoft's CornflowerBlue (default in XNA)
 			//if this line is in Init Window it will depend on the .cfg file, if it
 			//is on the InitVariables it will always force it regardless of the .cfg
-			m_v4ClearColor = vector4(0.4f, 0.6f, 0.9f, 0.0f);
+			m_v4ClearColor = vector4(RECORNFLOWERBLUE, 1.0f);
 		}
 		/*
 		USAGE: Reads the configuration of the application to a file
@@ -451,10 +470,8 @@ namespace ReEng
 				{
 					int nValue;
 					sscanf_s(reader.m_sLine.c_str(), "Fullscreen: %d", &nValue);
-					if (nValue == 0)
-						m_pSystem->SetWindowFullscreen(false);
-					else
-						m_pSystem->SetWindowFullscreen(true);
+					if (nValue > 0)
+						m_pSystem->SetWindowFullscreen(RESOLUTIONS::C_1280x720_16x9_HD);
 				}
 				else if (sWord == "Borderless:")
 				{
@@ -627,6 +644,9 @@ namespace ReEng
 		{
 			SafeDelete(m_pWindow); // destroy the allocated window
 			// Release all the singletons used in the dll
+			glDeleteFramebuffers(1, &m_nFrameBuffer);
+			glDeleteTextures(1, &m_nDepthBuffer);
+			glDeleteRenderbuffers(1, &m_nDawingTexture);
 			ReleaseAllSingletons();
 		}
 		/*
@@ -641,7 +661,7 @@ namespace ReEng
 			//Update the information on the Mesh manager I will not check for collision detection so the argument is false
 			m_pMeshMngr->Update();
 			//Add the sphere to the render queue
-			m_pMeshMngr->AddTorusToQueue(glm::rotate(IDENTITY_M4, 90.0f, vector3(90.0f, 0.0f, 0.0f)) * ToMatrix4(m_qArcBall), RERED, SOLID | WIRE);
+			m_pMeshMngr->AddTorusToRenderList(glm::rotate(IDENTITY_M4, 90.0f, vector3(90.0f, 0.0f, 0.0f)) * ToMatrix4(m_qArcBall), RERED, SOLID | WIRE);
 
 			//Is the arcball active?
 			ArcBall();
@@ -668,26 +688,10 @@ namespace ReEng
 		{
 			//clear the screen
 			ClearScreen();
-
 			//Render the grid based on the camera's mode:
-			switch (m_pCameraMngr->GetCameraMode())
-			{
-			default: //Perspective
-				m_pMeshMngr->AddGridToQueue(1.0f, REAXIS::XY); //renders the XY grid with a 100% scale
-				break;
-			case CAMERAMODE::CAMROTHOX:
-				m_pMeshMngr->AddGridToQueue(1.0f, REAXIS::YZ, RERED * 0.75f); //renders the YZ grid with a 100% scale
-				break;
-			case CAMERAMODE::CAMROTHOY:
-				m_pMeshMngr->AddGridToQueue(1.0f, REAXIS::XZ, REGREEN * 0.75f); //renders the XZ grid with a 100% scale
-				break;
-			case CAMERAMODE::CAMROTHOZ:
-				m_pMeshMngr->AddGridToQueue(1.0f, REAXIS::XY, REBLUE * 0.75f); //renders the XY grid with a 100% scale
-				break;
-			}
-
-			m_pMeshMngr->Render(); //Renders everything set up in the render queue
-
+			m_pMeshMngr->AddGridToRenderListBasedOnCamera(m_pCameraMngr->GetCameraMode());
+			m_pMeshMngr->Render(); //renders the render list
+			m_pMeshMngr->ResetRenderList(); //Reset the Render list after render
 			m_pGLSystem->GLSwapBuffers(); //Swaps the OpenGL buffers
 		}
 		/*

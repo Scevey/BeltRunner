@@ -55,6 +55,10 @@ public:
 	/*
 	USAGE: Will check the collision between two objects if they are colliding it will return a pair, each member
 	- will be the list of group indices (of the other object) each group is colliding with.
+		Meaning:
+		group 0 of first object is colliding with groups so and so of the second object
+		group 1 of first object is colliding with groups so and so of the second object
+		and the same goes for the second argument which has the groups of second object vs the first
 	ARGUMENTS:
 	- uint nIndex1 -> Index Instance one
 	- uint nIndex2 -> Index Instance two
@@ -326,6 +330,55 @@ public:
 	OUTPUT: ---
 	*/
 	void UpdateMap(void);
+
+	/*
+	USAGE: Instance a cube of the specified size color and name
+	ARGUMENTS: ---
+	OUTPUT: ---
+	*/
+	void InstanceCube(float a_fSize, vector3 a_v3Color, String a_sInstanceName);
+
+	/*
+	USAGE: Instance a cuboid of the specified size color and name
+	ARGUMENTS: ---
+	OUTPUT: ---
+	*/
+	void InstanceCuboid(vector3 a_v3Dimentions, vector3 a_v3Color, String a_sInstanceName);
+
+	/*
+	USAGE: Instance a cone of the specified size color and name
+	ARGUMENTS: ---
+	OUTPUT: ---
+	*/
+	void InstanceCone(float a_fRadius, float a_fHeight, int a_nSubdivisions, vector3 a_v3Color, String a_sInstanceName);
+
+	/*
+	USAGE: Instance a cylinder of the specified size color and name
+	ARGUMENTS: ---
+	OUTPUT: ---
+	*/
+	void InstanceCylinder(float a_fRadius, float a_fHeight, int a_nSubdivisions, vector3 a_v3Color, String a_sInstanceName);
+	
+	/*
+	USAGE: Instance a Tube of the specified size color and name
+	ARGUMENTS: ---
+	OUTPUT: ---
+	*/
+	void InstanceTube(float a_fOuterRadius, float a_fInnerRadius, float a_fHeight, int a_nSubdivisions, vector3 a_v3Color, String a_sInstanceName);
+
+	/*
+	USAGE: Instance a Torus of the specified size color and name
+	ARGUMENTS: ---
+	OUTPUT: ---
+	*/
+	void InstanceTorus(float a_fOuterRadius, float a_fInnerRadius, int a_nSubdivisionHeight, int a_nSubdivisionAxis, vector3 a_v3Color, String a_sInstanceName);
+
+	/*
+	USAGE: Instance a Sphere of the specified size color and name
+	ARGUMENTS: ---
+	OUTPUT: ---
+	*/
+	void InstanceSphere(float a_fDiameter, int a_nSubdivisions, vector3 a_v3Color, String a_sInstanceName);
 private:
 	//Rule of Three
 	/*

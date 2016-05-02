@@ -115,6 +115,14 @@ public:
 	OUTPUT: Mesh in the index
 	*/
 	MeshClass* GetMesh(uint a_nIndex);
+
+	/*
+	USAGE: Sets the mesh pointer in the specified index
+	ARGUMENTS:
+	- uint a_nIndex -> index in the list of meshes
+	OUTPUT: Mesh in the index
+	*/
+	void SetMesh(MeshClass* a_pMesh, uint a_nIndex);
 	/*
 	USAGE: Removes the empty meshes in the group
 	ARGUMENTS: ---

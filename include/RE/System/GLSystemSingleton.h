@@ -21,6 +21,7 @@ class ReEngDLL GLSystemSingleton
 	HGLRC m_hRC = NULL;		// Permanent Rendering Context
 	float m_fGLVersion = 0.0f; // OpenGL version
 	bool m_bForceOldGL = false;	// Forces OpenGL 2.1 to be initialized
+
 public:
 	//--Methods
 
@@ -31,13 +32,23 @@ public:
 		HWND g_hWnd -> Window Handler
 	*/
 	/*
-	
 	USAGE:
 	ARGUMENTS:
 	OUTPUT:
 	*/
 	HRESULT InitGLDevice(HWND g_hWnd);
-
+	/*
+	USAGE: Generates a new render target and return the identifier
+	ARGUMENTS:
+	OUTPUT:
+	*/
+	bool GenerateRenderTarget(GLuint& a_nFrameBuffer, GLuint& a_nDepthBuffer, GLuint& a_nTextureIndex);
+	/*
+	USAGE: Generates a new render target and return the identifier
+	ARGUMENTS:
+	OUTPUT:
+	*/
+	bool UpdateRenderTarget(GLuint& a_nFrameBuffer, GLuint& a_nDepthBuffer, GLuint& a_nTextureIndex);
 	/*
 	int DrawOldGLScene(GLvoid);
 		Draws a demo scene using OpenGL 2.1 Context, used only if
