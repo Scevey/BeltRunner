@@ -11,6 +11,15 @@
 // Vehicle Class
 class Vehicle: public Physics
 {
+	bool isTurning;
+
+public:
+	bool getTurning() {
+		return isTurning;
+	}
+	void setTurning(bool turning) {
+		isTurning = turning;
+	}
 protected:
 	virtual void HandleRotation(void);
 

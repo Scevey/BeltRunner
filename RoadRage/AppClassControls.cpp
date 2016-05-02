@@ -7,7 +7,8 @@ void AppClass::ProcessKeyboard(void)
 #pragma region ON PRESS/RELEASE DEFINITION
 	static bool	bLastF1 = false, bLastF2 = false, bLastF3 = false, bLastF4 = false, bLastF5 = false,
 		bLastF6 = false, bLastF7 = false, bLastF8 = false, bLastF9 = false, bLastF10 = false,
-		bLastEscape = false, bLastF = false;
+		bLastEscape = false, bLastF = false, 
+		bLastLeft = false, bLastRight = false; // these add left and right to the release definition
 #define ON_KEY_PRESS_RELEASE(key, pressed_action, released_action){  \
 			bool pressed = sf::Keyboard::isKeyPressed(sf::Keyboard::key);			\
 			if(pressed){											\
@@ -48,9 +49,11 @@ void AppClass::ProcessKeyboard(void)
 		fSpeed *= 10.0f;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 		testVehicle->AddForce(vector3(-1.0f, 0.0f, 0.0f));
+		testVehicle->setTurning(true);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 		testVehicle->AddForce(vector3(1.0f, 0.0f, 0.0f));
+		testVehicle->setTurning(true);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
 		testVehicle->AddForce(vector3(0.0f, 0.0f, 1.0f));
@@ -62,6 +65,10 @@ void AppClass::ProcessKeyboard(void)
 		// m_BSCPlayer->ToggleVisible();
 	}
 #pragma endregion
+
+	//these check if left/right is released and if so, sets isTurning to false
+	ON_KEY_PRESS_RELEASE(Left, NULL, testVehicle->setTurning(false));
+	ON_KEY_PRESS_RELEASE(Right, NULL, testVehicle->setTurning(false));
 
 #pragma region Other Actions
 	ON_KEY_PRESS_RELEASE(Escape, NULL, PostMessage(m_pWindow->GetHandler(), WM_QUIT, NULL, NULL));

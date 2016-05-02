@@ -104,6 +104,9 @@ void AppClass::Update(void)
 
 
 	std::vector<int> list = m_pBOMngr->GetCollidingVector(0);
+
+	m_pMeshMngr->PrintLine(std::to_string(testVehicle->getTurning()), REPURPLE);
+
 	if (list.size() > 0)
 	{
 		m_pMeshMngr->PrintLine("They are colliding! >_<", RERED);
