@@ -50,7 +50,28 @@ matrix4 Crate::Move(double deltatime)
 
 	v3Current = glm::lerp(v3start, v3end, fPercent);
 
-	m4Crate = glm::translate(v3Current) * glm::translate(vector3(0.0f, 0.5f, 0.0f));
+	position = vector3(v3Current.x, position.y, v3Current.z);
+
+	// rough bouncing motion, should change to full physics
+	if (position.y <= 0)
+	{
+		velocity += vector3(0.0f, 5.0f, 0.0f);
+	}
+
+	// bounce the cube
+	position += velocity * static_cast<float>(dDeltaTime);
+
+	// reduce velocity
+	velocity *= 0.95f;
+
+	// gravity is one mean mutha'
+	position -= vector3(0.0f, 1.0f, 0.0f) * static_cast<float>(dDeltaTime);
+
+	// make it spin - not working?
+	orientation = orientation * glm::angleAxis(1.0f, vector3(1.0f, 0.0f, 0.0f));
+
+	m4Crate = glm::mat4_cast(orientation) * glm::translate(position) * glm::translate(vector3(0.0f, 0.5f, 0.0f));
+
 	return m4Crate;
 }
 

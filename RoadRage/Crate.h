@@ -14,15 +14,14 @@ class Crate
 	//variables, get em while they're hot
 	float speed = 5.0f; // the speed at which the Crate moves backwards
 
-						/*
-						//banana
-						vector3 v3Currentdebug;
-						bool hit1 = false;
-						vector3 v3start;
-						float fPercent;
-						*/
+	// use this to make it bounce
+	vector3 position = vector3(0.0f, 0.0f, -5.0f);
+	vector3 velocity = vector3(0.0f, 0.0f, 0.0f);
+	vector3 accel = vector3(0.0f, 0.0f, 0.0f);
 
-						//these variables hold the tranformations of the two segments of Crate that are loaded in
+	glm::quat orientation = glm::quat(0.0f, 0.0f, 0.0f, 0.0f);
+
+	//these variables hold the tranformations of the two segments of Crate that are loaded in
 	matrix4 m4Crate = IDENTITY_M4;
 
 public:
