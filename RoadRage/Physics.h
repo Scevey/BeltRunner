@@ -9,8 +9,8 @@ class Physics
 {
 protected:
 	// Variables
-	float maxVelocity = 1000.0f; // mad janky, setting at very high value for now
-	float maxAccel = 1000.0f; // mad janky, setting at very high value for now
+	float maxVelocity = 1000.0f; 
+	float maxAccel = 1000.0f;
 	float friction = 0.95f; // for now, just using a percentage
 
 	// rotation variables
@@ -24,6 +24,9 @@ protected:
 	vector3 position = vector3(0.0f, 0.0f, 0.0f); // forward point, affected by forces
 	vector3 velocity = vector3(0.0f);
 	vector3 accel = vector3(0.0f);
+
+	// rotation variables
+	glm::quat orientation = glm::quat(0.0f, 0.0f, 0.0f, 0.0f);
 
 	// Bounding Object should be included in Physics class at a later point
 	matrix4 modelWorld = IDENTITY_M4;

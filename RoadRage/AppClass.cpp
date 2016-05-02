@@ -85,11 +85,11 @@ void AppClass::Update(void)
 	m_pBOMngr->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Player"), "Player");
 	m_pBOMngr->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Truck"), "Truck");
 	m_pBOMngr->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Crate"), "Crate");
+
 	m_pBOMngr->Update();//Update collision detection
 	//m_pBOMngr->DisplaySphere(-1, REWHITE);
 	m_pBOMngr->DisplayReAlligned();
 	m_pBOMngr->DisplayOriented(-1, REWHITE);
-
 
 	//Indicate the FPS
 	int nFPS = m_pSystem->GetFPS();

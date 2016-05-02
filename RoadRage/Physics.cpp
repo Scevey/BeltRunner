@@ -47,6 +47,8 @@ void Physics::Release()
 // Big 3
 Physics::Physics()
 {
+	maxVelocity = 50.0f; // 0-100 is the sweet spot 
+	maxAccel = 0.5f; // 0 - 1.0 is the sweet spot
 }
 
 Physics::Physics(Physics const& other)
@@ -93,15 +95,8 @@ void Physics::Update(double arg_deltaTime)
 	// add acceleration to velocity 
 	velocity += accel;
 
-	// if velocity is greater than maxVelocity, limit
-	if (glm::length(velocity) > maxVelocity)
-	{
-		// float temp = glm::length(velocity);
-		velocity = glm::normalize(velocity);
-		// velocity = vector3(velocity.x / temp, velocity.y / temp, velocity.z / temp);
-		velocity = velocity * maxVelocity;
-		// velocity = vector3(velocity.x * maxVelocity, velocity.y * maxVelocity, velocity.z * maxVelocity);
-	}
+	// use clamp instead of whatever else I was doing
+	velocity = glm::clamp(velocity, -maxVelocity, maxVelocity);
 
 	// add to position, based on deltaTime
 	position += velocity * deltaTime;
@@ -112,11 +107,14 @@ void Physics::Update(double arg_deltaTime)
 	// handle rotation
 	HandleRotation();
 
+	// handle quaternion rotation
+	orientation = orientation * glm::angleAxis(0.1f, velocity);
+
 	// update the model matrix
 	modelWorld = glm::translate(position) * glm::rotate(rotation, vector3(0.0f, 1.0f, 0.0f)) *
 		glm::rotate(90.0f, vector3(1.0f, 0.0f, 0.0f)); // last rotation is temporary until we get new model
 
-													   // reset acceleration
+	// reset acceleration
 	accel = vector3(0.0f);
 }
 
@@ -124,14 +122,8 @@ void Physics::AddForce(vector3 arg_force)
 {
 	vector3 force = arg_force;
 
-	// limit force applied by maxAccel
-	if (glm::length(force) > maxAccel)
-	{
-		// float temp = glm::length(force);
-		// force = vector3(force.x / temp, force.y / temp, force.z / temp);
-		force = glm::normalize(force);
-		force *= maxAccel;
-	}
+	// use clamp instead
+	force = glm::clamp(force, -maxAccel, maxAccel);
 
 	// add to acceleration
 	accel += force;
@@ -153,6 +145,7 @@ void Physics::SetPosition(vector3 n_position)
 
 void Physics::HandleRotation(void)
 {}
+
 void Physics::CheckBounds(vector3 posV) {
 	if (posV.x >= 8.0f) {
 		posV.x = 8;

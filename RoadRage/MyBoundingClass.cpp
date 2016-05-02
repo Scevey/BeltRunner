@@ -41,10 +41,36 @@ void MyBoundingClass::Release(void)
 MyBoundingClass::MyBoundingClass(std::vector<vector3> a_lVectorList)
 {
 	Init();
-	m_lVertexList == std::vector<vector3>();
 	
-	GenerateVertexList(a_lVectorList);
-	CalculateMinMax();
+	//Count the points of the incoming list
+	uint nVertexCount = a_lVectorList.size();
+
+	//If there are none just return, we have no information to create the BS from
+	if (nVertexCount == 0)
+		return;
+
+	//Max and min as the first vector of the list
+	m_v3Max = m_v3Min = a_lVectorList[0];
+
+	//Get the max and min out of the list, also build axes list
+	for (uint nVertex = 1; nVertex < nVertexCount; nVertex++)
+	{
+		// build min and max points
+		if (m_v3Min.x > a_lVectorList[nVertex].x) //If min is larger than current
+			m_v3Min.x = a_lVectorList[nVertex].x;
+		else if (m_v3Max.x < a_lVectorList[nVertex].x)//if max is smaller than current
+			m_v3Max.x = a_lVectorList[nVertex].x;
+
+		if (m_v3Min.y > a_lVectorList[nVertex].y) //If min is larger than current
+			m_v3Min.y = a_lVectorList[nVertex].y;
+		else if (m_v3Max.y < a_lVectorList[nVertex].y)//if max is smaller than current
+			m_v3Max.y = a_lVectorList[nVertex].y;
+
+		if (m_v3Min.z > a_lVectorList[nVertex].z) //If min is larger than current
+			m_v3Min.z = a_lVectorList[nVertex].z;
+		else if (m_v3Max.z < a_lVectorList[nVertex].z)//if max is smaller than current
+			m_v3Max.z = a_lVectorList[nVertex].z;
+	}
 
 	m_v3Center = (m_v3Min + m_v3Max) / 2.0f;
 
@@ -60,6 +86,17 @@ MyBoundingClass::MyBoundingClass(std::vector<vector3> a_lVectorList)
 	m_v3Size.x = glm::distance(vector3(m_v3Min.x, 0.0, 0.0), vector3(m_v3Max.x, 0.0, 0.0));
 	m_v3Size.y = glm::distance(vector3(0.0, m_v3Min.y, 0.0), vector3(0.0, m_v3Max.y, 0.0));
 	m_v3Size.z = glm::distance(vector3(0.0f, 0.0, m_v3Min.z), vector3(0.0, 0.0, m_v3Max.z));
+
+	//list of verteces in model space, probabaklty for bounding box, also probably
+	m_lVertexList = std::vector<vector3>(8);
+	m_lVertexList[leftBottomBack] = vector3(m_v3Min.x, m_v3Min.y, m_v3Min.z); //left bottom back
+	m_lVertexList[leftBottomFront] = vector3(m_v3Min.x, m_v3Min.y, m_v3Max.z); //left bottom front
+	m_lVertexList[leftTopBack] = vector3(m_v3Min.x, m_v3Max.y, m_v3Min.z); //left top back
+	m_lVertexList[leftTopFront] = vector3(m_v3Min.x, m_v3Max.y, m_v3Max.z); //left top front
+	m_lVertexList[rightBottomBack] = vector3(m_v3Max.x, m_v3Min.y, m_v3Min.z); //right bottom back
+	m_lVertexList[rightBottomFront] = vector3(m_v3Max.x, m_v3Min.y, m_v3Max.z); //right bottom front
+	m_lVertexList[rightTopBack] = vector3(m_v3Max.x, m_v3Max.y, m_v3Min.z); //right top back
+	m_lVertexList[rightTopFront] = vector3(m_v3Max.x, m_v3Max.y, m_v3Max.z); //right top front
 }
 MyBoundingClass::MyBoundingClass(MyBoundingClass const& other)
 {
@@ -106,6 +143,8 @@ vector3 MyBoundingClass::GetMin(void) { return vector3(/*m_m4ToWorld * */vector4
 vector3 MyBoundingClass::GetMax(void) { return vector3(/*m_m4ToWorld * */vector4(m_v3Max, 1.0f)); }
 vector3 MyBoundingClass::GetMinG(void) { return m_v3MinG; }
 vector3 MyBoundingClass::GetMaxG(void) { return m_v3MaxG; }
+std::vector<vector3> MyBoundingClass::GetVertexList(void) { return m_lVertexList; }
+
 // Modifiers
 void MyBoundingClass::SetModelMatrix(matrix4 a_m4ToWorld) {
 	//If there are no changes in the Model Matrix there is no need
@@ -162,17 +201,23 @@ void MyBoundingClass::SetColor(vector3 a_color) { m_v3Color = a_color; }
 //--- Non Standard Singleton Methods
 bool MyBoundingClass::IsColliding(MyBoundingClass* const a_pOther)
 {
-	if (glm::distance(m_v3Center, a_pOther->m_v3Center) > (m_fRadius + a_pOther->m_fRadius))
-		return false;
-	CalculateMinMax();
-	a_pOther->CalculateMinMax();
-	bool bAreColliding = true;
+	//Get all vectors in global space
 	vector3 vMin1 = vector3(m_m4ToWorld * vector4(m_v3Min, 1.0f));
 	vector3 vMax1 = vector3(m_m4ToWorld * vector4(m_v3Max, 1.0f));
+
 	vector3 vMin2 = vector3(a_pOther->m_m4ToWorld * vector4(a_pOther->m_v3Min, 1.0f));
 	vector3 vMax2 = vector3(a_pOther->m_m4ToWorld * vector4(a_pOther->m_v3Max, 1.0f));
+
+	/*
+	Are they colliding?
+	For Objects we will assume they are colliding, unless at least one of the following conditions is not met
+	*/
+	//first check the bounding sphere, if that is not colliding we can guarantee that there are no collision
 	if ((m_fRadius + a_pOther->m_fRadius) < glm::distance(m_v3CenterG, a_pOther->m_v3CenterG))
 		return false;
+
+	bool bAreColliding = true;
+
 	//Check for X
 	if (vMax1.x < vMin2.x)
 		bAreColliding = false;
@@ -191,20 +236,144 @@ bool MyBoundingClass::IsColliding(MyBoundingClass* const a_pOther)
 	if (vMin1.z > vMax2.z)
 		bAreColliding = false;
 
-	if (bAreColliding)
+	// SAT
+	std::vector<vector3> object1 = m_lVertexList;
+	std::vector<vector3> object2 = a_pOther->GetVertexList();
+
+	for (uint i = 0; i < 8; i++)
 	{
-		SetColor(RERED);
-		a_pOther->SetColor(RERED);
+		object1[i] = vector3(m_m4ToWorld * vector4(object1[i], 1.0f));
+		object2[i] = vector3(a_pOther->m_m4ToWorld * vector4(object2[i], 1.0f));
 	}
-	else
-	{
-		SetColor(REWHITE);
-		a_pOther->SetColor(REWHITE);
+
+	if (bAreColliding) {
+		vector3 obj1NormX = object1[leftBottomBack] - object1[rightBottomBack];
+		if (!CheckAxisSAT(object1, object2, obj1NormX)) {
+			bAreColliding = false;
+			return bAreColliding;
+		}
+
+		vector3 obj1NormY = object1[leftBottomBack] - object1[leftTopBack];
+		if (!CheckAxisSAT(object1, object2, obj1NormY)) {
+			bAreColliding = false;
+			return bAreColliding;
+		}
+
+		vector3 obj1NormZ = object1[leftBottomBack] - object1[leftBottomFront];
+		if (!CheckAxisSAT(object1, object2, obj1NormZ)) {
+			bAreColliding = false;
+			return bAreColliding;
+		}
+
+
+		vector3 obj2NormX = object2[leftBottomBack] - object2[rightBottomBack];
+		if (!CheckAxisSAT(object1, object2, obj2NormX)) {
+			bAreColliding = false;
+			return bAreColliding;
+		}
+
+		vector3 obj2NormY = object2[leftBottomBack] - object2[leftTopBack];
+		if (!CheckAxisSAT(object1, object2, obj2NormY)) {
+			bAreColliding = false;
+			return bAreColliding;
+		}
+
+		vector3 obj2NormZ = object2[leftBottomBack] - object2[leftBottomFront];
+		if (!CheckAxisSAT(object1, object2, obj2NormZ)) {
+			bAreColliding = false;
+			return bAreColliding;
+		}
+
+
+		vector3 cross1x1 = glm::cross(obj1NormX, obj2NormX);
+		if (!CheckAxisSAT(object1, object2, cross1x1)) {
+			bAreColliding = false;
+			return bAreColliding;
+		}
+
+		vector3 cross1x2 = glm::cross(obj1NormX, obj2NormY);
+		if (!CheckAxisSAT(object1, object2, cross1x2)) {
+			bAreColliding = false;
+			return bAreColliding;
+		}
+
+		vector3 cross1x3 = glm::cross(obj1NormX, obj2NormZ);
+		if (!CheckAxisSAT(object1, object2, cross1x3)) {
+			bAreColliding = false;
+			return bAreColliding;
+		}
+
+
+		vector3 cross2x1 = glm::cross(obj1NormY, obj2NormX);
+		if (!CheckAxisSAT(object1, object2, cross2x1)) {
+			bAreColliding = false;
+			return bAreColliding;
+		}
+
+		vector3 cross2x2 = glm::cross(obj1NormY, obj2NormY);
+		if (!CheckAxisSAT(object1, object2, cross2x2)) {
+			bAreColliding = false;
+			return bAreColliding;
+		}
+
+		vector3 cross2x3 = glm::cross(obj1NormY, obj2NormZ);
+		if (!CheckAxisSAT(object1, object2, cross2x3)) {
+			bAreColliding = false;
+			return bAreColliding;
+		}
+
+
+		vector3 cross3x1 = glm::cross(obj1NormZ, obj2NormX);
+		if (!CheckAxisSAT(object1, object2, cross3x1)) {
+			bAreColliding = false;
+			return bAreColliding;
+		}
+
+		vector3 cross3x2 = glm::cross(obj1NormZ, obj2NormY);
+		if (!CheckAxisSAT(object1, object2, cross3x2)) {
+			bAreColliding = false;
+			return bAreColliding;
+		}
+
+		vector3 cross3x3 = glm::cross(obj1NormZ, obj2NormZ);
+		if (!CheckAxisSAT(object1, object2, cross3x3)) {
+			bAreColliding = false;
+			return bAreColliding;
+		}
 	}
 
 	return bAreColliding;
+}
 
-	
+bool MyBoundingClass::CheckAxisSAT(std::vector<vector3> a_lVertices, std::vector<vector3> a_lOtherVertices, vector3 axis)
+{
+	float max1;
+	float min1;
+	float max2;
+	float min2;
+
+	//project each vec3 in the first object onto the axis, saving min and max values
+	for (int c = 0; c < a_lVertices.size(); c++) {
+		vector3 vert = a_lVertices[c];
+		float projectedVert = glm::dot(vert, axis);// / glm::length(vert);
+		if (c == 0 || projectedVert > max1)
+			max1 = projectedVert;
+		if (c == 0 || projectedVert < min1)
+			min1 = projectedVert;
+	}
+
+	//do the same for the second object
+	for (int c = 0; c < a_lOtherVertices.size(); c++) {
+		vector3 vert = a_lOtherVertices[c];
+		float projectedVert = glm::dot(vert, axis);// / glm::length(vert);
+		if (c == 0 || projectedVert > max2)
+			max2 = projectedVert;
+		if (c == 0 || projectedVert < min2)
+			min2 = projectedVert;
+	}
+
+	//if the ranges overlap, return true
+	return !(max1 < min2 || max2 < min1);
 }
 
 void MyBoundingClass::GenerateVertexList(std::vector<vector3> a_lVectorList) {
@@ -280,6 +449,7 @@ void MyBoundingClass::CalculateMinMax(void) {
 	m_v3Min = static_cast<vector3>(glm::inverse(m_m4ToWorld) * vector4(min, 1.0f));
 	m_v3Max = static_cast<vector3>(glm::inverse(m_m4ToWorld) * vector4(max, 1.0f));
 }
+
 void MyBoundingClass::DisplaySphere(vector3 a_v3Color)
 {
 	m_pMeshMngr->AddSphereToRenderList(glm::translate(m_m4ToWorld, m_v3Center) *

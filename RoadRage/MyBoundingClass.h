@@ -7,6 +7,17 @@ Date: 2015/10
 
 #include "RE\ReEng.h"
 
+//enumerator
+enum points {
+	leftBottomBack,
+	leftBottomFront,
+	leftTopBack,
+	leftTopFront,
+	rightBottomBack,
+	rightBottomFront,
+	rightTopBack,
+	rightTopFront
+};
 
 //System Class
 class MyBoundingClass
@@ -110,6 +121,13 @@ public:
 	OUTPUT: bool -> check of the collision
 	*/
 	bool IsColliding(MyBoundingClass* const a_pOther);
+	bool CheckAxisSAT(std::vector<vector3> a_lVertices, std::vector<vector3> a_lOtherVertices, vector3 axis);
+	/*
+	USAGE: Gets vertex list
+	ARGUMENTS: ---
+	OUTPUT: Vertex list
+	*/
+	std::vector<vector3> GetVertexList(void);
 	void DisplaySphere(vector3 a_v3Color = REDEFAULT);
 	void DisplayOriented(vector3 a_v3Color = REDEFAULT);
 	void DisplayReAlligned(vector3 a_v3Color = REDEFAULT);
