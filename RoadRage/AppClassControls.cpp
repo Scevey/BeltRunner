@@ -64,6 +64,15 @@ void AppClass::ProcessKeyboard(void)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::T)) {
 		// m_BSCPlayer->ToggleVisible();
 	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+		//reset score
+		score = 100.0;
+
+		//how to reset timer?
+
+		//restart game
+		play = true;
+	}
 #pragma endregion
 
 	//these check if left/right is released and if so, sets isTurning to false

@@ -30,7 +30,7 @@ class AppClass : public ReEngAppClass
 	
 	//banana
 	Road* road = nullptr;
-	double score = 10.0;
+	double score = 100.0;
 	int collisions;
 
 	//sf::Music soundBGM;

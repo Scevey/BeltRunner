@@ -45,102 +45,117 @@ void AppClass::InitVariables(void)
 
 void AppClass::Update(void)
 {
-	//Update the system's time
-	m_pSystem->UpdateTime();
+	/*
+	while (play == true)
+	{
+	*/
+		//Update the system's time
+		m_pSystem->UpdateTime();
 
-	// find elapsed time [banana]
-	double deltaTime = m_pSystem->LapClock();
+		// find elapsed time [banana]
+		double deltaTime = m_pSystem->LapClock();
 
-	//increase score with time
-	score += deltaTime;
+		//increase score with time
+		score += deltaTime;
 
-	//Update the mesh manager's time without updating for collision detection
-	m_pMeshMngr->Update();
+		//Update the mesh manager's time without updating for collision detection
+		m_pMeshMngr->Update();
 
-	//First person camera movement
-	if (m_bFPC == true)
-		CameraRotation();
+		//First person camera movement
+		if (m_bFPC == true)
+			CameraRotation();
 
-	ArcBall();
+		ArcBall();
+
+		// Update Vehicle
+		testVehicle->Update(deltaTime);
+
+		//boundaries will abstract into a method later
+		vector3 posV = testVehicle->GetPosition();
+		testVehicle->CheckBounds(posV);
+
+		// Set model matrices
+		matrix4 testMove = road->Update1(deltaTime);
+		m_pMeshMngr->SetModelMatrix(testMove, "Steve2");
+		testMove = road->Update2(deltaTime);
+		m_pMeshMngr->SetModelMatrix(testMove, "Creeper2");
+		testMove = crate->Move(deltaTime);
 
 
-	// Update Vehicle
-	testVehicle->Update(deltaTime);
+		//Set the model matrices for both objects and Bounding Spheres
+		m_pMeshMngr->SetModelMatrix(glm::translate(vector3(0.0f, 0.5f, 0.0f)) * testVehicle->GetModelMatrix() * ToMatrix4(m_qArcBall), "Player");
+		m_pMeshMngr->SetModelMatrix(glm::translate(vector3(0.0f, 0.5f, 0.0f)) * glm::translate(m_v3OT), "Truck");
+		m_pMeshMngr->SetModelMatrix(testMove, "Crate");
 
-	//boundaries will abstract into a method later
-	vector3 posV = testVehicle->GetPosition();
-	testVehicle->CheckBounds(posV);
+		m_pBOMngr->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Player"), "Player");
+		m_pBOMngr->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Truck"), "Truck");
+		m_pBOMngr->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Crate"), "Crate");
 
-	// Set model matrices
-	matrix4 testMove = road->Update1(deltaTime);
-	m_pMeshMngr->SetModelMatrix(testMove, "Steve2");
-	testMove = road->Update2(deltaTime);
-	m_pMeshMngr->SetModelMatrix(testMove, "Creeper2");
-	testMove = crate->Move(deltaTime);
+		m_pBOMngr->Update();//Update collision detection
+		//m_pBOMngr->DisplaySphere(-1, REWHITE);
+		m_pBOMngr->DisplayReAlligned();
+		m_pBOMngr->DisplayOriented(-1, REWHITE);
+
+		//Indicate the FPS
+		int nFPS = m_pSystem->GetFPS();
+
+		//Adds all loaded instance to the render list
+		m_pMeshMngr->AddInstanceToRenderList("ALL");
+
+		//print info into the console
+		printf("FPS: %d            \r", nFPS);//print the Frames per Second
+		//Print info on the screen
+		m_pMeshMngr->PrintLine(m_pSystem->GetAppName(), REYELLOW);
 
 
-	//Set the model matrices for both objects and Bounding Spheres
-	m_pMeshMngr->SetModelMatrix(glm::translate(vector3(0.0f, 0.5f, 0.0f)) * testVehicle->GetModelMatrix() * ToMatrix4(m_qArcBall), "Player");
-	m_pMeshMngr->SetModelMatrix(glm::translate(vector3(0.0f, 0.5f, 0.0f)) * glm::translate(m_v3OT), "Truck");
-	m_pMeshMngr->SetModelMatrix(testMove, "Crate");
+		std::vector<int> list = m_pBOMngr->GetCollidingVector(0);
 
-	m_pBOMngr->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Player"), "Player");
-	m_pBOMngr->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Truck"), "Truck");
-	m_pBOMngr->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Crate"), "Crate");
+		m_pMeshMngr->PrintLine(std::to_string(testVehicle->getTurning()), REPURPLE);
 
-	m_pBOMngr->Update();//Update collision detection
-	//m_pBOMngr->DisplaySphere(-1, REWHITE);
-	m_pBOMngr->DisplayReAlligned();
-	m_pBOMngr->DisplayOriented(-1, REWHITE);
+		if (list.size() > 0)
+		{
+			m_pMeshMngr->PrintLine("They are colliding! >_<", RERED);
 
-	//Indicate the FPS
-	int nFPS = m_pSystem->GetFPS();
+			//decrease score when colliding
+			//score -= 0.1;
+
+			//update count of collisions
+			collisions++;
+		}
+		else
+		{
+
+		}
+
+		//break from while if score gets too low
+		/*
+		if (score <= 0.0)
+		{
+			play = false;
+		}
+		*/
+
+
+		printf("Score: %i            \r", static_cast<int>(score));
+
+		m_pMeshMngr->PrintLine("They are not colliding! =)", REGREEN);
+		m_pMeshMngr->Print("FPS:");
+		m_pMeshMngr->Print(std::to_string(nFPS), RERED);
+
+		m_pMeshMngr->Print("Score:");
+		m_pMeshMngr->PrintLine(std::to_string(score));
+
+		m_pMeshMngr->Print("Collisions:");
+		m_pMeshMngr->PrintLine(std::to_string(collisions));
+	/*
+	}
+
 	
-	//Adds all loaded instance to the render list
-	m_pMeshMngr->AddInstanceToRenderList("ALL");
+	//game is lost
+	m_pMeshMngr->PrintLine("YOU LOSE", RERED);
 
-	//print info into the console
-	printf("FPS: %d            \r", nFPS);//print the Frames per Second
-	//Print info on the screen
-	m_pMeshMngr->PrintLine(m_pSystem->GetAppName(), REYELLOW);
-
-
-	std::vector<int> list = m_pBOMngr->GetCollidingVector(0);
-
-	m_pMeshMngr->PrintLine(std::to_string(testVehicle->getTurning()), REPURPLE);
-
-	if (list.size() > 0)
-	{
-		m_pMeshMngr->PrintLine("They are colliding! >_<", RERED);
-
-		//decrease score by 20 when colliding
-		score -= 20;
-
-		//update count of collisions
-		collisions++;
-	}
-	else
-	{
-
-	}
-
-	if (score <= 0.0)
-	{
-		m_pMeshMngr->Print("YOU LOSE");
-		printf("LOSE");
-	}
-
-	printf("Score: %i            \r", static_cast<int>(score));
-	
-	m_pMeshMngr->PrintLine("They are not colliding! =)", REGREEN);
-	m_pMeshMngr->Print("FPS:");
-	m_pMeshMngr->Print(std::to_string(nFPS), RERED);
-
-	m_pMeshMngr->Print("Score:");
-	m_pMeshMngr->PrintLine(std::to_string(score));
-
-	m_pMeshMngr->Print("Collisions:");
-	m_pMeshMngr->PrintLine(std::to_string(collisions));
+	//control to restart game is Space
+	*/
 }
 
 void AppClass::Display(void)
