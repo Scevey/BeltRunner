@@ -19,7 +19,7 @@ class Crate
 	vector3 velocity = vector3(0.0f, 0.0f, 0.0f);
 	vector3 accel = vector3(0.0f, 0.0f, 0.0f);
 
-	glm::quat orientation = glm::quat(0.0f, 0.0f, 0.0f, 0.0f);
+	glm::quat orientation = glm::angleAxis(0.0f,vector3(1.0f,0.0f,0.0f));
 
 	//these variables hold the tranformations of the two segments of Crate that are loaded in
 	matrix4 m4Crate = IDENTITY_M4;

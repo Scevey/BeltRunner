@@ -55,6 +55,7 @@ matrix4 Crate::Move(double deltatime)
 	// rough bouncing motion, should change to full physics
 	if (position.y <= 0)
 	{
+		position.y = 0;
 		velocity += vector3(0.0f, 5.0f, 0.0f);
 	}
 
@@ -68,9 +69,9 @@ matrix4 Crate::Move(double deltatime)
 	position -= vector3(0.0f, 1.0f, 0.0f) * static_cast<float>(dDeltaTime);
 
 	// make it spin - not working?
-	orientation = orientation * glm::angleAxis(1.0f, vector3(1.0f, 0.0f, 0.0f));
+	orientation = orientation * glm::angleAxis(2.0f, vector3(1.0f, 0.0f, 0.0f));
 
-	m4Crate = glm::mat4_cast(orientation) * glm::translate(position) * glm::translate(vector3(0.0f, 0.5f, 0.0f));
+	m4Crate =  glm::translate(position) *  glm::translate(vector3(0.0f, 0.5f, 0.0f)) * glm::mat4_cast(orientation) ;
 
 	return m4Crate;
 }
