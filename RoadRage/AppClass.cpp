@@ -3,7 +3,7 @@
 
 void AppClass::InitWindow(String a_sWindowName)
 {
-	super::InitWindow("MyBoundingClass example"); // Window Name
+	super::InitWindow("Road Rage"); // Window Name
 
 	// Set the clear color based on Microsoft's CornflowerBlue (default in XNA)
 	//if this line is in Init Application it will depend on the .cfg file, if it
@@ -30,6 +30,7 @@ void AppClass::InitVariables(void)
 	m_pBOMngr->AddObject(m_pMeshMngr->GetVertexList("Player"), "Player");
 	m_pBOMngr->AddObject(m_pMeshMngr->GetVertexList("Truck"), "Truck");
 	m_pBOMngr->AddObject(m_pMeshMngr->GetVertexList("Crate"), "Crate");
+	play = true;
 
 	//camera mumbo jumbo [banana]
 	vector3 camPos = vector3(0.0f, 10.0f, 10.0f);
@@ -61,6 +62,7 @@ void AppClass::Update(void)
 		CameraRotation();
 
 	ArcBall();
+
 
 	// Update Vehicle
 	testVehicle->Update(deltaTime);
@@ -118,7 +120,19 @@ void AppClass::Update(void)
 		collisions++;
 	}
 	else
-		m_pMeshMngr->PrintLine("They are not colliding! =)", REGREEN);
+	{
+
+	}
+
+	if (score <= 0.0)
+	{
+		m_pMeshMngr->Print("YOU LOSE");
+		printf("LOSE");
+	}
+
+	printf("Score: %i            \r", static_cast<int>(score));
+	
+	m_pMeshMngr->PrintLine("They are not colliding! =)", REGREEN);
 	m_pMeshMngr->Print("FPS:");
 	m_pMeshMngr->Print(std::to_string(nFPS), RERED);
 

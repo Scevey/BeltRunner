@@ -25,10 +25,12 @@ class AppClass : public ReEngAppClass
 	Crate* fluffCrate1;
 	Crate* fluffCrate2;
 	Crate* crate;
+
+	bool play;
 	
 	//banana
 	Road* road = nullptr;
-	double score = 0.0;
+	double score = 10.0;
 	int collisions;
 
 	//sf::Music soundBGM;
