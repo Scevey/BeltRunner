@@ -13,6 +13,7 @@ Date: 2015/09
 #include "Vehicle.h"
 #include "Crate.h"
 #include "MyBOManager.h"
+#include "Truck.h"
 using namespace ReEng; //Using ReEng namespace to use all the classes in the dll
 
 class AppClass : public ReEngAppClass
@@ -22,6 +23,7 @@ class AppClass : public ReEngAppClass
 	vector3 m_v3OT = vector3( 0.0f, 0.0f, 0.0f);
 	MyBOManager* m_pBOMngr;
 	Vehicle* testVehicle;
+	Truck* otherTestVehicleTotallyNotATruck;
 	Crate* fluffCrate1;
 	Crate* fluffCrate2;
 	Crate* crate;

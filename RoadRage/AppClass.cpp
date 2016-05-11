@@ -24,8 +24,9 @@ void AppClass::InitVariables(void)
 	m_pMeshMngr->LoadModel("roadModel-Tex.obj", "Steve2"); //banana
 	m_pMeshMngr->LoadModel("roadModel-Tex.obj", "Creeper2");
 	road = new Road();
-	crate = new Crate();
 	testVehicle = new Vehicle();
+	otherTestVehicleTotallyNotATruck = new Truck(vector3(0.0f, 0.0f, -8.0f));
+	crate = new Crate(otherTestVehicleTotallyNotATruck->GetPosition());
 	m_pBOMngr = MyBOManager::GetInstance();
 	m_pBOMngr->AddObject(m_pMeshMngr->GetVertexList("Player"), "Player");
 	m_pBOMngr->AddObject(m_pMeshMngr->GetVertexList("Truck"), "Truck");
@@ -71,11 +72,12 @@ void AppClass::Update(void)
 		if (m_bFPC == true)
 			CameraRotation();
 
-		ArcBall();
+		//ArcBall();
 
 		// Update Vehicle
+		otherTestVehicleTotallyNotATruck->TruckUpdate(deltaTime);
 		testVehicle->Update(deltaTime);
-
+		crate->SetNewStart(otherTestVehicleTotallyNotATruck->GetPosition());
 		//boundaries will abstract into a method later
 		vector3 posV = testVehicle->GetPosition();
 		testVehicle->CheckBounds(posV);
@@ -89,8 +91,8 @@ void AppClass::Update(void)
 
 
 		//Set the model matrices for both objects and Bounding Spheres
-		m_pMeshMngr->SetModelMatrix(glm::translate(vector3(0.0f, 0.5f, 0.0f)) * testVehicle->GetModelMatrix() * ToMatrix4(m_qArcBall), "Player");
-		m_pMeshMngr->SetModelMatrix(glm::translate(vector3(0.0f, 0.5f, 0.0f)) * glm::translate(m_v3OT), "Truck");
+		m_pMeshMngr->SetModelMatrix(glm::translate(vector3(0.0f, 0.5f, 0.0f)) * testVehicle->GetModelMatrix()/* * ToMatrix4(m_qArcBall)*/, "Player");
+		m_pMeshMngr->SetModelMatrix(glm::translate(vector3(0.0f, 0.5f, 0.0f)) * otherTestVehicleTotallyNotATruck->GetModelMatrix(), "Truck");
 		m_pMeshMngr->SetModelMatrix(testMove, "Crate");
 
 		m_pBOMngr->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Player"), "Player");

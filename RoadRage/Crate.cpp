@@ -6,6 +6,10 @@ Crate::Crate()
 {
 }
 
+Crate::Crate(vector3 theStart) {
+	start = theStart;
+}
+
 Crate::Crate(Crate const& other)
 {
 	speed = other.speed;
@@ -28,7 +32,9 @@ Crate::~Crate()
 	Release();
 }
 
-
+void Crate::SetNewStart(vector3 theNewStart) {
+	newStart = theNewStart;
+}
 matrix4 Crate::Move(double deltatime)
 {
 	//Calculate delta and total times
@@ -40,11 +46,12 @@ matrix4 Crate::Move(double deltatime)
 	float timeEnd = 3.0f;
 	if (dTotalTime >= timeEnd) {
 		dTotalTime = timeStart;
+		start = newStart;
 	}
 
-	static vector3 v3Current;
-	static vector3 v3start = vector3(0.0f, 0.0f, -5.0f); // values need changing , and preferably not hardcoded
-	static vector3 v3end = vector3(0.0f, 0.0f, 5.0f);
+	vector3 v3Current;
+	vector3 v3start = start; // values need changing , and preferably not hardcoded
+	vector3 v3end = v3start + vector3(0.0f, 0.0f, 15.0f); //vector3(0.0f, 0.0f, 5.0f);
 
 	float fPercent = MapValue(static_cast<float>(dTotalTime), timeStart, timeEnd, 0.0f, 1.0f);
 

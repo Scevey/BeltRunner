@@ -18,6 +18,8 @@ class Crate
 	vector3 position = vector3(0.0f, 0.0f, -5.0f);
 	vector3 velocity = vector3(0.0f, 0.0f, 0.0f);
 	vector3 accel = vector3(0.0f, 0.0f, 0.0f);
+	vector3 start = vector3();
+	vector3 newStart = vector3();
 
 	glm::quat orientation = glm::angleAxis(0.0f,vector3(1.0f,0.0f,0.0f));
 
@@ -28,6 +30,7 @@ public:
 	//big 3
 	//constructor - contructs Crates, takes in Crate models maybe?
 	Crate();
+	Crate(vector3 theStart);
 
 	//copy constuctor - takes in one class object and spits out another just like it
 	Crate(Crate const& other);
@@ -43,6 +46,7 @@ public:
 	void Swap(Crate& other);
 
 	matrix4 Crate::Move(double time);
+	void SetNewStart(vector3 theNewStart);
 private:
 	void Release(void);
 

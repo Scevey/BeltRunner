@@ -129,6 +129,7 @@ xcopy "$(SolutionDir)include\RE\Shaders" "$(SolutionDir)_Binary\Shaders" /y</Com
     <ClCompile Include="MyBoundingClass.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Road.cpp" />
+    <ClCompile Include="Truck.cpp" />
     <ClCompile Include="Vehicle.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
