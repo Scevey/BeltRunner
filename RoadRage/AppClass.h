@@ -14,6 +14,7 @@ Date: 2015/09
 #include "Crate.h"
 #include "MyBOManager.h"
 #include "Truck.h"
+#include "MyOctant.h"
 using namespace ReEng; //Using ReEng namespace to use all the classes in the dll
 
 class AppClass : public ReEngAppClass
@@ -27,7 +28,7 @@ class AppClass : public ReEngAppClass
 	Crate* fluffCrate1;
 	Crate* fluffCrate2;
 	Crate* crate;
-
+	MyOctant* m_pOctreeHead = nullptr;
 	bool play;
 
 	//sf::Music music;

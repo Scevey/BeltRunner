@@ -98,7 +98,7 @@ public:
 	vector3 GetMax(void);
 	vector3 GetMin(void);
 	matrix4 GetModelMatrix(void);
-	void UpdatePosition(vector3 a_v3Input);
+	//void UpdatePosition(vector3 a_v3Input);
 	/*
 	 GetRadius
 	USAGE: Gets the Bounding Sphere's radius
@@ -106,7 +106,7 @@ public:
 	OUTPUT: float -> radius of the Bounding Sphere
 	*/
 	float GetRadius(void);
-	bool  GetVisibility();
+	//bool  GetVisibility();
 	vector3 GetSize(void);
 	vector3 GetCenterGlobal(void);
 	vector3 GetHalfWidth(void);

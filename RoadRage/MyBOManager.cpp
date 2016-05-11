@@ -150,12 +150,9 @@ void MyBOManager::DisplayOriented(int a_nIndex, vector3 a_v3Color)
 		for (uint nObject = 0; nObject < m_nObjectCount; nObject++)
 		{
 			//Default will render in white for non colliding and red for colliding
-			if (v3Color == REDEFAULT)
-			{
 				v3Color = REWHITE;
 				if (m_llCollidingIndices[nObject].size() > 0)
 					v3Color = RERED;
-			}
 			m_lObject[nObject]->DisplayOriented(v3Color);
 		}
 	}
@@ -205,18 +202,61 @@ void MyBOManager::Update(void)
 	{
 		m_llCollidingIndices[nObject].clear();
 	}
-	CheckCollisions();
-}
-void MyBOManager::CheckCollisions(void)
-{
-	for (uint nObjectA = 0; nObjectA < m_nObjectCount - 1; nObjectA++)
+	static MyOctant head = MyOctant(true);
+
+	if (buildOctree)
 	{
-		for (uint nObjectB = nObjectA + 1; nObjectB < m_nObjectCount; nObjectB++)
+		head.CheckForObjs();
+		buildOctree = false;
+	}
+
+	if (octreeVisible)
+		head.Display();
+
+	CheckCollisions(head);
+}
+void MyBOManager::CheckCollisions(MyOctant &octant)
+{
+	if (useOctree)
+	{
+		uint numChildren = octant.GetNumChildren();
+		if (numChildren > 0)
 		{
-			if (m_lObject[nObjectA]->IsColliding(m_lObject[nObjectB]))
+			for (int i = 0; i < numChildren; i++)
+				CheckCollisions(octant.m_pChildren[i]);
+		}
+		else
+		{
+			std::vector<int> octantObjList = octant.GetObjIndexList();
+			if (octantObjList.size() < 2)
+				return;
+			for (uint i = 0; i < octantObjList.size() - 1; i++)
 			{
-				m_llCollidingIndices[nObjectA].push_back(nObjectB);
-				m_llCollidingIndices[nObjectB].push_back(nObjectA);
+				for (uint c = i + 1; c < octantObjList.size(); c++)
+				{
+					int obj1 = octantObjList[i];
+					int obj2 = octantObjList[c];
+					if (m_lObject[obj1]->IsColliding(m_lObject[obj2]))
+					{
+
+						m_llCollidingIndices[obj1].push_back(obj2);
+						m_llCollidingIndices[obj2].push_back(obj1);
+					}
+				}
+			}
+		}
+	}
+	else {
+		for (uint i = 0; i < m_nObjectCount - 1; i++)
+		{
+			for (uint c = i + 1; c < m_nObjectCount; c++)
+			{
+				if (m_lObject[i]->IsColliding(m_lObject[c]))
+				{
+
+					m_llCollidingIndices[i].push_back(c);
+					m_llCollidingIndices[c].push_back(i);
+				}
 			}
 		}
 	}
@@ -248,4 +288,18 @@ int MyBOManager::GetIndex(String a_sIndex)
 	if (var == m_mapIndex.end())
 		return -1;
 	return var->second;//Get the index
+}
+
+int MyBOManager::GetObjectCount(void) { return m_nObjectCount; };
+void MyBOManager::ToggleOctreeVisibility(void)
+{
+	octreeVisible = !octreeVisible;
+}
+void MyBOManager::ToggleOctree(void)
+{
+	useOctree = !useOctree;
+}
+void MyBOManager::BuildOctree(void)
+{
+	buildOctree = true;
 }

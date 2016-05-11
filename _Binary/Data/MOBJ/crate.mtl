@@ -1,4 +1,12 @@
-newmtl phong1SG
+newmtl car:ZIS5glas
+illum 4
+Kd 0.30 0.40 0.20
+Ka 0.30 0.40 0.20
+Tf 0.50 0.50 0.50
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 0.50
+newmtl crate:phong1SG
 illum 4
 Kd 0.00 0.00 0.00
 Ka 0.00 0.00 0.00

@@ -114,7 +114,13 @@ void AppClass::Update(void)
 		printf("FPS: %d            \r", nFPS);//print the Frames per Second
 		//Print info on the screen
 		m_pMeshMngr->PrintLine(m_pSystem->GetAppName(), REYELLOW);
+		m_pMeshMngr->PrintLine("Hold B: Build Octree");
 
+		m_pMeshMngr->Print("O: Toggle Octree On:");
+		m_pMeshMngr->PrintLine(std::to_string(m_pBOMngr->getOctOn()), REPURPLE);
+
+		m_pMeshMngr->Print("V: Toggle Octree Visible:");
+		m_pMeshMngr->PrintLine(std::to_string(m_pBOMngr->getOctVis()), REPURPLE);
 
 		std::vector<int> list = m_pBOMngr->GetCollidingVector(0);
 
@@ -196,6 +202,11 @@ void AppClass::Display(void)
 void AppClass::Release(void)
 {
 
+	if (m_pOctreeHead != nullptr)
+	{
+		delete m_pOctreeHead;
+		m_pOctreeHead = nullptr;
+	}
 
 	if (road != nullptr) 
 	{ 

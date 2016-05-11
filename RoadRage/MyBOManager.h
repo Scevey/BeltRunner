@@ -4,9 +4,10 @@ Date: 2015/11
 ----------------------------------------------*/
 #ifndef __MYBOMANAGER_H_
 #define __MYBOMANAGER_H_
-
 #include "MyBoundingClass.h"
+#include "MyOctant.h"
 
+class MyOctant;
 //System Class
 class MyBOManager
 {
@@ -16,7 +17,11 @@ class MyBOManager
 	MeshManagerSingleton* m_pMeshMngr = nullptr;//Mesh Manager Singleton
 	std::vector<std::vector<int>> m_llCollidingIndices; //List of list of colliding indices.
 	std::map<String, uint> m_mapIndex;//Map relating the mesh and the index
+	bool octreeVisible = true;
+	bool useOctree = true;
+	bool buildOctree = false;
 public:
+	int GetObjectCount(void);
 	/*
 	USAGE: Gets the static instance of the class
 	ARGUMENTS: ---
@@ -154,6 +159,24 @@ public:
 	OUTPUT: ---
 	*/
 	void Update(void);
+	/*
+	*/
+	void ToggleOctreeVisibility(void);
+	/*
+	*/
+	void ToggleOctree(void);
+	/*
+	*/
+	void BuildOctree(void);
+
+
+	bool getOctVis(void) {
+		return octreeVisible;
+	}
+
+	bool getOctOn(void) {
+		return useOctree;
+	}
 
 private:
 	/*
@@ -197,7 +220,7 @@ private:
 	ARGUMENTS: ---
 	OUTPUT: ---
 	*/
-	void CheckCollisions(void);
+	void CheckCollisions(MyOctant &octant);
 };
 
 #endif //__MYBOMANAGER_H_

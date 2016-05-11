@@ -398,3 +398,4 @@ void MyBoundingClass::DisplayReAlligned(vector3 a_v3Color)
 	m_pMeshMngr->AddCubeToRenderList(glm::translate(IDENTITY_M4, m_v3CenterG) *
 		glm::scale(m_v3HalfWidthG * 2.0f), a_v3Color, WIRE);
 }
+vector3 MyBoundingClass::GetCenterGlobal(void) { return m_v3CenterG; }
