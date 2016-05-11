@@ -39,6 +39,12 @@ void AppClass::InitVariables(void)
 	m_pCameraMngr->SetPositionTargetAndView(camPos, camTar, camUp);
 	//end camera mumbo jumbo
 
+	//String sRoute = m_pSystem->m_pFolder->GetFolderData();
+	//sRoute += m_pSystem->m_pFolder->GetFolderAudio();
+
+	//////Background music
+	//music.openFromFile(sRoute + "music.mp3");
+
 	//number of collisions
 	collisions = 0;
 }

@@ -1,6 +1,7 @@
 /*----------------------------------------------
 Programmer: Alberto Bobadilla (labigm@gmail.com)
 Date: 2015/06
+Modified: 2016/05
 ----------------------------------------------*/
 #ifndef __MATERIALCLASS_H_
 #define __MATERIALCLASS_H_
@@ -29,162 +30,179 @@ class ReEngDLL MaterialClass
 	
 public:
 	/*
-	 MaterialClass
 	USAGE: Constructor
 	ARGUMENTS: ---
 	OUTPUT: class object
 	*/
 	MaterialClass(String a_sName);
 	/*
-	 USAGE:
-	ARGUMENTS:
+	USAGE: Copy constructor
+	ARGUMENTS: other instance to copy from
 	OUTPUT:
 	*/
 	MaterialClass(const MaterialClass& other);
 	/*
-	 USAGE:
-	ARGUMENTS:
+	USAGE: copy assignment operator
+	ARGUMENTS: other isntance to copy from
 	OUTPUT:
 	*/
 	MaterialClass& operator=(const MaterialClass& other);
 	/*
-	 USAGE:
+	USAGE: destructor
 	ARGUMENTS: ---
 	OUTPUT: ---
 	*/
 	~MaterialClass(void);
 	
 	/*
-	 USAGE:
+	USAGE: Releases the allocated memory
 	ARGUMENTS: ---
 	OUTPUT: ---
 	*/
 	void Release(void);
 
 	/*
-	 USAGE:
+	USAGE: Sets the name of the material
 	ARGUMENTS:
+		String a_sName -> name of the material
 	OUTPUT: ---
 	*/
 	void SetName(String a_sName);
+	
 	/*
-	 USAGE:
-	ARGUMENTS:
-	OUTPUT:
+	USAGE: Gets the name of the material
+	ARGUMENTS: ---
+	OUTPUT: Material name
 	*/
 	String	GetName(void);
-	//__declspec(property(put = SetName, get = GetName)) String Name;
 
 	/*
-	 USAGE:
+	USAGE: Sets the Diffuse Map file name
 	ARGUMENTS:
+		String a_sFileName -> sets the filename of the diffuse map
 	OUTPUT: ---
 	*/
 	void SetDiffuseMapName(String a_sFileName);
-	/*
-	 USAGE:
-	ARGUMENTS: ---
-	OUTPUT:
-	*/
-	String	GetDiffuseMapName(void);
-	//__declspec(property(put = SetDiffuseMapName, get = GetDiffuseMapName)) String DiffuseMapName;
 
 	/*
-	 USAGE:
+	USAGE: Gets the diffuse map file name
+	ARGUMENTS: ---
+	OUTPUT: filename
+	*/
+	String	GetDiffuseMapName(void);
+
+	/*
+	USAGE: Sets the Normal Map file name
 	ARGUMENTS:
+	String a_sFileName -> sets the filename of the diffuse map
 	OUTPUT: ---
 	*/
 	void SetNormalMapName(String a_sFileName);
+	
 	/*
-	 USAGE:
+	USAGE: Gets the normal map file name
 	ARGUMENTS: ---
-	OUTPUT:
+	OUTPUT: filename
 	*/
 	String	GetNormalMapName(void);
-	//__declspec(property(put = SetNormalMapName, get = GetNormalMapName)) String NormalMapName;
 
 	/*
-	 USAGE:
+	USAGE: Sets the Specular Map file name
 	ARGUMENTS:
+	String a_sFileName -> sets the filename of the diffuse map
 	OUTPUT: ---
 	*/
 	void SetSpecularMapName(String a_sFileName);
+	
 	/*
-	 USAGE:
+	USAGE: Gets the specular map file name
 	ARGUMENTS: ---
-	OUTPUT:
+	OUTPUT: filename
 	*/
 	String	GetSpecularMapName(void);
-	//__declspec(property(put = SetSpecularMapName, get = GetSpecularMapName)) String SpecularMapName;
 
 	/*
-	 USAGE:
+	USAGE: Get the OpenGL index of the Diffuse Map texture resource
 	ARGUMENTS: ---
-	OUTPUT:
+	OUTPUT: OpenGL index
 	*/
 	GLuint	GetDiffuseMap(void);
-	//__declspec(property(get = GetDiffuseMap)) GLuint DiffuseMap;
 
 	/*
-	 USAGE:
+	USAGE: Get the OpenGL index of the Normal Map texture resource
 	ARGUMENTS: ---
-	OUTPUT:
+	OUTPUT: OpenGL index
 	*/
 	GLuint	GetNormalMap(void);
-	//__declspec(property(get = GetNormalMap)) GLuint NormalMap;
 
 	/*
-	 USAGE:
+	USAGE: Get the OpenGL index of the Specular Map texture resource
 	ARGUMENTS: ---
-	OUTPUT:
+	OUTPUT: OpenGL index
 	*/
 	GLuint	GetSpecularMap(void);
-	//__declspec(property(get = GetSpecularMap)) GLuint SpecularMap;
 
 	/*
-	 USAGE:
+	USAGE: Sets the Diffuse color through a vector3
 	ARGUMENTS:
+		vector3 a_Kd -> color
 	OUTPUT: ---
 	*/
 	void SetDiffuse(vector3 a_Kd);
+	
 	/*
-	 USAGE:
+	USAGE: Gets the Diffuse vector3 color
 	ARGUMENTS: ---
-	OUTPUT:
-	*/
-	vector3	GetDiffuse(void);
-	//__declspec(property(put = SetDiffuse, get = GetDiffuse)) vector3 Kd;
+	OUTPUT: Diffuse color vector
+	*/vector3 GetDiffuse(void);
 
 	/*
-	 USAGE:
+	USAGE: Loads the Diffuse map texture into memory,
+		this behaves like SetDiffuseMapName but will also create the OpenGL resources.
+		OpenGL will not load resources outside of the main thread, so you need to be
+		sure that you are running this from it, its always safer to set the texture
+		name and then LoadMaps().
 	ARGUMENTS:
-	OUTPUT:
+		String a_sFileName -> sets the filename of the diffuse map
+	OUTPUT: Success flags
 	*/
 	REERRORS LoadDiffuse(String a_sFileName);
 
 	/*
-	 USAGE:
+	USAGE: Loads the Normal map texture into memory,
+		this behaves like SetNormalMapName but will also create the OpenGL resources.
+		OpenGL will not load resources outside of the main thread, so you need to be
+		sure that you are running this from it, its always safer to set the texture
+		name and then LoadMaps().
 	ARGUMENTS:
-	OUTPUT:
+		String a_sFileName -> sets the filename of the diffuse map
+	OUTPUT: Success flags
 	*/
 	REERRORS LoadNormal(String a_sFileName);
 
 	/*
-	 USAGE:
+	USAGE: Loads the Specular map texture into memory,
+		this behaves like SetSpecularMapName but will also create the OpenGL resources.
+		OpenGL will not load resources outside of the main thread, so you need to be
+		sure that you are running this from it, its always safer to set the texture
+		name and then LoadMaps().
 	ARGUMENTS:
-	OUTPUT:
+		String a_sFileName -> sets the filename of the diffuse map
+	OUTPUT: Success flags
 	*/
 	REERRORS LoadSpecular(String a_sFilename);
 
 	/*
-	 USAGE:
+	USAGE: Loads the Diffuse, Normal and Specular maps of the file into memory
+		(Allocates and binds the OpenGL Resources)
 	ARGUMENTS: ---
-	OUTPUT:
+	OUTPUT: Success flags
 	*/
 	REERRORS LoadMaps(void);
+
 private:
 	/*
-	 USAGE:
+	USAGE: Initializes the variables of the class
 	ARGUMENTS: ---
 	OUTPUT: ---
 	*/

@@ -167,6 +167,12 @@ public:
 	*/
 	void AddCameraToRenderList(int a_nID = -1, vector3 a_v3Color = REWHITE);
 	/*
+	USAGE:
+	ARGUMENTS:
+	OUTPUT: ---
+	*/
+	void AddSkyboxToRenderList(String a_sTextureName = "Skybox.png");
+	/*
 	USAGE: Renders the cone on the specified position
 	ARGUMENTS:
 	OUTPUT: ---

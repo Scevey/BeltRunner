@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{F8318B78-847D-4D6F-B0AA-F3AC80C5FFF0}</ProjectGuid>
+    <ProjectGuid>{643CD190-5C44-4887-B4F9-3FED8DA2C43B}</ProjectGuid>
     <RootNamespace>RoadRage</RootNamespace>
     <ProjectName>RoadRage</ProjectName>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>

@@ -7,7 +7,7 @@ Date: 2015/09
 
 #include "RE\ReEngAppClass.h"
 #include <SFML\Graphics.hpp>
-//#include <SFML\Audio.hpp>
+#include <SFML\Audio.hpp>
 #include "MyBoundingClass.h"
 #include "Road.h"
 #include "Vehicle.h"
@@ -27,6 +27,8 @@ class AppClass : public ReEngAppClass
 	Crate* crate;
 
 	bool play;
+
+	//sf::Music music;
 	
 	//banana
 	Road* road = nullptr;

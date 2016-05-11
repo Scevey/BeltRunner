@@ -86,20 +86,24 @@ public:
 	OUTPUT: ---
 	*/
 	void GenerateTorus(float a_fOuterRadius, float a_fInnerRadius, int a_nSubdivisionHeight, int a_nSubdivisionAxis, vector3 a_v3Color);
-	/* Generates a Sphere shape */
 	/*
-	 USAGE:
+	USAGE: Generates a Sphere shape
 	ARGUMENTS:
 	OUTPUT: ---
 	*/
 	void GenerateSphere(float a_fDiameter, int a_nSubdivisions, vector3 a_v3Color);
-	/* Generates a plane shape */
 	/*
-	 USAGE:
+	USAGE: Generates a plane shape
 	ARGUMENTS:
 	OUTPUT: ---
 	*/
 	void GeneratePlane(float a_fSize, vector3 a_v3Color);
+	/*
+	USAGE:
+	ARGUMENTS:
+	OUTPUT: ---
+	*/
+	void GenerateSkybox(void);
 	
 	///* Renders the primitive asking for its rendering mode (default is GL_TRIANGLES)*/
 	//virtual void Render(void);
@@ -116,13 +120,18 @@ private:
 	OUTPUT: ---
 	*/
 	void CompileObject(vector3 a_v3Color, String a_sName);
-	/* Adds a quad to the list points in the buffer to be compiled*/
 	/*
-	 USAGE:
+	USAGE: Adds a quad to the list points in the buffer to be compiled
 	ARGUMENTS:
 	OUTPUT: ---
 	*/
 	void AddQuad(vector3 a_vBottomLeft, vector3 a_vBottomRight, vector3 a_vTopLeft, vector3 a_vTopRight);
+	/*
+	USAGE: Adds a tri to the list points in the buffer to be compiled
+	ARGUMENTS:
+	OUTPUT: ---
+	*/
+	void AddTri(vector3 a_vBottomLeft, vector3 a_vBottomRight, vector3 a_vTopLeft);
 };
 
 EXPIMP_TEMPLATE template class ReEngDLL std::vector<PrimitiveClass>;

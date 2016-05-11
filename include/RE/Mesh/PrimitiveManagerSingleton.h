@@ -36,6 +36,7 @@ class ReEngDLL PrimitiveManagerSingleton
 	MeshClass* m_pSphereWire = nullptr;//Sphere Wire primitive
 	MeshClass* m_pHexagon = nullptr;//Hexagon primitive
 	MeshClass* m_pHexagonWire = nullptr;//Hexagon Wire primitive
+	MeshClass* m_pSkybox = nullptr;//Skybox primitive
 
 	MeshDrawerSingleton* m_pMeshDrawer = nullptr;
 
@@ -52,6 +53,13 @@ public:
 	OUTPUT: ---
 	*/
 	static void ReleaseInstance(void);
+	/*
+	USAGE: Render the axis on the specified position
+	ARGUMENTS:
+	OUTPUT: returns the pointer to mesh used in the queue
+	*/
+	MeshClass* AddSkyboxToRenderList(String a_sTextureName);
+
 	/*
 	USAGE: Render the axis on the specified position
 	ARGUMENTS:
