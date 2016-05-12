@@ -22,8 +22,8 @@ void AppClass::InitVariables(void)
 	m_pMeshMngr->LoadModel("car.obj", "Player");
 	m_pMeshMngr->LoadModel("Truck.obj", "Truck");
 	m_pMeshMngr->LoadModel("crate.obj", "Crate");
-	m_pMeshMngr->LoadModel("roadModel-Tex.obj", "Steve2"); //banana
-	m_pMeshMngr->LoadModel("roadModel-Tex.obj", "Creeper2");
+	m_pMeshMngr->LoadModel("Road.obj", "Steve2"); //banana
+	m_pMeshMngr->LoadModel("Road.obj", "Creeper2");
 	road = new Road();
 	testVehicle = new Vehicle();
 	otherTestVehicleTotallyNotATruck = new Truck(vector3(0.0f, 0.0f, -8.0f));
@@ -41,8 +41,8 @@ void AppClass::InitVariables(void)
 	displayHUD = true;
 
 	//camera mumbo jumbo [banana]
-	vector3 camPos = vector3(0.0f, 10.0f, 10.0f);
-	vector3 camTar = vector3(0.0f, 0.0f, 0.0f);
+	vector3 camPos = vector3(2.0f, 7.0f, 9.0f);
+	vector3 camTar = vector3(2.0f, 0.0f, 0.0f);
 	vector3 camUp = vector3(0.0f, 1.0f, 0.0f);
 	m_pCameraMngr->SetPositionTargetAndView(camPos, camTar, camUp);
 	//end camera mumbo jumbo
