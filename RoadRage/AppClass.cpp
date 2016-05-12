@@ -9,6 +9,9 @@ void AppClass::InitWindow(String a_sWindowName)
 	//if this line is in Init Application it will depend on the .cfg file, if it
 	//is on the InitVariables it will always force it regardless of the .cfg
 	m_v4ClearColor = vector4(0.4f, 0.6f, 0.9f, 0.0f);
+	//m_pSystem->SetWindowResolution(RESOLUTIONS::CV_720x1280_9x16_HD);
+	//m_pSystem->SetWindowHeight(1280);
+	//m_pSystem->SetWindowWidth(720);
 }
 
 void AppClass::InitVariables(void)
@@ -27,18 +30,15 @@ void AppClass::InitVariables(void)
 	crate = new Crate(otherTestVehicleTotallyNotATruck->GetPosition());
 	m_pBOMngr = MyBOManager::GetInstance();
 	m_pBOMngr->AddObject(m_pMeshMngr->GetVertexList("Player"), "Player");
-<<<<<<< HEAD
 	//m_pBOMngr->AddObject(m_pMeshMngr->GetVertexList("Truck"), "Truck");
-=======
-	// m_pBOMngr->AddObject(m_pMeshMngr->GetVertexList("Truck"), "Truck");
->>>>>>> origin/master
 	m_pBOMngr->AddObject(m_pMeshMngr->GetVertexList("Crate"), "Crate");
 
 	//game state variables
 	score = 0.0;
-	life = 500;
+	life = 100;
 	losses = 0;
 	highScore = 0.0;
+	displayHUD = true;
 
 	//camera mumbo jumbo [banana]
 	vector3 camPos = vector3(0.0f, 10.0f, 10.0f);
@@ -128,7 +128,13 @@ void AppClass::Update(void)
 
 		//print info into the console
 		printf("FPS: %d            \r", nFPS);//print the Frames per Second
+
 		//Print info on the screen
+		m_pMeshMngr->PrintLine(m_pSystem->GetAppName(), REYELLOW);
+		m_pMeshMngr->PrintLine("Hold H: Toggle HUD");
+
+		if (displayHUD == true)
+		{
 		m_pMeshMngr->PrintLine(m_pSystem->GetAppName(), REYELLOW);
 		m_pMeshMngr->PrintLine("Hold B: Build Octree");
 
@@ -137,10 +143,12 @@ void AppClass::Update(void)
 
 		m_pMeshMngr->Print("V: Toggle Octree Visible:");
 		m_pMeshMngr->PrintLine(std::to_string(m_pBOMngr->getOctVis()), REPURPLE);
+		}
 
 		std::vector<int> list = m_pBOMngr->GetCollidingVector(0);
 
 		m_pMeshMngr->PrintLine(std::to_string(testVehicle->getTurning()), REPURPLE);
+
 
 		if (list.size() > 0)
 		{
@@ -161,30 +169,36 @@ void AppClass::Update(void)
 		//if life hits 0, increment losses and reset everything
 		if (life <= 0)
 		{
-			highScore = score;
+			if (score > highScore)
+			{
+				highScore = score;
+			}
 			score = 0;
-			life = 500;
+			life = 100;
 			losses++;
 		}
 
+		if(displayHUD == true)
+		{
+			m_pMeshMngr->PrintLine("They are not colliding! =)", REGREEN);
+			m_pMeshMngr->Print("FPS: ");
+			m_pMeshMngr->Print(std::to_string(nFPS), RERED);
 
-		printf("Score: %i            \r", static_cast<int>(score));
+			m_pMeshMngr->Print("High Score: ");
+			m_pMeshMngr->PrintLine(std::to_string(highScore));
 
-		m_pMeshMngr->PrintLine("They are not colliding! =)", REGREEN);
-		m_pMeshMngr->Print("FPS:");
-		m_pMeshMngr->Print(std::to_string(nFPS), RERED);
+			m_pMeshMngr->Print("Score: ");
+			m_pMeshMngr->PrintLine(std::to_string(score));
 
-		m_pMeshMngr->Print("High Score:");
-		m_pMeshMngr->PrintLine(std::to_string(highScore));
+			m_pMeshMngr->Print("Life: ");
+			m_pMeshMngr->PrintLine(std::to_string(life));
 
-		m_pMeshMngr->Print("Score:");
-		m_pMeshMngr->PrintLine(std::to_string(score));
+			m_pMeshMngr->Print("Losses: ");
+			m_pMeshMngr->PrintLine(std::to_string(losses));
 
-		m_pMeshMngr->Print("Life:");
-		m_pMeshMngr->PrintLine(std::to_string(life));
-
-		m_pMeshMngr->Print("Collisions:");
-		m_pMeshMngr->PrintLine(std::to_string(collisions));
+			m_pMeshMngr->Print("Collisions: ");
+			m_pMeshMngr->PrintLine(std::to_string(collisions));
+		}
 
 }
 

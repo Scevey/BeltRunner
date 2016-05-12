@@ -67,6 +67,16 @@ void AppClass::ProcessKeyboard(void)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::B)) {
 		m_pBOMngr->BuildOctree();
 	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::H)) {
+		if (displayHUD == true)
+		{
+			displayHUD = false;
+		}
+		else
+		{
+			displayHUD = true;
+		}
+	}
 	ON_KEY_PRESS_RELEASE(V, NULL, m_pBOMngr->ToggleOctreeVisibility());
 	ON_KEY_PRESS_RELEASE(O, NULL, m_pBOMngr->ToggleOctree());
 #pragma endregion

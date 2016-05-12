@@ -36,6 +36,7 @@ class AppClass : public ReEngAppClass
 	int losses;
 	double highScore;
 	int collisions;
+	bool displayHUD;
 
 	//sf::Music soundBGM;
 
