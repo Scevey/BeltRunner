@@ -16,10 +16,9 @@ class Crate
 
 	// use this to make it bounce
 	vector3 position = vector3(0.0f, 0.0f, -5.0f);
-	vector3 velocity = vector3(0.0f, 0.0f, 0.0f);
+	vector3 velocity = vector3(0.0f, 0.0f, 20.0f);
 	vector3 accel = vector3(0.0f, 0.0f, 0.0f);
 	vector3 start = vector3();
-	vector3 newStart = vector3();
 
 	glm::quat orientation = glm::angleAxis(0.0f,vector3(1.0f,0.0f,0.0f));
 
@@ -45,8 +44,10 @@ public:
 	other -> object to swap content from */
 	void Swap(Crate& other);
 
-	matrix4 Crate::Move(double time);
+	matrix4 Move(double time);
+	void AddForce(vector3 arg_force);
 	void SetNewStart(vector3 theNewStart);
+	vector3 GetPosition(void);
 private:
 	void Release(void);
 

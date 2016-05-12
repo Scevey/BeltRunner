@@ -14,8 +14,6 @@ void AppClass::InitWindow(String a_sWindowName)
 void AppClass::InitVariables(void)
 {
 	//Initialize positions
-	// m_v3OP = vector3(0.0f, 0.0f, 5.0f); // replaced by Vehicle class
-	m_v3OT = vector3(0.0f, 0.0f, -5.0f);
 
 	//Load Models
 	m_pMeshMngr->LoadModel("car.obj", "Player");
@@ -29,7 +27,11 @@ void AppClass::InitVariables(void)
 	crate = new Crate(otherTestVehicleTotallyNotATruck->GetPosition());
 	m_pBOMngr = MyBOManager::GetInstance();
 	m_pBOMngr->AddObject(m_pMeshMngr->GetVertexList("Player"), "Player");
+<<<<<<< HEAD
 	//m_pBOMngr->AddObject(m_pMeshMngr->GetVertexList("Truck"), "Truck");
+=======
+	// m_pBOMngr->AddObject(m_pMeshMngr->GetVertexList("Truck"), "Truck");
+>>>>>>> origin/master
 	m_pBOMngr->AddObject(m_pMeshMngr->GetVertexList("Crate"), "Crate");
 
 	//game state variables
@@ -73,7 +75,7 @@ void AppClass::Update(void)
 		if (m_bFPC == true)
 			CameraRotation();
 
-		//ArcBall();
+		ArcBall();
 
 		// Update Vehicle
 		otherTestVehicleTotallyNotATruck->TruckUpdate(deltaTime);
@@ -82,6 +84,16 @@ void AppClass::Update(void)
 		//boundaries will abstract into a method later
 		vector3 posV = testVehicle->GetPosition();
 		testVehicle->CheckBounds(posV);
+
+		std::vector<int> crateCollision = m_pBOMngr->GetCollidingVector("Player");
+		vector3 posC = crate->GetPosition();
+
+		if (crateCollision.size() > 0)
+		{
+			vector3 collisionForce = vector3(posC.x - posV.x, posC.y - posV.y, posC.z - posV.z);
+			// collisionForce = glm::clamp(collisionForce, 2, 3);
+			crate->AddForce(collisionForce);
+		}
 
 		// Set model matrices
 		matrix4 testMove = road->Update1(deltaTime);
@@ -102,8 +114,11 @@ void AppClass::Update(void)
 
 		m_pBOMngr->Update();//Update collision detection
 		//m_pBOMngr->DisplaySphere(-1, REWHITE);
-		m_pBOMngr->DisplayReAlligned();
-		m_pBOMngr->DisplayOriented(-1, REWHITE);
+		if (m_pBOMngr->getOctVis())
+		{
+			m_pBOMngr->DisplayReAlligned();
+			m_pBOMngr->DisplayOriented(-1, REWHITE);
+		}
 
 		//Indicate the FPS
 		int nFPS = m_pSystem->GetFPS();

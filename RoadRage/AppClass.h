@@ -20,15 +20,11 @@ using namespace ReEng; //Using ReEng namespace to use all the classes in the dll
 
 class AppClass : public ReEngAppClass
 {
-	// position vectors - being replaced by Vehicle class
-	// vector3 m_v3OP = vector3(0.0f, 5.0f, 0.0f);
-	vector3 m_v3OT = vector3( 0.0f, 0.0f, 0.0f);
 	MyBOManager* m_pBOMngr;
 	Vehicle* testVehicle;
 	Truck* otherTestVehicleTotallyNotATruck;
-	Crate* fluffCrate1;
-	Crate* fluffCrate2;
 	Crate* crate;
+	std::vector<Crate> crates;
 	MyOctant* m_pOctreeHead = nullptr;
 
 	//sf::Music music;

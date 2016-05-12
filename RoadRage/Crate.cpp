@@ -33,10 +33,12 @@ Crate::~Crate()
 }
 
 void Crate::SetNewStart(vector3 theNewStart) {
-	newStart = theNewStart;
+	start = theNewStart;
 }
 matrix4 Crate::Move(double deltatime)
 {
+	double dDeltaTime = deltatime;
+	/*
 	//Calculate delta and total times
 	static double dTotalTime = 0.0; //Total time of the simulation
 	double dDeltaTime = deltatime; //time difference between function calls
@@ -59,18 +61,26 @@ matrix4 Crate::Move(double deltatime)
 
 	position = vector3(v3Current.x, position.y, v3Current.z);
 
+	*/
 	// rough bouncing motion, should change to full physics
 	if (position.y <= 0)
 	{
 		position.y = 0;
-		velocity += vector3(0.0f, 5.0f, 0.0f);
+		velocity += vector3(0.0f, 3.0f, 0.0f);
 	}
+
+	if (position.z > 10.0f)
+	{
+		position = start;
+	}
+
+	velocity += vector3(0.0f, 0.0f, 0.2f);
 
 	// bounce the cube
 	position += velocity * static_cast<float>(dDeltaTime);
 
 	// reduce velocity
-	velocity *= 0.95f;
+	velocity *= 0.97f;
 
 	// gravity is one mean mutha'
 	position -= vector3(0.0f, 1.0f, 0.0f) * static_cast<float>(dDeltaTime);
@@ -83,6 +93,16 @@ matrix4 Crate::Move(double deltatime)
 	return m4Crate;
 }
 
+void Crate::AddForce(vector3 arg_force)
+{
+	vector3 force = arg_force;
+	velocity += force;
+}
+
+vector3 Crate::GetPosition(void)
+{
+	return position;
+}
 
 //utility functions
 void Crate::Swap(Crate& other)
