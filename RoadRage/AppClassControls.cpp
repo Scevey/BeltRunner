@@ -7,7 +7,7 @@ void AppClass::ProcessKeyboard(void)
 #pragma region ON PRESS/RELEASE DEFINITION
 	static bool	bLastF1 = false, bLastF2 = false, bLastF3 = false, bLastF4 = false, bLastF5 = false,
 		bLastF6 = false, bLastF7 = false, bLastF8 = false, bLastF9 = false, bLastF10 = false,
-		bLastEscape = false, bLastF = false, bLastO = false, bLastV = false,
+		bLastEscape = false, bLastF = false, bLastO = false, bLastV = false, bLastH = false,
 		bLastLeft = false, bLastRight = false; // these add left and right to the release definition
 #define ON_KEY_PRESS_RELEASE(key, pressed_action, released_action){  \
 			bool pressed = sf::Keyboard::isKeyPressed(sf::Keyboard::key);			\
@@ -67,6 +67,7 @@ void AppClass::ProcessKeyboard(void)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::B)) {
 		m_pBOMngr->BuildOctree();
 	}
+	/*
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::H)) {
 		if (displayHUD == true)
 		{
@@ -77,8 +78,10 @@ void AppClass::ProcessKeyboard(void)
 			displayHUD = true;
 		}
 	}
+	*/
 	ON_KEY_PRESS_RELEASE(V, NULL, m_pBOMngr->ToggleOctreeVisibility());
 	ON_KEY_PRESS_RELEASE(O, NULL, m_pBOMngr->ToggleOctree());
+	ON_KEY_PRESS_RELEASE(H, NULL, displayHUD = !displayHUD);
 #pragma endregion
 
 	//these check if left/right is released and if so, sets isTurning to false
