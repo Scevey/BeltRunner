@@ -30,13 +30,15 @@ class AppClass : public ReEngAppClass
 	Crate* fluffCrate2;
 	Crate* crate;
 	MyOctant* m_pOctreeHead = nullptr;
-	bool play;
 
 	//sf::Music music;
 	
 	//banana
 	Road* road = nullptr;
-	double score = 100.0;
+	double score;
+	int life;
+	int losses;
+	double highScore;
 	int collisions;
 
 	//sf::Music soundBGM;

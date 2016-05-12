@@ -29,9 +29,14 @@ void AppClass::InitVariables(void)
 	crate = new Crate(otherTestVehicleTotallyNotATruck->GetPosition());
 	m_pBOMngr = MyBOManager::GetInstance();
 	m_pBOMngr->AddObject(m_pMeshMngr->GetVertexList("Player"), "Player");
-	m_pBOMngr->AddObject(m_pMeshMngr->GetVertexList("Truck"), "Truck");
+	//m_pBOMngr->AddObject(m_pMeshMngr->GetVertexList("Truck"), "Truck");
 	m_pBOMngr->AddObject(m_pMeshMngr->GetVertexList("Crate"), "Crate");
-	play = true;
+
+	//game state variables
+	score = 0.0;
+	life = 500;
+	losses = 0;
+	highScore = 0.0;
 
 	//camera mumbo jumbo [banana]
 	vector3 camPos = vector3(0.0f, 10.0f, 10.0f);
@@ -52,10 +57,6 @@ void AppClass::InitVariables(void)
 
 void AppClass::Update(void)
 {
-	/*
-	while (play == true)
-	{
-	*/
 		//Update the system's time
 		m_pSystem->UpdateTime();
 
@@ -135,19 +136,21 @@ void AppClass::Update(void)
 
 			//update count of collisions
 			collisions++;
+			life--;
 		}
 		else
 		{
 
 		}
 
-		//break from while if score gets too low
-		/*
-		if (score <= 0.0)
+		//if life hits 0, increment losses and reset everything
+		if (life <= 0)
 		{
-			play = false;
+			highScore = score;
+			score = 0;
+			life = 500;
+			losses++;
 		}
-		*/
 
 
 		printf("Score: %i            \r", static_cast<int>(score));
@@ -156,20 +159,18 @@ void AppClass::Update(void)
 		m_pMeshMngr->Print("FPS:");
 		m_pMeshMngr->Print(std::to_string(nFPS), RERED);
 
+		m_pMeshMngr->Print("High Score:");
+		m_pMeshMngr->PrintLine(std::to_string(highScore));
+
 		m_pMeshMngr->Print("Score:");
 		m_pMeshMngr->PrintLine(std::to_string(score));
 
+		m_pMeshMngr->Print("Life:");
+		m_pMeshMngr->PrintLine(std::to_string(life));
+
 		m_pMeshMngr->Print("Collisions:");
 		m_pMeshMngr->PrintLine(std::to_string(collisions));
-	/*
-	}
 
-	
-	//game is lost
-	m_pMeshMngr->PrintLine("YOU LOSE", RERED);
-
-	//control to restart game is Space
-	*/
 }
 
 void AppClass::Display(void)

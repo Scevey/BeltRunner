@@ -156,8 +156,8 @@ void Physics::CheckBounds(vector3 posV) {
 	if (posV.x <= -5.0f) {
 		posV.x = -5;
 	}
-	if (posV.z <= -8.0f) {
-		posV.z = -8;
+	if (posV.z <= -5.0f) {
+		posV.z = -5;
 	}
 	SetPosition(posV);
 }

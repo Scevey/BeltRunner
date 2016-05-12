@@ -64,15 +64,6 @@ void AppClass::ProcessKeyboard(void)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::T)) {
 		// m_BSCPlayer->ToggleVisible();
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-		//reset score
-		score = 100.0;
-
-		//how to reset timer?
-
-		//restart game
-		play = true;
-	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::B)) {
 		m_pBOMngr->BuildOctree();
 	}
